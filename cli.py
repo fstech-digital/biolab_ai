@@ -193,9 +193,10 @@ async def ask_question():
             break
         
         # Enviar pergunta
-        async with httpx.AsyncClient() as client:
+        async with httpx.AsyncClient(timeout=30.0) as client:
             try:
                 headers = {"Authorization": f"Bearer {TOKEN}"}
+                print(f"\nEnviando pergunta para: {API_URL}/chat/message")
                 
                 response = await client.post(
                     f"{API_URL}/chat/message",
@@ -203,9 +204,24 @@ async def ask_question():
                     headers=headers
                 )
                 
+                print(f"Status da resposta: {response.status_code}")
+                
                 if response.status_code == 200:
                     result = response.json()
                     print("\nBioLab.Ai:", result['message'])
+                    
+                    # Exibir fontes das informações
+                    if result.get('sources') and len(result.get('sources')) > 0:
+                        print("\nFontes da informação:")
+                        for i, source in enumerate(result['sources'], 1):
+                            source_type = source.get('type', 'Desconhecida')
+                            source_name = source.get('name', '')
+                            source_detail = source.get('detail', '')
+                            
+                            source_info = f"{i}. {source_type}: {source_name}"
+                            if source_detail:
+                                source_info += f" - {source_detail}"
+                            print(source_info)
                     
                     # Verificar se há ações sugeridas
                     if result.get('suggested_actions'):
@@ -230,10 +246,17 @@ async def ask_question():
                     
                 else:
                     print(f"Erro ao enviar pergunta: {response.status_code}")
-                    print(response.text)
+                    print(f"Resposta: {response.text}")
             
+            except httpx.TimeoutException:
+                print("Erro: Tempo limite de conexão excedido. Verifique se o servidor API está rodando.")
+            except httpx.ConnectError:
+                print("Erro de conexão: Não foi possível conectar ao servidor API.")
+                print("Verifique se o servidor está rodando em http://localhost:8000")
             except Exception as e:
                 print(f"Erro ao conectar ao servidor: {e}")
+                import traceback
+                traceback.print_exc()
 
 
 async def view_exam_details(document_id=None):

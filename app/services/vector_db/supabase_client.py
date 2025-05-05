@@ -158,26 +158,122 @@ async def search_similar_exams(
                 }
             ).execute()
         )
+        
+        # Verificar se houve erro na resposta
+        if hasattr(response, 'error') and response.error:
+            raise Exception(f"Erro na busca vetorial RPC: {response.error}")
+            
+        # Garantir que temos dados válidos da resposta
+        if hasattr(response, 'data'):
+            return response.data
+        elif isinstance(response, dict) and 'data' in response:
+            return response['data']
+        else:
+            print("Retornando resposta RPC diretamente")
+            return response
+            
     except Exception as e:
         # Fallback: Se RPC falhar, tentar consulta simples sem matching vetorial
         print(f"Erro na busca vetorial RPC: {str(e)}")
         print("Usando fallback: consulta simples sem vetores")
         
+        try:
+            # Construir a consulta de fallback
+            query = supabase.table("exam_vectors").select("*").filter("user_id", "eq", user_id)
+            
+            # Adicionar filtro por código de exame se necessário
+            if exam_code:
+                query = query.filter("exam_code", "eq", exam_code)
+                
+            # Adicionar limite e executar
+            fallback_response = query.limit(limit).execute()
+            
+            # Tratar resposta do fallback
+            if hasattr(fallback_response, 'data'):
+                return fallback_response.data
+            elif isinstance(fallback_response, dict) and 'data' in fallback_response:
+                return fallback_response['data']
+            else:
+                return []  # Retornar lista vazia se não conseguir extrair os dados
+                
+        except Exception as fallback_error:
+            print(f"Erro no fallback: {str(fallback_error)}")
+            return []  # Retornar lista vazia em caso de erro
+
+async def search_knowledge_vectors(query: str, limit: int = 5, collection_name: str = None) -> List[Dict[str, Any]]:
+    """
+    Busca vetores na base de conhecimento (planilhas) que são similares à consulta.
+    
+    Args:
+        query: Consulta do usuário
+        limit: Número máximo de resultados
+        collection_name: Nome da coleção específica para filtrar (opcional)
+        
+    Returns:
+        Lista de vetores de conhecimento similares
+    """
+    # Obter embedding da consulta
+    query_embedding = await get_embeddings(query)
+    
+    try:
+        # Usar função RPC para busca vetorial na base de conhecimento
+        params = {
+            "query_embedding": query_embedding,
+            "match_threshold": 0.5,  # Limite de similaridade
+            "match_count": limit     # Número máximo de resultados
+        }
+        
+        # Adicionar filtro por coleção, se fornecido
+        if collection_name:
+            params["collection_filter"] = collection_name
+        
         response = (
-            supabase.table("exam_vectors")
-            .select("*")
-            .filter("user_id", "eq", user_id)
-            # Se houver filtro de código de exame
-            .filter("exam_code", "eq", exam_code) if exam_code else supabase.table("exam_vectors").select("*").filter("user_id", "eq", user_id)
-            .limit(limit)
-            .execute()
+            supabase.rpc(
+                "match_knowledge_vectors",
+                params
+            ).execute()
         )
-    
-    # Verificar se houve erro
-    if "error" in response:
-        raise Exception(f"Erro na busca vetorial: {response['error']}")
-    
-    return response.data
+        
+        # Verificar se houve erro na resposta
+        if hasattr(response, 'error') and response.error:
+            raise Exception(f"Erro na busca vetorial RPC: {response.error}")
+            
+        # Garantir que temos dados válidos da resposta
+        if hasattr(response, 'data'):
+            return response.data
+        elif isinstance(response, dict) and 'data' in response:
+            return response['data']
+        else:
+            print("Retornando resposta RPC diretamente")
+            return response
+            
+    except Exception as e:
+        # Fallback: Se RPC falhar, tentar consulta simples
+        print(f"Erro na busca vetorial de conhecimento: {str(e)}")
+        print("Usando fallback: consulta simples na base de conhecimento")
+        
+        try:
+            # Construir a consulta de fallback
+            query = supabase.table("knowledge_vectors").select("*")
+            
+            # Adicionar filtro por coleção se necessário
+            if collection_name:
+                query = query.filter("collection_name", "eq", collection_name)
+                
+            # Adicionar limite e executar
+            fallback_response = query.limit(limit).execute()
+            
+            # Tratar resposta do fallback
+            if hasattr(fallback_response, 'data'):
+                return fallback_response.data
+            elif isinstance(fallback_response, dict) and 'data' in fallback_response:
+                return fallback_response['data']
+            else:
+                return []  # Retornar lista vazia se não conseguir extrair os dados
+                
+        except Exception as fallback_error:
+            print(f"Erro no fallback da base de conhecimento: {str(fallback_error)}")
+            return []  # Retornar lista vazia em caso de erro
 
 async def get_document_by_id(document_id: str) -> Dict[str, Any]:
     """

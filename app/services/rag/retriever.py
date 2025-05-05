@@ -1,6 +1,6 @@
 from typing import Dict, List, Any
 import re
-from app.services.vector_db.supabase_client import search_similar_exams
+from app.services.vector_db.supabase_client import search_similar_exams, search_knowledge_vectors
 from app.services.llm.openai_client import get_embeddings
 
 async def get_relevant_context(
@@ -22,25 +22,36 @@ async def get_relevant_context(
     # Extrair códigos de exames específicos mencionados na consulta
     exam_codes = extract_exam_codes(query)
     
-    # Se temos códigos específicos mencionados, buscar por eles
-    context_docs = []
+    # Definir quantos resultados buscar de cada fonte
+    exam_limit = 3  # Número de resultados dos exames do usuário
+    knowledge_limit = 3  # Número de resultados da base de conhecimento
     
+    # Buscar na base de conhecimento (planilhas)
+    knowledge_docs = await search_knowledge_vectors(
+        query=query, 
+        limit=knowledge_limit
+    )
+    
+    # Inicializar a lista de contexto com os documentos da base de conhecimento
+    context_docs = knowledge_docs.copy() if knowledge_docs else []
+    
+    # Se temos códigos específicos mencionados, buscar por eles
     if exam_codes:
         # Buscar para cada código específico
         for exam_code in exam_codes:
             specific_docs = await search_similar_exams(
                 query=query,
                 user_id=user_id,
-                limit=2,  # Limitado por código específico
+                limit=1,  # Limitado por código específico
                 exam_code=exam_code
             )
-            context_docs.extend(specific_docs)
+            if specific_docs:
+                context_docs.extend(specific_docs)
     
-    # Se não encontramos documentos específicos ou queremos adicionar mais contexto
-    if not context_docs or len(context_docs) < limit:
-        remaining_limit = limit - len(context_docs)
-        
-        # Busca semântica geral
+    # Se queremos adicionar mais exames gerais do usuário
+    remaining_limit = limit - len(context_docs)
+    if remaining_limit > 0:
+        # Busca semântica geral nos exames
         general_docs = await search_similar_exams(
             query=query,
             user_id=user_id,
@@ -55,9 +66,20 @@ async def get_relevant_context(
                 existing_ids.add(doc.get("id"))
     
     # Limitar ao número máximo de documentos
-    context_docs = context_docs[:limit]
+    if len(context_docs) > limit:
+        context_docs = context_docs[:limit]
     
-    # Ordenar por relevância (assumindo que os documentos já vêm ordenados)
+    # Verificamos se temos algum resultado
+    if not context_docs:
+        print("Nenhum contexto relevante encontrado.")
+    else:
+        print(f"Encontrados {len(context_docs)} documentos relevantes para a consulta.")
+        for i, doc in enumerate(context_docs, 1):
+            if "collection_name" in doc:
+                print(f"  {i}. Base de conhecimento: {doc.get('collection_name', '')}")
+            elif "exam_name" in doc:
+                print(f"  {i}. Exame: {doc.get('exam_name', '')}")
+    
     return context_docs
 
 def extract_exam_codes(query: str) -> List[str]:

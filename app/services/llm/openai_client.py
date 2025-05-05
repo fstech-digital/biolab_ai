@@ -89,16 +89,44 @@ async def get_chat_response(
     Ao responder, sempre privilegie a clareza e precisão sobre tecnicidade excessiva.
     """
     
-    # Formatar o contexto para o prompt
+    # Extrair informações de contexto para o prompt
     context_text = ""
-    if context:
-        context_text = "Informações relevantes de contexto:\n\n"
-        for i, doc in enumerate(context):
-            context_text += f"[Documento {i+1}]\n"
-            context_text += f"Nome: {doc.get('exam_name', '')}\n"
-            context_text += f"Valor: {doc.get('exam_value', '')} {doc.get('exam_unit', '')}\n"
-            context_text += f"Referência: {doc.get('reference_text', '')}\n"
-            context_text += f"Conteúdo: {doc.get('content', '')}\n\n"
+    source_info = []
+    
+    if context and len(context) > 0:
+        context_text = "CONTEXTO RELEVANTE:\n\n"
+        for i, doc in enumerate(context, 1):
+            # Capturar informações sobre a fonte
+            source = {
+                "id": doc.get("id", ""),
+                "document_id": doc.get("document_id", ""),
+                "source_type": "",
+                "source_name": ""
+            }
+            
+            # Identificar o tipo de fonte
+            if "sheet_id" in doc and "collection_name" in doc:
+                source["source_type"] = "knowledge_base"
+                source["source_name"] = doc.get("collection_name", "")
+                if doc.get("metadata") and isinstance(doc.get("metadata"), dict):
+                    if "sheet_name" in doc.get("metadata"):
+                        source["source_detail"] = doc.get("metadata").get("sheet_name", "")
+            elif "exam_name" in doc:
+                source["source_type"] = "exam"
+                source["source_name"] = "Exame de Laboratório"
+                source["source_detail"] = doc.get("exam_name", "")
+            
+            source_info.append(source)
+            
+            # Adicionar ao contexto para o prompt
+            context_text += f"Contexto {i}:\n"
+            if "exam_name" in doc and "exam_value" in doc:
+                context_text += f"Exame: {doc.get('exam_name', '')}\n"
+                context_text += f"Valor: {doc.get('exam_value', '')} {doc.get('exam_unit', '')}\n"
+                context_text += f"Referência: {doc.get('reference_text', '')}\n"
+            
+            if "content" in doc:
+                context_text += f"Conteúdo: {doc.get('content', '')}\n\n"
     
     # Formatar o histórico de conversa para o prompt
     conversation_history = []
@@ -161,11 +189,28 @@ async def get_chat_response(
     # Analisar a resposta para identificar intenções e ações sugeridas
     intent, suggested_actions = parse_assistant_response(assistant_message)
     
+    # Formatar fontes para exibição
+    formatted_sources = []
+    for source in source_info:
+        if source["source_type"] == "knowledge_base":
+            formatted_sources.append({
+                "type": "Base de Conhecimento",
+                "name": source["source_name"],
+                "detail": source.get("source_detail", "")
+            })
+        elif source["source_type"] == "exam":
+            formatted_sources.append({
+                "type": "Exame",
+                "name": source["source_detail"],
+                "id": source["document_id"]
+            })
+    
     return {
         "message": assistant_message,
         "intent": intent,
         "suggested_actions": suggested_actions,
-        "references": [doc.get("document_id") for doc in context if "document_id" in doc]
+        "references": [doc.get("document_id") for doc in context if "document_id" in doc],
+        "sources": formatted_sources
     }
 
 def parse_assistant_response(message: str) -> (str, List[Dict[str, Any]]):

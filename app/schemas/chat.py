@@ -22,9 +22,18 @@ class SuggestedAction(BaseModel):
     data: Optional[Dict[str, Any]] = None
 
 
+class Source(BaseModel):
+    """Schema para fonte de informação usada na resposta."""
+    type: str
+    name: str
+    detail: Optional[str] = None
+    id: Optional[str] = None
+
+
 class ChatResponse(BaseModel):
     """Schema para resposta de chat."""
     message: str
     intent: Optional[str] = None
     suggested_actions: Optional[List[SuggestedAction]] = Field(default_factory=list)
     references: Optional[List[str]] = Field(default_factory=list)
+    sources: Optional[List[Source]] = Field(default_factory=list)
