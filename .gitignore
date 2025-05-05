@@ -1,0 +1,60 @@
+# Ambientes virtuais
+venv/
+env/
+.env
+.venv/
+ENV/
+
+# Arquivos de cache Python
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Arquivos de distribuição
+dist/
+build/
+*.egg-info/
+
+# Arquivos de log
+*.log
+logs/
+
+# Arquivos de configuração local
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Arquivos de configuração de IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Arquivos específicos do sistema
+.DS_Store
+Thumbs.db
+
+# Arquivos de upload temporários
+tmp/
+temp/
+uploads/
+
+# Arquivos específicos do projeto
+*.pdf
+pdfs/
+.supabase/
+
+# Dados de teste
+test_data/
+*.csv
+*.xlsx
+*.parquet
+
+# Arquivos de notebook Jupyter
+.ipynb_checkpoints/
+*.ipynb
