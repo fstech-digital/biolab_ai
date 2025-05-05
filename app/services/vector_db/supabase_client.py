@@ -137,24 +137,41 @@ async def search_similar_exams(
     # Obter embedding da consulta
     query_embedding = await get_embeddings(query)
     
-    # Construir query base
-    base_query = (
-        supabase.table("exam_vectors")
-        .select("*")
-        .filter("user_id", "eq", user_id)
-    )
+    # Preparar filtros adicionais
+    match_filters = {"user_id": user_id}
     
     # Adicionar filtro por código de exame, se fornecido
     if exam_code:
-        base_query = base_query.filter("exam_code", "eq", exam_code)
-    
-    # Executar busca vetorial
-    response = (
-        base_query
-        .order("embedding", query_embedding, ascending=False)
-        .limit(limit)
-        .execute()
-    )
+        match_filters["exam_code"] = exam_code
+        
+    try:
+        # Usar função RPC para busca vetorial
+        # Esta abordagem é compatível com diferentes versões do supabase-py
+        response = (
+            supabase.rpc(
+                "match_exam_vectors",
+                {
+                    "query_embedding": query_embedding,
+                    "match_threshold": 0.5,  # Limite de similaridade
+                    "match_count": limit,     # Número máximo de resultados
+                    "user_filter": user_id    # Filtro por usuário
+                }
+            ).execute()
+        )
+    except Exception as e:
+        # Fallback: Se RPC falhar, tentar consulta simples sem matching vetorial
+        print(f"Erro na busca vetorial RPC: {str(e)}")
+        print("Usando fallback: consulta simples sem vetores")
+        
+        response = (
+            supabase.table("exam_vectors")
+            .select("*")
+            .filter("user_id", "eq", user_id)
+            # Se houver filtro de código de exame
+            .filter("exam_code", "eq", exam_code) if exam_code else supabase.table("exam_vectors").select("*").filter("user_id", "eq", user_id)
+            .limit(limit)
+            .execute()
+        )
     
     # Verificar se houve erro
     if "error" in response:
