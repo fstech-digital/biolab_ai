@@ -1,6 +1,7 @@
 from typing import Dict, List, Any, Optional
 import json
 import httpx
+import os
 from app.core.config import settings
 
 async def get_embeddings(text: str) -> List[float]:
@@ -61,33 +62,23 @@ async def get_chat_response(
     if context is None:
         context = []
     
-    if chat_history is None:
-        chat_history = []
+    _cached_prompt = None
+    def _get_system_prompt() -> str:
+        """
+        Lê o prompt do sistema do arquivo ai_principal/Reusable_Prompts/context_prime.md.
+        Usa cache simples para evitar múltiplas leituras.
+        """
+        nonlocal _cached_prompt
+        if _cached_prompt is None:
+            # Caminho absoluto subindo três níveis para garantir a raiz do projeto
+            prompt_path = os.path.abspath(
+                os.path.join(os.path.dirname(__file__), '../../../ai_principal/Reusable_Prompts/context_prime.md')
+            )
+            with open(prompt_path, 'r', encoding='utf-8') as f:
+                _cached_prompt = f.read().strip()
+        return _cached_prompt
     
-    # Construir o sistema de prompt com informações sobre o propósito do sistema
-    system_prompt = """
-    Você é um assistente especializado em análise de exames clínicos do BioLab.Ai. 
-    Seu objetivo é ajudar os usuários a compreender seus exames, fornecer insights 
-    personalizados e responder perguntas relacionadas à saúde com base nos dados disponíveis.
-    
-    Você deve:
-    1. Analisar os exames fornecidos com precisão
-    2. Explicar os resultados em linguagem acessível
-    3. Destacar valores fora da referência
-    4. Fornecer sugestões baseadas nas melhores práticas médicas
-    5. Nunca fazer diagnósticos definitivos
-    6. Sempre recomendar a consulta com profissionais de saúde
-    
-    Você tem acesso a uma base de conhecimento sobre exames clínicos e seus significados.
-    Utilize essas informações para fornecer respostas precisas e personalizadas.
-    
-    Formato de respostas:
-    - Para perguntas gerais: Forneça informações claras e concisas
-    - Para análise de exames: Destaque valores anormais e explique seu significado
-    - Para recomendações: Base suas sugestões na literatura científica atual
-    
-    Ao responder, sempre privilegie a clareza e precisão sobre tecnicidade excessiva.
-    """
+    system_prompt = _get_system_prompt()
     
     # Extrair informações de contexto para o prompt
     context_text = ""
@@ -164,7 +155,7 @@ async def get_chat_response(
     payload = {
         "model": settings.OPENAI_MODEL,
         "messages": conversation_history,
-        "temperature": 0.7,
+        "temperature": 0.13,
         "max_tokens": 2048,
         "user": user_id or "anonymous_user"
     }

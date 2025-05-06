@@ -6,7 +6,6 @@ from fastapi import Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer
 from app.core.config import settings
 from app.schemas.token import TokenPayload
-from app.services.user_service import get_user_by_email
 
 # Configurar contexto de criptografia para senhas
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
@@ -65,50 +64,8 @@ def get_password_hash(password: str) -> str:
     return pwd_context.hash(password)
 
 
-async def get_current_user(token: str = Depends(oauth2_scheme)) -> Any:
+async def get_current_user() -> Any:
     """
-    Valida o token JWT e retorna o usuário correspondente.
-    
-    Args:
-        token: Token JWT
-        
-    Returns:
-        Usuário autenticado
-        
-    Raises:
-        HTTPException: Se o token for inválido ou expirado
+    Mock: retorna sempre um usuário ativo para simplificar o MVP. Não exige token.
     """
-    try:
-        payload = jwt.decode(
-            token, settings.SECRET_KEY, algorithms=["HS256"]
-        )
-        token_data = TokenPayload(**payload)
-        
-        if datetime.fromtimestamp(token_data.exp) < datetime.now():
-            raise HTTPException(
-                status_code=status.HTTP_401_UNAUTHORIZED,
-                detail="Token expirado",
-                headers={"WWW-Authenticate": "Bearer"},
-            )
-    except (jwt.JWTError, ValidationError):
-        raise HTTPException(
-            status_code=status.HTTP_403_FORBIDDEN,
-            detail="Não foi possível validar as credenciais",
-            headers={"WWW-Authenticate": "Bearer"},
-        )
-    
-    user = await get_user_by_email(token_data.sub)
-    
-    if not user:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail="Usuário não encontrado"
-        )
-        
-    if not user.is_active:
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail="Usuário inativo"
-        )
-        
-    return user
+    return {"email": "mock@biolab.ai", "is_active": True}

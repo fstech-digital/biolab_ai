@@ -202,7 +202,8 @@ async def search_similar_exams(
 
 async def search_knowledge_vectors(query: str, limit: int = 5, collection_name: str = None) -> List[Dict[str, Any]]:
     """
-    Busca vetores na base de conhecimento (planilhas) que são similares à consulta.
+    Busca simplificada para documentos na base de conhecimento relacionados à consulta.
+    Versão MVP focada em eficiência e simplicidade.
     
     Args:
         query: Consulta do usuário
@@ -210,109 +211,60 @@ async def search_knowledge_vectors(query: str, limit: int = 5, collection_name: 
         collection_name: Nome da coleção específica para filtrar (opcional)
         
     Returns:
-        Lista de vetores de conhecimento similares
+        Lista de documentos de conhecimento relevantes
     """
-    # Obter embedding da consulta
-    query_embedding = await get_embeddings(query)
-    
     try:
-        # Tentar usar função RPC para busca vetorial na base de conhecimento
-        params = {
-            "query_embedding": query_embedding,
-            "match_threshold": 0.5,  # Limite de similaridade
-            "match_count": limit     # Número máximo de resultados
-        }
+        # Abordagem mais simples: busca por palavras-chave diretamente
+        # Extrair palavras-chave da consulta (palavras com mais de 3 caracteres)
+        keywords = [k.strip().lower() for k in query.split() if len(k.strip()) > 3]
         
-        # Adicionar filtro por coleção, se fornecido
+        if not keywords:
+            # Consulta muito curta, retornar lista vazia
+            print("Consulta sem palavras-chave significativas, pulando busca de conhecimento")
+            return []
+        
+        print(f"Buscando conhecimento com palavras-chave: {keywords}")
+        
+        # Construir consulta básica
+        search_query = supabase.table("knowledge_vectors").select("*")
+        
+        # Aplicar filtro para a primeira palavra-chave
+        first_keyword = keywords[0]
+        search_query = search_query.filter("content", "ilike", f"%{first_keyword}%")
+        
+        # Adicionar outras palavras-chave se houver (até 2 para simplicidade)
+        if len(keywords) > 1:
+            for keyword in keywords[1:3]:  # Limitamos a 3 palavras-chave no total
+                # Usar or_ para buscar documentos que contenham qualquer uma das palavras
+                search_query = search_query.or_(f"content.ilike.%{keyword}%")
+        
+        # Aplicar filtro de coleção se fornecido
         if collection_name:
-            params["collection_filter"] = collection_name
+            search_query = search_query.filter("collection_name", "eq", collection_name)
         
-        # Tentar chamar a função RPC
-        try:
-            response = (
-                supabase.rpc(
-                    "match_knowledge_vectors",
-                    params
-                ).execute()
-            )
+        # Executar a consulta com limite
+        result = search_query.limit(limit).execute()
+        
+        # Verificar resultados
+        if hasattr(result, 'data') and result.data:
+            docs = result.data
+            print(f"Encontrados {len(docs)} documentos relevantes para a consulta.")
             
-            # Verificar se houve erro na resposta
-            if hasattr(response, 'error') and response.error:
-                raise Exception(f"Erro na busca vetorial RPC: {response.error}")
-                
-            # Garantir que temos dados válidos da resposta
-            if hasattr(response, 'data'):
-                return response.data
-            elif isinstance(response, dict) and 'data' in response:
-                return response['data']
-            else:
-                print("Retornando resposta RPC diretamente")
-                return response
-        except Exception as rpc_error:
-            # Se falhar na RPC específica, levanta o erro para o fallback
-            print(f"Erro específico na função RPC: {str(rpc_error)}")
-            raise
+            # Identificar fonte para cada resultado (simplificado)
+            for i, item in enumerate(docs, 1):
+                collection = item.get("collection_name", "desconhecida")
+                print(f"  {i}. Base de conhecimento: {collection}")
             
+            return docs
+            
+        # Se não encontrou resultados, retornar lista vazia
+        print("Nenhum documento de conhecimento encontrado para a consulta")
+        return []
+        
     except Exception as e:
-        # Fallback inteligente: pesquisa baseada no texto usando LIKE ou ILIKE
-        print(f"Erro na busca vetorial de conhecimento: {str(e)}")
-        print("Usando fallback inteligente baseado em texto")
-        
-        try:
-            # Quebrar a consulta em palavras-chave
-            keywords = [k.strip().lower() for k in query.split() if len(k.strip()) > 3]
-            
-            if not keywords:
-                # Se não tiver palavras-chave suficientes, usa termos genéricos relevantes
-                print("Consulta muito curta, usando termos gerais")
-                results = []
-                
-                # Tenta fazer uma busca mais básica com o que temos
-                fallback_response = supabase.table("knowledge_vectors").select("*").limit(limit).execute()
-                
-                if hasattr(fallback_response, 'data') and fallback_response.data:
-                    # Marca a fonte explícita para o usuário saber que não é altamente relevante
-                    for item in fallback_response.data:
-                        if 'source' not in item or not item['source']:
-                            item['source'] = 'informação geral (fallback)'
-                    return fallback_response.data
-                return []
-            
-            print(f"Usando palavras-chave para busca textual: {keywords}")
-            
-            # Construir consulta para cada palavra-chave com ILIKE 
-            query = supabase.table("knowledge_vectors").select("*")
-            
-            # Adiciona filtro para buscar conteúdo relacionado a qualquer keyword
-            # Para simplificar e evitar problemas de sintaxe, vamos usar uma abordagem diferente
-            # Com apenas um filtro ILIKE que busca por qualquer uma das palavras-chave
-            keyword_pattern = "%" + "%|%".join(keywords[:3]) + "%" # ex: %palavra1%|%palavra2%|%palavra3%
-            query = query.filter("content", "ilike", keyword_pattern)
-            
-            # Adicionar filtro por coleção se necessário
-            if collection_name:
-                query = query.filter("collection_name", "eq", collection_name)
-                
-            # Executar a consulta
-            fallback_response = query.limit(limit).execute()
-            
-            # Tratar resposta do fallback
-            if hasattr(fallback_response, 'data') and fallback_response.data:
-                return fallback_response.data
-            elif isinstance(fallback_response, dict) and 'data' in fallback_response:
-                return fallback_response['data']
-            else:
-                # Se não encontrar nada com a busca por keywords, tenta uma última abordagem
-                print("Nenhum resultado encontrado com keywords, tentando busca mais ampla")
-                final_response = supabase.table("knowledge_vectors").select("*").limit(limit).execute()
-                
-                if hasattr(final_response, 'data'):
-                    return final_response.data
-                return []
-                
-        except Exception as fallback_error:
-            print(f"Erro no fallback da base de conhecimento: {str(fallback_error)}")
-            return []  # Retornar lista vazia em caso de erro
+        # Em caso de erro, logar e retornar lista vazia
+        print(f"Erro na busca de conhecimento: {str(e)}")
+        return []
 
 async def get_document_by_id(document_id: str) -> Dict[str, Any]:
     """

@@ -8,7 +8,8 @@ import datetime
 SUPPORTED_LABS = [
     "LABORATORIO A",
     "LABORATORIO B",
-    "LABORATORIO C"
+    "LABORATORIO C",
+    "SERGIO FRANCO" # Adicionado laboratório Sérgio Franco
 ]
 
 async def extract_exam_data(file_path: str) -> Dict[str, Any]:
@@ -68,6 +69,9 @@ async def detect_lab_type(file_path: str) -> str:
             text += pdf.pages[i].extract_text() or ""
     
     # Verificar padrões específicos para cada laboratório
+    if "SérgioFranco" in text.replace(" ", "") or "Sergio Franco" in text:
+        return "SERGIO FRANCO"
+        
     for lab in SUPPORTED_LABS:
         if lab.lower() in text.lower():
             return lab
@@ -162,24 +166,34 @@ async def extract_specific_exams(file_path: str, lab_type: str) -> List[Dict[str
     """
     exams = []
     
+    # Tratamento especial para o laboratório Sérgio Franco que utiliza formato tabular
+    if lab_type == "SERGIO FRANCO":
+        return await extract_sergio_franco_exams(file_path)
+    
+    # Extrair texto completo do PDF para outros laboratórios
     with pdfplumber.open(file_path) as pdf:
         text = ""
         for page in pdf.pages:
             text += page.extract_text() or ""
     
-    # Lista de padrões de exames comuns a serem procurados
+    # Padrões comuns de exames - formato (padrão regex, código interno, unidade)
     common_exam_patterns = [
         # Hemograma
         (r"Hemoglobina[:\s]*(\d+,?\d*)", "HEMOGLOBINA", "g/dL"),
+        (r"Eritrócitos[:\s]*(\d+[,.]?\d*)", "ERITROCITOS", "10¶/µL"),
         (r"Hematócrito[:\s]*(\d+,?\d*)", "HEMATOCRITO", "%"),
         (r"Leucócitos[:\s]*(\d+\.?\d*,?\d*)", "LEUCOCITOS", "/mm³"),
         (r"Plaquetas[:\s]*(\d+\.?\d*,?\d*)", "PLAQUETAS", "/mm³"),
+        (r"VCM[:\s]*(\d+[,.]?\d*)", "VCM", "fL"),
+        (r"HCM[:\s]*(\d+[,.]?\d*)", "HCM", "pg"),
+        (r"CHCM[:\s]*(\d+[,.]?\d*)", "CHCM", "g/dL"),
+        (r"RDW[:\s]*(\d+[,.]?\d*)", "RDW", "%"),
         
         # Perfil lipídico
         (r"Colesterol Total[:\s]*(\d+,?\d*)", "COLESTEROL_TOTAL", "mg/dL"),
         (r"HDL[:\s]*(\d+,?\d*)", "HDL", "mg/dL"),
         (r"LDL[:\s]*(\d+,?\d*)", "LDL", "mg/dL"),
-        (r"Triglicerídeos[:\s]*(\d+,?\d*)", "TRIGLICERIDEOS", "mg/dL"),
+        (r"Triglicerideos[:\s]*(\d+,?\d*)", "TRIGLICERIDEOS", "mg/dL"),
         
         # Função renal
         (r"Creatinina[:\s]*(\d+,?\d*)", "CREATININA", "mg/dL"),
@@ -218,6 +232,171 @@ async def extract_specific_exams(file_path: str, lab_type: str) -> List[Dict[str
                 continue
     
     return exams
+
+async def extract_sergio_franco_exams(file_path: str) -> List[Dict[str, Any]]:
+    """
+    Extrai exames específicos do laboratório Sérgio Franco que utiliza formato tabular.
+    
+    Args:
+        file_path: Caminho para o arquivo PDF
+        
+    Returns:
+        Lista de dicionários, cada um contendo dados de um exame específico
+    """
+    exams = []
+    
+    try:
+        # Abrir o PDF com pdfplumber para extração de texto estruturado
+        with pdfplumber.open(file_path) as pdf:
+            # Identificar seções de exames relevantes
+            sections = [
+                "Hemograma", "Série Vermelha", "Bioquímica", "Lipidograma", 
+                "Hormônios", "Eletrólitos", "Função Renal", "Função Hepática"
+            ]
+            
+            # Procurar exames em cada página
+            for page_idx, page in enumerate(pdf.pages):
+                text = page.extract_text() or ""
+                
+                # Verificar se estamos em uma página com exames
+                if any(section in text for section in sections):
+                    # Extrair linhas para processamento
+                    lines = text.split('\n')
+                    
+                    # Mapas para unidades comuns de exames
+                    unit_map = {
+                        # Hemograma
+                        "Eritrócitos": "10^6/μL",
+                        "Hemoglobina": "g/dL", 
+                        "Hematócrito": "%",
+                        "VCM": "fL",
+                        "HCM": "pg",
+                        "CHCM": "g/dL",
+                        "RDW": "%",
+                        "Leucócitos": "/μL",
+                        "Neutrófilos": "%",
+                        "Linfócitos": "%",
+                        "Monócitos": "%",
+                        "Eosinófilos": "%",
+                        "Basófilos": "%",
+                        "Plaquetas": "/μL",
+                        # Bioquímica
+                        "Glicose": "mg/dL",
+                        "Ureia": "mg/dL",
+                        "Creatinina": "mg/dL",
+                        "Ácido Úrico": "mg/dL",
+                        "Colesterol Total": "mg/dL",
+                        "HDL": "mg/dL",
+                        "LDL": "mg/dL",
+                        "Triglicerídeos": "mg/dL",
+                        "TGO": "U/L",
+                        "TGP": "U/L",
+                        "Gama GT": "U/L",
+                        "Fosfatase Alcalina": "U/L",
+                        "Bilirrubina Total": "mg/dL",
+                        "Bilirrubina Direta": "mg/dL",
+                        "Bilirrubina Indireta": "mg/dL",
+                        "Sódio": "mmol/L",
+                        "Potássio": "mmol/L",
+                        "Cálcio": "mg/dL",
+                        "TSH": "μUI/mL",
+                        "T4 Livre": "ng/dL"
+                    }
+                    
+                    # Identificar seção atual
+                    current_section = None
+                    processing_exams = False
+                    
+                    for line in lines:
+                        line = line.strip()
+                        if not line:
+                            continue
+                            
+                        # Verificar se estamos entrando em uma nova seção
+                        for section in sections:
+                            if section in line and len(line) < 50:  # Evitar falsos positivos em linhas longas
+                                current_section = section
+                                processing_exams = True
+                                break
+                                
+                        # Sair da seção quando encontrar delimitadores ou palavras-chave
+                        if processing_exams and ("----" in line or "====" in line or "MÉTODO" in line.upper() or "OBSERVAÇÃO" in line.upper()):
+                            processing_exams = False
+                            
+                        if not processing_exams:
+                            continue
+                            
+                        # Ignorar linhas de cabeçalho
+                        if "RESULTADO" in line.upper() and "VALOR DE REFERÊNCIA" in line.upper():
+                            continue
+                        
+                        # Padrões para capturar diferentes formatos de linha de exame
+                        patterns = [
+                            # Padrão 1: "Nome do exame    12,3 unid    10,0 a 20,0 unid"
+                            r"([\w\s\-\.]+?)\s+([\d,\.]+)\s+([\w\/μ\^\-\(\)\%]+)[^\d]*([\d,\.]+\s*a\s*[\d,\.]+)[^\d]*([\w\/μ\^\-\(\)\%]+)?",
+                            # Padrão 2: "Nome do exame    12,3    unid    10,0 - 20,0    unid"
+                            r"([\w\s\-\.]+?)\s+([\d,\.]+)\s+([\w\/μ\^\-\(\)\%]+)\s+([\d,\.]+\s*\-\s*[\d,\.]+)\s+([\w\/μ\^\-\(\)\%]+)?"
+                        ]
+                        
+                        match = None
+                        for pattern in patterns:
+                            match = re.search(pattern, line)
+                            if match:
+                                break
+                                
+                        if match:
+                            # Extrair informações do exame
+                            exam_name = match.group(1).strip()
+                            value_str = match.group(2).strip().replace(',', '.')
+                            unit = match.group(3).strip() if match.group(3) else ""
+                            ref_range_text = match.group(4).strip() if match.group(4) else ""
+                            
+                            # Normalizar nome do exame - remover caracteres especiais
+                            exam_name = re.sub(r'[^\w\s]', '', exam_name).strip()
+                            
+                            try:
+                                value = float(value_str)
+                                
+                                # Extrair valores de referência
+                                ref_range = {"min": None, "max": None, "text": ref_range_text}
+                                
+                                # Detectar padrão de referência (seja com 'a' ou com '-')
+                                ref_match = re.search(r"([\d,\.]+)\s*(?:a|\-)\s*([\d,\.]+)", ref_range_text)
+                                if ref_match:
+                                    ref_min = float(ref_match.group(1).replace(',', '.'))
+                                    ref_max = float(ref_match.group(2).replace(',', '.'))
+                                    ref_range = {
+                                        "min": ref_min,
+                                        "max": ref_max,
+                                        "text": ref_range_text
+                                    }
+                                
+                                # Definir código do exame (versão padronizada do nome)
+                                exam_code = exam_name.upper().replace(' ', '_')
+                                
+                                # Criar e adicionar o exame à lista
+                                exams.append({
+                                    "code": exam_code,
+                                    "name": exam_name,
+                                    "value": value,
+                                    "unit": unit,
+                                    "reference_range": ref_range,
+                                    "section": current_section
+                                })
+                            except ValueError:
+                                print(f"Erro ao converter valor para {exam_name}: {value_str}")
+        
+        # Remover possíveis duplicatas baseadas no código do exame
+        unique_exams = {}
+        for exam in exams:
+            if exam["code"] not in unique_exams or abs(exam["value"]) > 0:
+                unique_exams[exam["code"]] = exam
+                
+        return list(unique_exams.values())
+                        
+    except Exception as e:
+        print(f"Erro ao extrair exames do formato Sérgio Franco: {str(e)}")
+        return []
 
 def extract_reference_range(text: str, exam_code: str, lab_type: str) -> Dict[str, Any]:
     """

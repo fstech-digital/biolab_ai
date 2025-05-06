@@ -19,7 +19,7 @@ async def chat_message(
         # Obter contexto relevante para a consulta
         context = await get_relevant_context(
             query=request.message,
-            user_id=current_user.id
+            user_id="mock_user"
         )
         
         # Processar a mensagem com o modelo LLM
@@ -27,12 +27,14 @@ async def chat_message(
             message=request.message,
             context=context,
             chat_history=request.chat_history,
-            user_id=current_user.id
+            user_id="mock_user"
         )
         
         # Verificar se a mensagem contém uma intenção específica
         # que requer ações adicionais no backend
         
+        if isinstance(response, str):
+            response = {"message": response, "intent": "general", "suggested_actions": [], "references": []}
         return {
             "message": response.get("message", ""),
             "intent": response.get("intent", "general"),

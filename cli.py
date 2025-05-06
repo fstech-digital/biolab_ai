@@ -20,78 +20,9 @@ load_dotenv()
 
 # Configurações
 API_URL = "http://localhost:8000/api/v1"
-CONFIG_FILE = ".biolab_config"
-TOKEN = None
-
-
-async def login():
-    """Realiza login no sistema"""
-    email = input("Email: ")
-    password = getpass("Senha: ")
-    
-    async with httpx.AsyncClient() as client:
-        try:
-            response = await client.post(
-                f"{API_URL}/auth/login",
-                data={"username": email, "password": password},
-            )
-            
-            if response.status_code == 200:
-                data = response.json()
-                token = data["access_token"]
-                
-                # Salvar token para uso posterior
-                with open(CONFIG_FILE, "w") as f:
-                    json.dump({"token": token}, f)
-                
-                print("Login realizado com sucesso!")
-                return token
-            else:
-                print(f"Erro ao fazer login: {response.status_code}")
-                print(response.text)
-                return None
-                
-        except Exception as e:
-            print(f"Erro ao conectar ao servidor: {e}")
-            return None
-
-
-async def register():
-    """Registra um novo usuário"""
-    name = input("Nome: ")
-    email = input("Email: ")
-    password = getpass("Senha: ")
-    password_confirm = getpass("Confirme a senha: ")
-    
-    if password != password_confirm:
-        print("As senhas não conferem!")
-        return
-    
-    async with httpx.AsyncClient() as client:
-        try:
-            response = await client.post(
-                f"{API_URL}/auth/register",
-                json={"name": name, "email": email, "password": password},
-            )
-            
-            if response.status_code == 200:
-                print("Usuário registrado com sucesso! Faça login para continuar.")
-            else:
-                print(f"Erro ao registrar usuário: {response.status_code}")
-                print(response.text)
-                
-        except Exception as e:
-            print(f"Erro ao conectar ao servidor: {e}")
-
 
 async def upload_pdf():
     """Faz upload de um PDF de exame"""
-    global TOKEN
-    
-    if not TOKEN:
-        print("Você precisa fazer login primeiro!")
-        return
-    
     filepath = input("Caminho do arquivo PDF: ")
     
     if not os.path.exists(filepath):
@@ -110,7 +41,7 @@ async def upload_pdf():
             # Preparar o arquivo para upload
             with open(filepath, "rb") as f:
                 files = {"file": (filename, f, "application/pdf")}
-                headers = {"Authorization": f"Bearer {TOKEN}"}
+                headers = {}
                 
                 # Fazer upload
                 response = await client.post(
@@ -138,19 +69,13 @@ async def upload_pdf():
 
 async def process_pdf(filename=None):
     """Processa um PDF previamente enviado"""
-    global TOKEN
-    
-    if not TOKEN:
-        print("Você precisa fazer login primeiro!")
-        return
-    
     if not filename:
         filename = input("Nome do arquivo a processar: ")
     
     # Processar o arquivo
     async with httpx.AsyncClient() as client:
         try:
-            headers = {"Authorization": f"Bearer {TOKEN}"}
+            headers = {}
             
             # Processar o arquivo
             response = await client.post(
@@ -176,12 +101,6 @@ async def process_pdf(filename=None):
 
 async def ask_question():
     """Faz uma pergunta ao sistema conversacional"""
-    global TOKEN
-    
-    if not TOKEN:
-        print("Você precisa fazer login primeiro!")
-        return
-    
     print("\nFaça uma pergunta sobre seus exames (digite 'sair' para voltar):")
     
     chat_history = []
@@ -195,7 +114,7 @@ async def ask_question():
         # Enviar pergunta
         async with httpx.AsyncClient(timeout=30.0) as client:
             try:
-                headers = {"Authorization": f"Bearer {TOKEN}"}
+                headers = {}
                 print(f"\nEnviando pergunta para: {API_URL}/chat/message")
                 
                 response = await client.post(
@@ -288,11 +207,6 @@ async def ask_question():
 
 async def view_exam_details(document_id=None):
     """Visualiza detalhes dos exames de um documento"""
-    global TOKEN
-    
-    if not TOKEN:
-        print("Você precisa fazer login primeiro!")
-        return
     
     if not document_id:
         document_id = input("ID do documento: ")
@@ -300,7 +214,7 @@ async def view_exam_details(document_id=None):
     # Obter detalhes do documento
     async with httpx.AsyncClient() as client:
         try:
-            headers = {"Authorization": f"Bearer {TOKEN}"}
+            headers = {}
             
             response = await client.get(
                 f"{API_URL}/analysis/{document_id}",
@@ -349,11 +263,6 @@ async def view_exam_details(document_id=None):
 
 async def generate_report(document_id=None):
     """Gera um relatório para um documento"""
-    global TOKEN
-    
-    if not TOKEN:
-        print("Você precisa fazer login primeiro!")
-        return
     
     if not document_id:
         document_id = input("ID do documento: ")
@@ -376,7 +285,7 @@ async def generate_report(document_id=None):
     # Gerar relatório
     async with httpx.AsyncClient() as client:
         try:
-            headers = {"Authorization": f"Bearer {TOKEN}"}
+            headers = {}
             
             payload = {
                 "document_id": document_id,
@@ -424,18 +333,13 @@ async def generate_report(document_id=None):
 
 async def view_abnormal_exams():
     """Visualiza exames com resultados anormais"""
-    global TOKEN
-    
-    if not TOKEN:
-        print("Você precisa fazer login primeiro!")
-        return
     
     document_id = input("ID do documento: ")
     
     # Obter exames anormais
     async with httpx.AsyncClient() as client:
         try:
-            headers = {"Authorization": f"Bearer {TOKEN}"}
+            headers = {}
             
             response = await client.get(
                 f"{API_URL}/analysis/abnormal/{document_id}",
@@ -471,72 +375,30 @@ async def view_abnormal_exams():
 
 async def main_menu():
     """Menu principal do aplicativo"""
-    global TOKEN
     
-    # Verificar se já existe um token salvo
-    if os.path.exists(CONFIG_FILE):
-        try:
-            with open(CONFIG_FILE, "r") as f:
-                config = json.load(f)
-                TOKEN = config.get("token")
-        except:
-            TOKEN = None
-    
-    while True:
+    while True:            
         print("\n===== BioLab.Ai - Menu Principal =====")
-        
-        if TOKEN:
-            print("1. Upload de PDF de exame")
-            print("2. Processar PDF enviado")
-            print("3. Perguntar sobre exames (Chat)")
-            print("4. Ver detalhes de exames")
-            print("5. Gerar relatório")
-            print("6. Ver exames com valores anormais")
-            print("7. Sair")
-            print("8. Logout")
-        else:
-            print("1. Login")
-            print("2. Registrar novo usuário")
-            print("3. Sair")
+        print("1. Upload de PDF de exame")
+        print("2. Processar PDF enviado")
+        print("3. Perguntar sobre exames (Chat)")
+        print("4. Ver detalhes de exames")
+        print("5. Sair")
         
         choice = input("\nEscolha uma opção: ")
         
-        if TOKEN:
-            # Usuário logado
-            if choice == "1":
-                await upload_pdf()
-            elif choice == "2":
-                await process_pdf()
-            elif choice == "3":
-                await ask_question()
-            elif choice == "4":
-                await view_exam_details()
-            elif choice == "5":
-                await generate_report()
-            elif choice == "6":
-                await view_abnormal_exams()
-            elif choice == "7":
-                print("Saindo do sistema. Até logo!")
-                break
-            elif choice == "8":
-                # Fazer logout
-                TOKEN = None
-                if os.path.exists(CONFIG_FILE):
-                    os.remove(CONFIG_FILE)
-                print("Logout realizado com sucesso!")
-            else:
-                print("Opção inválida!")
+        if choice == "1":
+            await upload_pdf()
+        elif choice == "2":
+            await process_pdf()
+        elif choice == "3":
+            await ask_question()
+        elif choice == "4":
+            await view_exam_details()
+        elif choice == "5":
+            print("Saindo do sistema. Até logo!")
+            break
         else:
-            # Usuário não logado
-            if choice == "1":
-                TOKEN = await login()
-            elif choice == "2":
-                await register()
-            elif choice == "3":
-                print("Saindo do sistema. Até logo!")
-                break
-            else:
-                print("Opção inválida!")
+            print("Opção inválida!")
 
 
 if __name__ == "__main__":
@@ -549,11 +411,17 @@ if __name__ == "__main__":
     else:
         print("Verificando conexão com o servidor...")
         try:
-            health_url = "http://localhost:8000/health"
-            asyncio.run(httpx.AsyncClient().get(health_url))
-            print("Servidor online!")
-        except:
-            print("AVISO: Servidor parece estar offline!")
+            health_url = "http://localhost:8000/api/v1/health"
+            
+            # Usar abordagem síncrona mais simples para a verificação de conexão
+            import requests
+            response = requests.get(health_url, timeout=5)  # Timeout de 5 segundos
+            if response.status_code == 200:
+                print("Servidor online!")
+            else:
+                raise Exception(f"Resposta inesperada: {response.status_code}")
+        except Exception as e:
+            print(f"AVISO: Servidor parece estar offline! Erro: {str(e)[:100]}")
             print("Certifique-se de iniciar o servidor com 'python run.py' em outro terminal")
             proceed = input("Deseja continuar mesmo assim? (s/n): ").lower()
             if proceed != 's':
