@@ -81,15 +81,14 @@ async def detect_lab_type(file_path: str) -> str:
 
 async def extract_patient_info(file_path: str, lab_type: str) -> Dict[str, Any]:
     """
-    Extrai informações do paciente com base no tipo de laboratório.
-    
+    Extrai informações do paciente com base no tipo de laboratório e padrões do projeto.
     Args:
         file_path: Caminho para o arquivo PDF
         lab_type: Tipo de laboratório detectado
-        
     Returns:
         Dicionário com informações do paciente
     """
+    import re
     patient_info = {
         "name": "",
         "age": None,
@@ -97,60 +96,37 @@ async def extract_patient_info(file_path: str, lab_type: str) -> Dict[str, Any]:
         "date_collected": "",
         "date_reported": ""
     }
-    
     with pdfplumber.open(file_path) as pdf:
-        # Extrair texto da primeira página
         first_page = pdf.pages[0]
         text = first_page.extract_text() or ""
-        
-        # Aplicar diferentes extractors baseados no tipo de laboratório
-        if lab_type == "LABORATORIO A":
-            # Exemplo para um formato específico
-            name_match = re.search(r"Nome:[\s]*([^\n]+)", text)
-            if name_match:
-                patient_info["name"] = name_match.group(1).strip()
-                
-            age_match = re.search(r"Idade:[\s]*(\d+)", text)
-            if age_match:
-                patient_info["age"] = int(age_match.group(1))
-                
-            # Outras extrações específicas...
-            
-        elif lab_type == "LABORATORIO B":
-            # Padrões diferentes para outro laboratório
-            name_match = re.search(r"Paciente:[\s]*([^\n]+)", text)
-            if name_match:
-                patient_info["name"] = name_match.group(1).strip()
-            
-            # Outras extrações...
-            
-        else:
-            # Abordagem genérica
-            name_patterns = [
-                r"Nome:[\s]*([^\n]+)",
-                r"Paciente:[\s]*([^\n]+)",
-                r"Patient:[\s]*([^\n]+)"
-            ]
-            
-            for pattern in name_patterns:
-                name_match = re.search(pattern, text)
-                if name_match:
-                    patient_info["name"] = name_match.group(1).strip()
-                    break
-            
-            # Tentar extrair idade usando padrões genéricos
-            age_patterns = [
-                r"Idade:[\s]*(\d+)",
-                r"Age:[\s]*(\d+)",
-                r"Idade:[\s]*(\d+)[\s]*anos"
-            ]
-            
-            for pattern in age_patterns:
-                age_match = re.search(pattern, text)
-                if age_match:
-                    patient_info["age"] = int(age_match.group(1))
-                    break
-    
+        # Padrão Sabin: Nome          : NOME COMPLETO
+        match_nome_sabin = re.search(r"Nome\s*:\s*([A-Z\s]+)", text)
+        if match_nome_sabin:
+            patient_info["name"] = match_nome_sabin.group(1).strip().title()
+        # Padrão Ramos Medicina Diagnóstica: Paciente..........: NOME COMPLETO
+        match_nome = re.search(r"Paciente\.*?:\s*([A-Z\s]+)", text)
+        if match_nome and not patient_info["name"]:
+            patient_info["name"] = match_nome.group(1).strip().title()
+        # Padrão antigo: Nome DN:dd/mm/aaaa(XXAnos) SEXO:Genero
+        pattern = r"(?P<name>.+?)\s*DN:(?P<dob>\d{2}/\d{2}/\d{4})\((?P<age>\d+)Anos\)\s*SEXO:(?P<gender>\w+)"
+        match = re.search(pattern, text)
+        if match and not patient_info["name"]:
+            d = match.groupdict()
+            patient_info["name"] = d["name"].strip()
+            patient_info["age"] = int(d["age"])
+            patient_info["gender"] = d["gender"].capitalize()
+            # Podemos incluir dob se necessário: d["dob"]
+        # Procurar datas de coleta/relatório
+        # Exemplo: DatadeColeta/Recebimento:10/09/2024
+        date_collect_pattern = r"DatadeColeta/Recebimento:(\d{2}/\d{2}/\d{4})"
+        match_collect = re.search(date_collect_pattern, text)
+        if match_collect:
+            patient_info["date_collected"] = match_collect.group(1)
+        # Exemplo: DatadaGeração:07/10/2024
+        date_report_pattern = r"DatadaGeração:(\d{2}/\d{2}/\d{4})"
+        match_report = re.search(date_report_pattern, text)
+        if match_report:
+            patient_info["date_reported"] = match_report.group(1)
     return patient_info
 
 async def extract_specific_exams(file_path: str, lab_type: str) -> List[Dict[str, Any]]:
@@ -175,6 +151,7 @@ async def extract_specific_exams(file_path: str, lab_type: str) -> List[Dict[str
         text = ""
         for page in pdf.pages:
             text += page.extract_text() or ""
+    print("\n[DEBUG] TEXTO EXTRAÍDO DO PDF:\n" + text + "\n[DEBUG] FIM DO TEXTO EXTRAÍDO\n")
     
     # Padrões comuns de exames - formato (padrão regex, código interno, unidade)
     common_exam_patterns = [
@@ -216,10 +193,8 @@ async def extract_specific_exams(file_path: str, lab_type: str) -> List[Dict[str
             value_str = match.group(1).replace(".", "").replace(",", ".")
             try:
                 value = float(value_str)
-                
                 # Buscar os valores de referência
                 ref_range = extract_reference_range(text, exam_code, lab_type)
-                
                 exams.append({
                     "code": exam_code,
                     "name": exam_code.replace("_", " ").title(),
@@ -228,9 +203,43 @@ async def extract_specific_exams(file_path: str, lab_type: str) -> List[Dict[str
                     "reference_range": ref_range
                 })
             except ValueError:
-                # Ignorar se não for possível converter para float
                 continue
-    
+
+    # Parser Sabin por blocos delimitados por sublinhado
+    blocks = re.split(r'_+', text)
+    for block in blocks:
+        lines = [l.strip() for l in block.strip().split('\n') if l.strip()]
+        if not lines:
+            continue
+        # Nome do exame: primeira linha em caixa alta com hífen
+        exam_name_line = lines[0]
+        if not re.match(r'^[A-Z][A-Z\s\-]+$', exam_name_line):
+            continue
+        exam_name = exam_name_line.strip().title()
+        code = exam_name_line.strip().upper().replace(' ', '_').replace('-', '_')
+        # Procurar RESULTADO
+        resultado_match = re.search(r'RESULTADO:\s*([\d,\.]+)\s*([\w/µ]+)', block)
+        # Procurar Valor de referência
+        referencia_match = re.search(r'Valor de referência:\s*\n\s*([\d,\.]+)\s*a\s*([\d,\.]+)\s*([\w/µ]+)', block)
+        if resultado_match and referencia_match:
+            value_str, unit = resultado_match.groups()
+            ref_min, ref_max, ref_unit = referencia_match.groups()
+            try:
+                value = float(value_str.replace(',', '.'))
+                ref_min_f = float(ref_min.replace(',', '.'))
+                ref_max_f = float(ref_max.replace(',', '.'))
+                exams.append({
+                    "code": code,
+                    "name": exam_name,
+                    "value": value,
+                    "unit": unit,
+                    "reference_range": {"min": ref_min_f, "max": ref_max_f, "text": f"{ref_min} a {ref_max} {ref_unit}"}
+                })
+                print(f"[DEBUG] Exame Sabin capturado: {exam_name} - Valor: {value} {unit} - Ref: {ref_min} a {ref_max} {ref_unit}")
+            except Exception as e:
+                print(f"[ERRO] Falha ao processar bloco Sabin: {exam_name}, erro: {e}")
+                continue
+
     return exams
 
 async def extract_sergio_franco_exams(file_path: str) -> List[Dict[str, Any]]:

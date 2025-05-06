@@ -27,26 +27,89 @@ async def store_document_vectors(
     Returns:
         ID do documento armazenado
     """
-    # Gerar UUID para o documento
-    document_id = str(uuid.uuid4())
-    
-    # Preparar metadados do documento
-    metadata = document_data.get("metadata", {})
-    metadata.update({
-        "filename": filename,
-        "user_id": user_id,
-        "document_id": document_id
-    })
-    
-    # Armazenar documento na tabela de documentos
-    await store_document_metadata(document_id, metadata)
-    
-    # Processar e armazenar exames individuais como vetores
-    exams = document_data.get("exams", [])
-    for exam in exams:
-        await store_exam_vector(exam, document_id, user_id)
-    
-    return document_id
+    try:
+        # Validações básicas
+        if not document_data:
+            raise ValueError("Dados do documento são inválidos ou vazios")
+            
+        if not isinstance(document_data, dict):
+            raise TypeError(f"Dados do documento devem ser um dicionário, recebido: {type(document_data)}")
+            
+        print(f"[INFO] Iniciando armazenamento do documento no banco de dados. Filename: {filename}")
+        
+        # Gerar UUID para o documento
+        document_id = str(uuid.uuid4())
+        print(f"[INFO] Document ID gerado: {document_id}")
+        
+        # Preparar metadados do documento
+        metadata = document_data.get("metadata", {})
+        if not metadata:
+            print("[AVISO] Metadados vazios, criando estrutura básica")
+            metadata = {}
+            
+        metadata.update({
+            "filename": filename,
+            "user_id": user_id,
+            "document_id": document_id
+        })
+        
+        print(f"[INFO] Metadados preparados: {metadata}")
+        
+        # Armazenar documento na tabela de documentos
+        print("[INFO] Armazenando metadados do documento...")
+        await store_document_metadata(document_id, metadata)
+        print("[INFO] Metadados armazenados com sucesso")
+        
+        # Processar e armazenar exames individuais como vetores
+        exams = document_data.get("exams", [])
+        print(f"[INFO] Total de exames encontrados: {len(exams)}")
+        
+        if not exams:
+            print("[AVISO] Nenhum exame encontrado no documento")
+            return document_id
+        
+        # Propagar campos essenciais dos metadados para cada exame
+        print(f"[DEBUG] Exemplo de exame antes da propagação: {exams[0] if exams else None}")
+        
+        # Mapeamento explícito dos campos essenciais para garantir preenchimento correto
+        for i, exam in enumerate(exams):
+            try:
+                # Nome do paciente (campo crítico para as buscas)
+                exam["patient_name"] = metadata.get("name", "")
+                if not exam.get("patient_name"):
+                    print(f"[AVISO] Nome do paciente não encontrado nos metadados. Usando valor padrão.")
+                    exam["patient_name"] = "Paciente"
+                    
+                # Idade
+                exam["patient_age"] = metadata.get("age", None)
+                # Sexo
+                exam["patient_gender"] = metadata.get("gender", "")
+                # Datas
+                exam["date_collected"] = metadata.get("date_collected", "")
+                exam["date_reported"] = metadata.get("date_reported", "")
+                # Outros campos úteis
+                exam["filename"] = metadata.get("filename", "")
+                exam["user_id"] = metadata.get("user_id", "")
+                exam["document_id"] = metadata.get("document_id", "")
+                
+                if i == 0:  # Apenas mostra o primeiro para não poluir o log
+                    print(f"[DEBUG] Primeiro exame após propagação: {exam}")
+                    
+                # Armazenar exame no banco de dados
+                print(f"[INFO] Armazenando exame {i+1}/{len(exams)}: {exam.get('name', 'Desconhecido')}")
+                await store_exam_vector(exam, document_id, user_id)
+                
+            except Exception as e:
+                print(f"[ERRO] Falha ao processar exame {i+1}: {str(e)}")
+                # Continuar com os próximos exames mesmo se um falhar
+        
+        print(f"[INFO] Documento armazenado com sucesso. ID: {document_id}")
+        return document_id
+        
+    except Exception as e:
+        print(f"[ERRO] Falha ao armazenar documento: {str(e)}")
+        # Repassar a exceção para ser tratada no nível superior
+        raise
 
 async def store_document_metadata(document_id: str, metadata: Dict[str, Any]) -> Dict[str, Any]:
     """
@@ -106,6 +169,12 @@ async def store_exam_vector(exam: Dict[str, Any], document_id: str, user_id: str
         "reference_min": exam.get("reference_range", {}).get("min"),
         "reference_max": exam.get("reference_range", {}).get("max"),
         "reference_text": exam.get("reference_range", {}).get("text", ""),
+        "patient_name": exam.get("patient_name", ""),
+        "patient_age": exam.get("patient_age", None),
+        "patient_gender": exam.get("patient_gender", ""),
+        "date_collected": exam.get("date_collected", ""),
+        "date_reported": exam.get("date_reported", ""),
+        "filename": exam.get("filename", ""),
         "content": text_for_embedding,
         "embedding": embedding
     }).execute()

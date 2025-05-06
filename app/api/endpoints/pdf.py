@@ -60,15 +60,31 @@ async def process_pdf(
         )
     
     try:
+        print(f"[INFO] Iniciando processamento do PDF: {file_path}")
+        
+        # Verificar se o arquivo existe novamente (redundância de segurança)
+        if not os.path.exists(file_path):
+            raise FileNotFoundError(f"Arquivo não encontrado: {file_path}")
+            
         # Extrair dados do PDF
+        print(f"[INFO] Extraindo dados do PDF...")
         extracted_data = await extract_exam_data(file_path)
         
+        if not extracted_data:
+            raise ValueError("Falha na extração de dados do PDF")
+            
+        print(f"[INFO] Dados extraídos com sucesso. Exames encontrados: {len(extracted_data.get('exams', []))}")
+        print(f"[DEBUG] Metadados: {extracted_data.get('metadata', {})}")
+        
         # Armazenar no vector database
+        print(f"[INFO] Armazenando no banco de dados vetorial...")
         document_id = await store_document_vectors(
             extracted_data, 
             filename, 
-            user_id=current_user.id
+            user_id="mock_user_id"
         )
+        
+        print(f"[INFO] Processamento concluído com sucesso. ID do documento: {document_id}")
         
         return {
             "document_id": document_id,

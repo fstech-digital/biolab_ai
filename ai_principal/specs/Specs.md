@@ -4,16 +4,18 @@ Dificuldade de alunos e profissionais de saúde em interpretar exames laboratori
 Solução Proposta
 Aplicação baseada em Python + LLMs que faz upload de PDFs, extrai valores relevantes e interpreta resultados com auxílio de inteligência artificial.
 
-Arquitetura Inicial
-Upload de PDF ➔
+Arquitetura
+Upload de PDF →
 
-Extração de Dados (OCR + pré-processamento) ➔
+Extração de Dados (OCR + pré-processamento) →
 
-Indexação em Banco Vetorial ➔
+Indexação em Banco Vetorial (Supabase) →
 
-Interação via LLM para consultas e relatórios ➔
+MCP Server (Model Context Protocol) →
 
-Interface CLI inicial, Web App no futuro
+Interação via LLM para consultas e relatórios →
+
+Interface CLI e Web App
 
 Divisão de Módulos/Fases
 MVP CLI:

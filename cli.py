@@ -72,31 +72,59 @@ async def process_pdf(filename=None):
     if not filename:
         filename = input("Nome do arquivo a processar: ")
     
+    print(f"Iniciando processamento do arquivo: {filename}")
+    
     # Processar o arquivo
-    async with httpx.AsyncClient() as client:
-        try:
-            headers = {}
-            
-            # Processar o arquivo
-            response = await client.post(
-                f"{API_URL}/pdf/process/{filename}",
-                headers=headers
-            )
-            
-            if response.status_code == 200:
-                result = response.json()
-                print("Arquivo processado com sucesso!")
-                print(f"ID do documento: {result['document_id']}")
-                print(f"Exames encontrados: {result['exam_count']}")
-                return result['document_id']
-            else:
-                print(f"Erro ao processar arquivo: {response.status_code}")
-                print(response.text)
-                return None
+    try:
+        # Usar timeout maior para dar tempo ao processamento do PDF
+        async with httpx.AsyncClient(timeout=60.0) as client:
+            try:
+                headers = {}
                 
-        except Exception as e:
-            print(f"Erro ao conectar ao servidor: {e}")
-            return None
+                print(f"Enviando solicitação para: {API_URL}/pdf/process/{filename}")
+                
+                # Processar o arquivo
+                response = await client.post(
+                    f"{API_URL}/pdf/process/{filename}",
+                    headers=headers
+                )
+                
+                print(f"Status da resposta: {response.status_code}")
+                
+                if response.status_code == 200:
+                    result = response.json()
+                    print("\nArquivo processado com sucesso!")
+                    print(f"ID do documento: {result['document_id']}")
+                    print(f"Exames encontrados: {result['exam_count']}")
+                    return result['document_id']
+                else:
+                    print(f"\nErro ao processar arquivo: {response.status_code}")
+                    if response.text:
+                        error_detail = response.text
+                        try:
+                            # Tentar formatar a resposta se for JSON
+                            error_json = response.json()
+                            if 'detail' in error_json:
+                                error_detail = error_json['detail']
+                        except:
+                            pass
+                        print(f"Detalhes: {error_detail}")
+                    return None
+            except httpx.ConnectError as e:
+                print(f"\nErro ao conectar ao servidor: Servidor inacessível")
+                print(f"Detalhes: {str(e)}")
+                return None
+            except httpx.TimeoutException as e:
+                print(f"\nErro de timeout: O servidor está demorando muito para responder")
+                print(f"Detalhes: {str(e)}")
+                print(f"O processamento pode estar ocorrendo em segundo plano.")
+                return None
+            except Exception as e:
+                print(f"\nErro ao processar PDF: {str(e)[:200]}")
+                return None
+    except Exception as e:
+        print(f"\nErro crítico: {str(e)[:200]}")
+        return None
 
 
 async def ask_question():
@@ -161,13 +189,28 @@ async def ask_question():
                         print("\nFontes da informação:")
                         for i, source in enumerate(result['sources'], 1):
                             source_type = source.get('type', 'Desconhecida')
-                            source_name = source.get('name', '')
-                            source_detail = source.get('detail', '')
-                            
-                            source_info = f"{i}. {source_type}: {source_name}"
-                            if source_detail:
-                                source_info += f" - {source_detail}"
-                            print(source_info)
+                            if source_type.lower() == 'exame':
+                                filename = source.get('filename', '')
+                                date = source.get('date', '')
+                                exam_name = source.get('name', '')
+                                doc_id = source.get('id', '')
+                                fonte_str = f"{i}. Fonte: "
+                                if filename:
+                                    fonte_str += f"{filename}"
+                                if date:
+                                    fonte_str += f" (data: {date})"
+                                if exam_name:
+                                    fonte_str += f" | Exame: {exam_name}"
+                                if doc_id:
+                                    fonte_str += f" | id: {doc_id}"
+                                print(fonte_str)
+                            else:
+                                source_name = source.get('name', '')
+                                source_detail = source.get('detail', '')
+                                source_info = f"{i}. {source_type}: {source_name}"
+                                if source_detail:
+                                    source_info += f" - {source_detail}"
+                                print(source_info)
                     
                     # Verificar se há ações sugeridas
                     if result.get('suggested_actions'):

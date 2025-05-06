@@ -30,6 +30,10 @@ Banco Vetorial: Estrutura para armazenamento de embeddings de dados
 
 Busca Semântica: Localização de informações baseada no significado, não no texto exato
 
+MCP: Model Context Protocol, padrão para integração de contexto entre LLMs e serviços externos
+
+MCP Server: Servidor que implementa o protocolo MCP e expõe ferramentas para LLMs consumirem
+
 Notas de Implementação Específicas ao Domínio
 Priorizar exames de sangue inicialmente.
 

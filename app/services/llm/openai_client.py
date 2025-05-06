@@ -182,7 +182,7 @@ async def get_chat_response(
     
     # Formatar fontes para exibição
     formatted_sources = []
-    for source in source_info:
+    for i, source in enumerate(source_info):
         if source["source_type"] == "knowledge_base":
             formatted_sources.append({
                 "type": "Base de Conhecimento",
@@ -190,10 +190,20 @@ async def get_chat_response(
                 "detail": source.get("source_detail", "")
             })
         elif source["source_type"] == "exam":
+            # Tentar obter filename e date do contexto se disponível
+            filename = ""
+            date = ""
+            if i < len(context):
+                doc_ctx = context[i]
+                # Tenta buscar em diferentes níveis
+                filename = doc_ctx.get("filename") or doc_ctx.get("metadata", {}).get("filename", "")
+                date = doc_ctx.get("date") or doc_ctx.get("metadata", {}).get("date", "")
             formatted_sources.append({
                 "type": "Exame",
                 "name": source["source_detail"],
-                "id": source["document_id"]
+                "id": source["document_id"],
+                "filename": filename,
+                "date": date
             })
     
     return {

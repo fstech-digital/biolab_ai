@@ -1,5 +1,5 @@
 from fastapi import APIRouter
-from app.api.endpoints import auth, pdf, chat, analysis
+from app.api.endpoints import auth, pdf, chat, analysis, mcp
 
 api_router = APIRouter()
 
@@ -8,8 +8,13 @@ api_router.include_router(auth.router, prefix="/auth", tags=["autenticação"])
 api_router.include_router(pdf.router, prefix="/pdf", tags=["processamento de pdf"])
 api_router.include_router(chat.router, prefix="/chat", tags=["interface conversacional"])
 api_router.include_router(analysis.router, prefix="/analysis", tags=["análise de exames"])
+api_router.include_router(mcp.router, prefix="/mcp", tags=["mcp"])
 
 # Rota de verificação de saúde da API
+@api_router.get("/health")
+def health_check():
+    return {"status": "ok"}
+
 @api_router.get("/health")
 def health_check():
     return {"status": "ok"}
