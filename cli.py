@@ -208,7 +208,34 @@ async def ask_question():
                 
                 if response.status_code == 200:
                     result = response.json()
-                    print("\nBioLab.Ai:", result['message'])
+                    
+                    # Verificar e mostrar a estrutura da resposta para diagnóstico
+                    print(f"Estrutura da resposta: {result.keys()}")
+                    
+                    # Tentar extrair a mensagem de diferentes locais possíveis
+                    if 'message' in result:
+                        message_content = result['message']
+                    elif 'content' in result:
+                        message_content = result['content']
+                    elif 'answer' in result:
+                        message_content = result['answer']
+                    elif 'error' in result:
+                        message_content = f"Erro do servidor: {result['error']}"
+                    elif 'choices' in result and len(result.get('choices', [])) > 0:
+                        # Formato possivelmente semelhante ao formato direto da OpenAI
+                        first_choice = result['choices'][0]
+                        if isinstance(first_choice, dict) and 'message' in first_choice:
+                            message_content = first_choice['message'].get('content', str(first_choice))
+                        else:
+                            message_content = str(first_choice)
+                    else:
+                        # Mostrar a resposta bruta como fallback
+                        import pprint
+                        print("\nResposta bruta do servidor:")
+                        pprint.pprint(result)
+                        message_content = str(result)
+                    
+                    print("\nBioLab.Ai:", message_content)
                     
                     # Exibir fontes das informações
                     if result.get('sources') and len(result.get('sources')) > 0:
@@ -242,7 +269,7 @@ async def ask_question():
                     
                     # Adicionar à história do chat
                     chat_history.append({"role": "user", "content": question})
-                    chat_history.append({"role": "assistant", "content": result['message']})
+                    chat_history.append({"role": "assistant", "content": message_content})
                     
                 else:
                     print(f"Erro ao enviar pergunta: {response.status_code}")
@@ -522,7 +549,8 @@ if __name__ == "__main__":
     else:
         print("Verificando conexão com o servidor...")
         try:
-            asyncio.run(httpx.AsyncClient().get(f"{API_URL}/health"))
+            health_url = "http://localhost:8000/health"
+            asyncio.run(httpx.AsyncClient().get(health_url))
             print("Servidor online!")
         except:
             print("AVISO: Servidor parece estar offline!")

@@ -216,7 +216,7 @@ async def search_knowledge_vectors(query: str, limit: int = 5, collection_name: 
     query_embedding = await get_embeddings(query)
     
     try:
-        # Usar função RPC para busca vetorial na base de conhecimento
+        # Tentar usar função RPC para busca vetorial na base de conhecimento
         params = {
             "query_embedding": query_embedding,
             "match_threshold": 0.5,  # Limite de similaridade
@@ -227,49 +227,88 @@ async def search_knowledge_vectors(query: str, limit: int = 5, collection_name: 
         if collection_name:
             params["collection_filter"] = collection_name
         
-        response = (
-            supabase.rpc(
-                "match_knowledge_vectors",
-                params
-            ).execute()
-        )
-        
-        # Verificar se houve erro na resposta
-        if hasattr(response, 'error') and response.error:
-            raise Exception(f"Erro na busca vetorial RPC: {response.error}")
+        # Tentar chamar a função RPC
+        try:
+            response = (
+                supabase.rpc(
+                    "match_knowledge_vectors",
+                    params
+                ).execute()
+            )
             
-        # Garantir que temos dados válidos da resposta
-        if hasattr(response, 'data'):
-            return response.data
-        elif isinstance(response, dict) and 'data' in response:
-            return response['data']
-        else:
-            print("Retornando resposta RPC diretamente")
-            return response
+            # Verificar se houve erro na resposta
+            if hasattr(response, 'error') and response.error:
+                raise Exception(f"Erro na busca vetorial RPC: {response.error}")
+                
+            # Garantir que temos dados válidos da resposta
+            if hasattr(response, 'data'):
+                return response.data
+            elif isinstance(response, dict) and 'data' in response:
+                return response['data']
+            else:
+                print("Retornando resposta RPC diretamente")
+                return response
+        except Exception as rpc_error:
+            # Se falhar na RPC específica, levanta o erro para o fallback
+            print(f"Erro específico na função RPC: {str(rpc_error)}")
+            raise
             
     except Exception as e:
-        # Fallback: Se RPC falhar, tentar consulta simples
+        # Fallback inteligente: pesquisa baseada no texto usando LIKE ou ILIKE
         print(f"Erro na busca vetorial de conhecimento: {str(e)}")
-        print("Usando fallback: consulta simples na base de conhecimento")
+        print("Usando fallback inteligente baseado em texto")
         
         try:
-            # Construir a consulta de fallback
+            # Quebrar a consulta em palavras-chave
+            keywords = [k.strip().lower() for k in query.split() if len(k.strip()) > 3]
+            
+            if not keywords:
+                # Se não tiver palavras-chave suficientes, usa termos genéricos relevantes
+                print("Consulta muito curta, usando termos gerais")
+                results = []
+                
+                # Tenta fazer uma busca mais básica com o que temos
+                fallback_response = supabase.table("knowledge_vectors").select("*").limit(limit).execute()
+                
+                if hasattr(fallback_response, 'data') and fallback_response.data:
+                    # Marca a fonte explícita para o usuário saber que não é altamente relevante
+                    for item in fallback_response.data:
+                        if 'source' not in item or not item['source']:
+                            item['source'] = 'informação geral (fallback)'
+                    return fallback_response.data
+                return []
+            
+            print(f"Usando palavras-chave para busca textual: {keywords}")
+            
+            # Construir consulta para cada palavra-chave com ILIKE 
             query = supabase.table("knowledge_vectors").select("*")
+            
+            # Adiciona filtro para buscar conteúdo relacionado a qualquer keyword
+            # Para simplificar e evitar problemas de sintaxe, vamos usar uma abordagem diferente
+            # Com apenas um filtro ILIKE que busca por qualquer uma das palavras-chave
+            keyword_pattern = "%" + "%|%".join(keywords[:3]) + "%" # ex: %palavra1%|%palavra2%|%palavra3%
+            query = query.filter("content", "ilike", keyword_pattern)
             
             # Adicionar filtro por coleção se necessário
             if collection_name:
                 query = query.filter("collection_name", "eq", collection_name)
                 
-            # Adicionar limite e executar
+            # Executar a consulta
             fallback_response = query.limit(limit).execute()
             
             # Tratar resposta do fallback
-            if hasattr(fallback_response, 'data'):
+            if hasattr(fallback_response, 'data') and fallback_response.data:
                 return fallback_response.data
             elif isinstance(fallback_response, dict) and 'data' in fallback_response:
                 return fallback_response['data']
             else:
-                return []  # Retornar lista vazia se não conseguir extrair os dados
+                # Se não encontrar nada com a busca por keywords, tenta uma última abordagem
+                print("Nenhum resultado encontrado com keywords, tentando busca mais ampla")
+                final_response = supabase.table("knowledge_vectors").select("*").limit(limit).execute()
+                
+                if hasattr(final_response, 'data'):
+                    return final_response.data
+                return []
                 
         except Exception as fallback_error:
             print(f"Erro no fallback da base de conhecimento: {str(fallback_error)}")
