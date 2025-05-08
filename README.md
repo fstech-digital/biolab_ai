@@ -41,6 +41,7 @@ O fluxo de dados no BioLab.Ai segue a seguinte sequência:
 - Busca semântica de exames por paciente, data ou tipo
 - Integração com LLMs via protocolo MCP
 - Interface de linha de comando (CLI) para todas as funcionalidades
+- Modo interativo (chat) para navegação em menus
 
 ## Requisitos
 
@@ -81,10 +82,15 @@ O fluxo de dados no BioLab.Ai segue a seguinte sequência:
 
 ## Uso
 
-O BioLab.Ai pode ser usado através da interface de linha de comando (CLI).
+O BioLab.Ai pode ser usado através da interface de linha de comando (CLI) em dois modos:
 
-### Comandos Básicos
+### Modo de Comando
 
+```bash
+python biolab-cli.py [comando] [opções]
+```
+
+Exemplos:
 1. **Extrair dados de um PDF:**
    ```bash
    python biolab-cli.py extract --pdf /caminho/para/exame.pdf
@@ -105,12 +111,15 @@ O BioLab.Ai pode ser usado através da interface de linha de comando (CLI).
    python biolab-cli.py server
    ```
 
-5. **Executar fluxo completo:**
-   ```bash
-   python biolab-cli.py workflow --pdf /caminho/para/exame.pdf
-   ```
-
 Para mais detalhes sobre os comandos disponíveis, consulte a [documentação da CLI](ai_principal/cli/README.md).
+
+### Modo Interativo (Chat)
+
+```bash
+python biolab-chat.py
+```
+
+Este modo fornece uma interface amigável com menus de opções, onde você pode navegar pelas funcionalidades do sistema sem precisar lembrar dos comandos específicos.
 
 ## Estrutura do Projeto
 
@@ -128,6 +137,7 @@ Para mais detalhes sobre os comandos disponíveis, consulte a [documentação da
 │   └── planilhas/              # Planilhas de referência
 ├── .env.example                # Exemplo de configuração de ambiente
 ├── biolab-cli.py               # Script principal da CLI
+├── biolab-chat.py              # Script para modo interativo (chat)
 └── requirements.txt            # Dependências do projeto
 ```
 

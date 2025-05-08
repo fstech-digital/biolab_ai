@@ -28,7 +28,7 @@ supabase==1.2.0
 pgvector==0.2.3
 
 # Interface de usuário
-rich>=13.0.0
+rich==13.3.5
 opencv-python==4.8.1.78
 
 # Autenticação

@@ -130,17 +130,76 @@ def cmd_query(args):
     try:
         from ai_principal.mcp_server.mcp_tools import PatientExamSearchRequest, ExamDateSearchRequest, ExamTypeSearchRequest
         
+        # Tentar conexão direta com o Supabase para verificação
+        import os
+        from dotenv import load_dotenv
+        from supabase import create_client, Client
+        
+        # Carregar variáveis de ambiente
+        load_dotenv()
+        
+        # Testar se o servidor MCP está acessível primeiro
         server = MCPServer()
         
         if args.patient:
             # Buscar exames por paciente
             logger.info(f"Buscando exames para paciente: {args.patient}")
-            request = {
-                "tool_name": "buscar_exames_paciente",
-                "parameters": {
-                    "patient_name": args.patient
+            
+            # Método 1: Via MCP Server
+            try:
+                request = {
+                    "tool_name": "buscar_exames_paciente",
+                    "parameters": {
+                        "patient_name": args.patient
+                    }
                 }
-            }
+                
+                # Executar a consulta via MCP Server
+                response = server.handle_request(request)
+                
+                # Se encontrar resultados, retornar
+                if response.get("status") == "success" and response.get("data", []):
+                    data = response.get("data", [])
+                    return data
+            except Exception as mcp_error:
+                logger.warning(f"Erro ao buscar via MCP: {mcp_error}. Tentando diretamente no Supabase...")
+            
+            # Método 2: Direto no Supabase como fallback
+            try:
+                supabase_url = os.getenv("SUPABASE_URL")
+                supabase_key = os.getenv("SUPABASE_KEY")
+                vector_collection = os.getenv("VECTOR_COLLECTION", "biolab_documents")
+                
+                if not supabase_url or not supabase_key:
+                    raise ValueError("SUPABASE_URL e SUPABASE_KEY devem ser definidos no .env")
+                
+                client = create_client(supabase_url, supabase_key)
+                
+                # Usar ILIKE para buscar pelo nome parcial
+                response = (
+                    client.table(vector_collection)
+                    .select("*")
+                    .filter("metadata->>patient_name", "ilike", f"%{args.patient}%")
+                    .execute()
+                )
+                
+                # Se encontrou resultados, retornar
+                if response.data:
+                    return response.data
+                
+                # Tentar outras formas de busca
+                # Buscar em content
+                response = (
+                    client.table(vector_collection)
+                    .select("*")
+                    .filter("content", "ilike", f"%{args.patient}%")
+                    .execute()
+                )
+                
+                if response.data:
+                    return response.data
+            except Exception as supabase_error:
+                logger.error(f"Erro ao buscar diretamente no Supabase: {supabase_error}")
             
         elif args.dates:
             # Buscar exames por intervalo de data
@@ -154,6 +213,14 @@ def cmd_query(args):
                 }
             }
             
+            # Executar a consulta via MCP Server
+            response = server.handle_request(request)
+            
+            # Se encontrar resultados, retornar
+            if response.get("status") == "success":
+                data = response.get("data", [])
+                return data
+            
         elif args.exam_type:
             # Buscar exames por tipo
             logger.info(f"Buscando exames do tipo: {args.exam_type}")
@@ -164,39 +231,20 @@ def cmd_query(args):
                 }
             }
             
+            # Executar a consulta via MCP Server
+            response = server.handle_request(request)
+            
+            # Se encontrar resultados, retornar
+            if response.get("status") == "success":
+                data = response.get("data", [])
+                return data
+            
         else:
             logger.error("É necessário especificar pelo menos um critério de busca")
             return {"error": "Critério de busca não especificado"}
         
-        # Executar a consulta via MCP Server
-        response = server.handle_request(request)
-        
-        # Formatar e exibir resultados
-        if response.get("status") == "success":
-            data = response.get("data", [])
-            
-            if args.output:
-                # Salvar resultados em arquivo
-                with open(args.output, 'w', encoding='utf-8') as f:
-                    json.dump(data, f, ensure_ascii=False, indent=2)
-                logger.info(f"Resultados salvos em: {args.output}")
-            
-            # Exibir resumo dos resultados
-            print(f"\nResultados da consulta ({len(data)} itens encontrados):")
-            for i, item in enumerate(data, 1):
-                if isinstance(item, dict):
-                    patient = item.get("patient_name", "Desconhecido")
-                    date = item.get("exam_date", "Data desconhecida")
-                    exams = item.get("exams", [])
-                    print(f"{i}. Paciente: {patient} | Data: {date} | {len(exams)} exames")
-            
-            return data
-            
-        else:
-            error = response.get("error", "Erro desconhecido")
-            logger.error(f"Erro na consulta: {error}")
-            print(f"\nErro na consulta: {error}")
-            return {"error": error}
+        # Se chegou aqui, é porque não encontrou nada
+        return []
     
     except Exception as e:
         logger.error(f"Erro durante a consulta: {e}")

@@ -99,24 +99,30 @@ class SupabaseVectorStore:
         Returns:
             Lista de exames do paciente
         """
-        # Primeiro tenta busca exata
-        response = (
-            self.client.table(self.vector_collection)
-            .select("*")
-            .eq("patient_name", patient_name)
-            .execute()
-        )
-        
-        results = response.data
-        
-        # Se não encontrar resultados, tenta busca parcial (contém)
-        if not results:
+        try:
+            # Busca onde metadata->patient_name = valor (exato)
             response = (
                 self.client.table(self.vector_collection)
                 .select("*")
-                .ilike("patient_name", f"%{patient_name}%")
+                .filter("metadata->>'patient_name'", "eq", patient_name)
                 .execute()
             )
+            
             results = response.data
-        
-        return results
+            
+            # Se não encontrar resultados, tenta busca parcial (contém)
+            if not results:
+                # Busca parcial é mais complexa em JSON, usando ILIKE
+                response = (
+                    self.client.table(self.vector_collection)
+                    .select("*")
+                    .filter("metadata->>'patient_name'", "ilike", f"%{patient_name}%")
+                    .execute()
+                )
+                results = response.data
+            
+            return results
+        except Exception as e:
+            logging.error(f"Erro na busca por paciente: {e}")
+            # Retornar lista vazia em caso de erro
+            return []
