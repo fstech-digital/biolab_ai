@@ -1,0 +1,92 @@
+{
+  "metadata": {
+    "filename": "Exame_Lazaro.pdf",
+    "filesize": 178441,
+    "created": null,
+    "modified": null,
+    "title": "",
+    "author": "",
+    "producer": ""
+  },
+  "patient": {
+    "name": "LAZARO ALESSANDRO SOARES NUNES",
+    "age": null,
+    "gender": null,
+    "date_of_birth": null,
+    "document": null,
+    "exam_date": null
+  },
+  "exams": [
+    {
+      "name": "SANGUE\n \nRESULTADO",
+      "result": "0,77",
+      "unit": "ng/dL",
+      "reference": "0,54 - 1,24 ng",
+      "source": "text"
+    },
+    {
+      "name": "SANGUE\n \nRESULTADO",
+      "result": "0,1",
+      "unit": "mg/dL",
+      "reference": "Até 1,0  mg",
+      "source": "text"
+    }
+  ],
+  "raw_text": "HEMOGRAMA COMPLETO\nMétodo  : Análise realizada por Citometria de fluxo e impedância (DXH 800).\nMaterial: SANGUE\n \nEritrograma\nValores de Referência\n \nResultados\nHomens\nMulheres\nCrianças\nAcima de 70 anos\nHEMÁCIAS\n5,00\nmilhões/mm3\n4,50 a 6,10    4,00 a 5,40     4,07 a 5,37     3,90 a 5,36\nHEMOGLOBINA\n15,5\ng/dL\n13,0 a 16,5    12,0 a 15,8     10,5 a 14,0     11,5 a 15,1  \nHEMATÓCRITO\n43,7\n%\n36,0 a 54,0    33,0 a 47,8     30,0 a 44,5     33,0 a 46,0\nVCM\n87,4\nfl\n80,0 a 98,0    80,0 a 98,0     70,0 a 86,0     80,0 a 98,0\nHCM\n31,0\npg\n26,8 a 32,9    26,2 a 32,6     23,2 a 31,7     27,0 a 31,0\nCHCM\n35,5\ng/dl\n30,0 a 36,5    30,0 a 36,5     30,0 a 36,5     30,0 a 36,5\nRDW\n14,4\n%\n11,0 a 16,0    11,0 a 16,0     11,0 a 16,0     11,0 a 16,0\n \nLeucograma\nValores de Referência\n \nResultado\nAdultos\nCrianças (Menores de 8 anos)\n \n%\n/mm3\n%\n/mm3\n%\n/mm3\nLEUCÓCITOS\n5.900\n   100   3.600 a 11.000            100    4.000 a 14.000\nBASTONETES\n0\n0\n   0-5       0 a 550               0-6        0 a 450\nSEGMENTADOS\n57\n3.363\n  40-70  1.480 a 7.700            30-64   1.200 a 9.600\nEOSINÓFILOS\n1\n59\n   0-7       0 a 550               0-5        0 a 550\nBASÓFILOS\n1\n59\n   0-2       0 a 220               0-2        0 a 300\nLINFÓCITOS\n34\n2.006\n  20-50    740 a  5.500           38-70   1.520 a 10.500\nMONÓCITOS\n7\n413\n   3-14     37 a 1.500             3-14      40 a 1.700\n \n \nSérie Plaquetária\nValores de Referência\n \nResultados\nAdultos\nCrianças\nPLAQUETAS\n181\nx 10³/mm3\n130 a 450  x 10³/mm3        140 a 500  x 10³/mm3\nVMP\n8,3\nfl\n6,8 a 12,6                  6,8 a 12,6\n \nColeta:\n28/10/2024 - 09:00:00\nLiberação:\n28/10/2024 - 11:53:51\nEXAME LIBERADO ELETRONICAMENTE POR DRA. MARIANA PEREIRA SILVA CRBM 43380\n \n \nNome    :\nLAZARO ALESSANDRO SOARES NUNES\nRG      :\n5506925\nCódigo da OS :651-67141-8104\nDN      :\n04/09/1971\nCPF          :706.865.806-72\nMédico  :\nSolicitante Livre\nAtendimento  :28/10/2024\nConvênio:\nCMP-PRECO DE CONVENIO PC PGTO\nQnt de exames:4\nUnidade :\nVCP - TAQUARAL\nPágina: 1/3\nResponsável Técnico: Dr. Ricardo Franco do Amaral CRM-SP 26241\nEndereço da Unidade: Avenida Doutor Heitor Penteado 1334, Parque Taquaral - Campinas-SP\nLaboratório registrado no CRM/SP sob o número 948369\n_______________________________________________________________________________________________________\nCNES do responsável pela fase analítica: 9999329\nASSINATURA DIGITAL\n7D72602F4156404169505E6D59111D163F2623FC473D3A83272159702012340E1861523F505CBA\nTSH - TIREOESTIMULANTE\nMétodo  : Quimioluminescência\nMaterial: SANGUE\n \nRESULTADO:\n1,45\nµUI/mL\n \n \nValor de referência:\n0,38 a 5,33 µUI/mL\n***Atenção para novo valor de referência a partir do dia 26/02/2018***\n \nColeta:\n28/10/2024 - 09:00:00\nLiberação:\n28/10/2024 - 12:56:59\nLIBERADO ELETRONICAMENTE por Dr. Ricardo Franco do Amaral CRM-SP 26241\nT4 LIVRE\nMétodo  : Quimioluminescência\nMaterial: SANGUE\n \nRESULTADO:\n0,77\nng/dL\n \n \nValor de referência:\n0,54 - 1,24 ng/dL\n***Atenção para novo valor de referência a partir do dia 25/06/2020.***\nNota: Ocasionalmente, resultados falsamente elevados para T4L podem ocorrer no teste devido a\npresença de biotina na amostra de alguns pacientes.\n \nColeta:\n28/10/2024 - 09:00:00\nLiberação:\n28/10/2024 - 13:35:39\nLIBERADO ELETRONICAMENTE por Dr. Ricardo Franco do Amaral CRM-SP 26241\n \n \n \n \n05/12/23\n08:20:00\n28/10/24\n09:00:00\n0\n2\n4\n6\n1,04\n1,45\nNome    :\nLAZARO ALESSANDRO SOARES NUNES\nRG      :\n5506925\nCódigo da OS :651-67141-8104\nDN      :\n04/09/1971\nCPF          :706.865.806-72\nMédico  :\nSolicitante Livre\nAtendimento  :28/10/2024\nConvênio:\nCMP-PRECO DE CONVENIO PC PGTO\nQnt de exames:4\nUnidade :\nVCP - TAQUARAL\nPágina: 2/3\nResponsável Técnico: Dr. Ricardo Franco do Amaral CRM-SP 26241\nEndereço da Unidade: Avenida Doutor Heitor Penteado 1334, Parque Taquaral - Campinas-SP\nLaboratório registrado no CRM/SP sob o número 948369\n_______________________________________________________________________________________________________\nCNES do responsável pela fase analítica: 9999329\nASSINATURA DIGITAL\n7D72602F4156404169505E6D59111D163F2623FC473D3A83272159702012340E1861523F505CBA\nPCR - PROTEÍNA C REATIVA\nMétodo  : Imunoturbidimetria intensificada por Látex\nMaterial: SANGUE\n \nRESULTADO:\n0,1\nmg/dL\n \n \nValor de referência:\nAté 1,0  mg/dL \nAtenção para os novos valores de referência a partir do dia 25/08/2017\n \nColeta:\n28/10/2024 - 09:00:00\nLiberação:\n28/10/2024 - 12:57:29\nLIBERADO ELETRONICAMENTE por Dr. Ricardo Franco do Amaral CRM-SP 26241\n \n \nNome    :\nLAZARO ALESSANDRO SOARES NUNES\nRG      :\n5506925\nCódigo da OS :651-67141-8104\nDN      :\n04/09/1971\nCPF          :706.865.806-72\nMédico  :\nSolicitante Livre\nAtendimento  :28/10/2024\nConvênio:\nCMP-PRECO DE CONVENIO PC PGTO\nQnt de exames:4\nUnidade :\nVCP - TAQUARAL\nPágina: 3/3\nResponsável Técnico: Dr. Ricardo Franco do Amaral CRM-SP 26241\nEndereço da Unidade: Avenida Doutor Heitor Penteado 1334, Parque Taquaral - Campinas-SP\nLaboratório registrado no CRM/SP sob o número 948369\n_______________________________________________________________________________________________________\nCNES do responsável pela fase analítica: 9999329\nASSINATURA DIGITAL\n7D72602F4156404169505E6D59111D163F2623FC473D3A83272159702012340E1861523F505CBA\n",
+  "tables": [
+    [
+      [
+        "Eritrograma",
+        "Valores de Referência"
+      ]
+    ],
+    [
+      [
+        "Leucograma",
+        "Valores de Referência"
+      ]
+    ],
+    [
+      [
+        "Série Plaquetária",
+        "Valores de Referência"
+      ]
+    ],
+    [
+      [
+        "RESULTADO:",
+        "1,45",
+        "µUI/mL"
+      ]
+    ],
+    [
+      [
+        "",
+        ""
+      ],
+      [
+        "",
+        "1,"
+      ],
+      [
+        "1,",
+        "04"
+      ]
+    ],
+    [
+      [
+        "RESULTADO:",
+        "0,77",
+        "ng/dL"
+      ]
+    ],
+    [
+      [
+        "RESULTADO:",
+        "0,1",
+        "mg/dL"
+      ]
+    ]
+  ],
+  "extraction_date": "2025-05-08T00:32:34.691074"
+}
