@@ -1,0 +1,56 @@
+FStech & BioScan 
+qua., 7 de mai. de 2025
+
+Resumo:
+
+A discussão focou na implementação de uma interface web para o upload de arquivos PDF, que permitirá o processamento de dados por uma LLM. Marcelo Nissenbaum e Felipe Silva abordaram a importância de armazenar informações relevantes, como data e horário dos exames, e a necessidade de normalização dos dados para garantir a precisão e eficácia do sistema. A interação do usuário será facilitada por uma tela que apresentará informações armazenadas, evitando perguntas diretas e priorizando dados pré-definidos. A privacidade dos usuários também foi um ponto destacado, com sugestões de criptografia para proteger informações pessoais.
+
+Além disso, a equipe discutiu a construção do MVP, enfatizando que algumas funcionalidades podem ser implementadas, mas não utilizadas imediatamente. Marcelo expressou a necessidade de um entendimento mais profundo sobre o negócio após o MVP, enquanto Felipe ressaltou a importância da escalabilidade do projeto. A integração com APIs foi considerada uma solução para facilitar o processo de leitura e armazenamento de informações. A equipe concordou que a leitura de PDFs é uma prioridade para o MVP, e a colaboração contínua entre os membros foi vista como essencial para o sucesso do projeto, assim como a captura de uma base de usuários qualificada para atrair investidores.
+
+
+Capítulos e tópicos:
+
+Discussão sobre Desenvolvimento de Interface e Processamento de Dados
+Marcelo Nissenbaum e Felipe Silva abordam a criação de uma interface web para o upload de PDFs, que iniciará o processamento de dados por meio de uma LLM. Felipe detalha que a LLM fará a leitura dos exames e buscará correspondências com uma planilha de referências, facilitando a interação do usuário com o sistema.
+* Desenvolvimento da interface web para upload de PDFs.
+* Integração da LLM com o banco de dados vetorial.
+
+Discussão sobre a Integração da LLM com Exames
+Marcelo Nissenbaum destacou que a planilha do LASO deve ter um peso máximo de um para os 50 exames, garantindo que a inteligência da planilha seja a principal fonte de informação. Felipe Silva complementou que a interação do usuário com a aplicação será através de uma tela específica, onde as informações dos exames serão apresentadas de forma organizada, sem perguntas diretas à IA.
+
+Discussão sobre Armazenamento de Dados do Usuário
+Felipe Silva levanta questões sobre como as informações pessoais dos usuários serão tratadas e expostas. Marcelo Nissenbaum sugere que, durante o beta-teste, os usuários estarão mais preocupados em ver os resultados do exame. AP menciona a possibilidade de criptografar os dados e discute como as informações podem ser coletadas e armazenadas no aplicativo.
+
+Armazenamento e Consulta de Dados de Exames
+AP explicou que, após armazenar os dados do PDF, será possível criar uma tela de consulta para o usuário, onde ele poderá ver resumos dos exames, como o resultado do ferro. Marcelo Nissenbaum e Felipe Silva discutiram a necessidade de atualizar as informações e a possibilidade de um refresh na aplicação, mas AP destacou que os dados já estariam no banco após o upload.
+* Discussão sobre a precisão e validação dos dados armazenados.
+
+ Desenvolvimento do MVP e Planejamento do App
+ AP e Felipe falam sobre a integração do MVP e a possibilidade de desenvolver um aplicativo no futuro. Marcelo ressalta a importância de uma aplicação robusta e a necessidade de um mockup para o app. Felipe destaca que o MVP servirá como base para o desenvolvimento em maior escala.
+* Criação de um mockup para o aplicativo.
+
+Discussão sobre a Leitura de PDF e Criação de Relatórios
+Marcelo Nissenbaum levantou questões sobre a eficácia da LLM na leitura de PDFs e na criação de relatórios, enfatizando a necessidade de precisão nos dados analíticos. Felipe Silva concordou que, embora haja desafios de acurácia, a evolução tecnológica pode ajudar a mitigar esses problemas. AP sugeriu que a integração com APIs poderia ser uma solução viável.
+
+ Discussão sobre MVP e Parcerias Tecnológicas
+ AP enfatizou que a informação deve estar armazenada e que a integração via API é fundamental para o MVP. Marcelo Nissenbaum expressou seu interesse em se envolver mais no projeto e discutiu a possibilidade de buscar um sócio tecnológico. Filipe Silva concordou que uma parceria poderia ser benéfica na fase de desenvolvimento e destacou a importância de ter uma base de usuários para atrair investidores.
+
+
+Tarefas:
+
+* Felipe Silva irá desenvolver a interface web para upload de PDFs, replicando o funcionamento do CLI com uma interface gráfica amigável.
+* Felipe Silva irá garantir que a LLM faça a leitura do PDF e armazene os dados no banco de dados vetorial em paralelo com o MCP.
+* Felipe Silva irá criar uma tela para o usuário interagir com os dados armazenados, permitindo que o usuário veja os resultados dos exames.
+* Felipe Silva irá elaborar um mockup do aplicativo para a próxima fase do projeto, considerando a usabilidade e a arquitetura.
+
+
+Perguntas-chave:
+
+* Quais serão os principais campos armazenados no banco de dados?
+* Como será a interação do usuário com a aplicação após o upload do PDF?
+* Quais são os detalhes que precisamos considerar para o desenvolvimento do aplicativo?
+
+
+Bloco de Notas:
+
+* Sem anotações

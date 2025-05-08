@@ -1,0 +1,74 @@
+FSTech & Bio_Scan 
+ter., 6 de mai. de 2025
+
+Resumo:
+
+A reunião abordou o desenvolvimento de um sistema para extração e análise de dados de exames médicos em formato PDF, destacando a aplicação de inteligência artificial para melhorar a interpretação dos resultados. Felipe apresentou o funcionamento do sistema, que não apenas extrai dados, mas também fornece análises detalhadas, como a interpretação dos níveis de colesterol. A interação do usuário com o sistema foi enfatizada, permitindo perguntas específicas e respostas contextualizadas, o que demonstra a eficácia da ferramenta na área médica.
+
+Durante a discussão, Marcelo questionou a utilização de dados da planilha de Lázaro, mas Felipe esclareceu que, para o MVP, os dados estão sendo extraídos exclusivamente de PDFs. A equipe também considerou a necessidade de integrar a planilha no futuro, além de abordar desafios relacionados ao mapeamento de informações e à diversidade de nomenclaturas nos exames. Felipe está desenvolvendo um sistema que utiliza sinônimos para garantir a precisão na busca de informações, enquanto Marcelo destacou a importância de um banco de dados vetorial para gerenciar essa diversidade.
+
+AP apresentou uma planilha com resultados de exames de urina, ressaltando que a quantidade de informações pode variar conforme o tipo de exame. Felipe sugeriu que a experiência do usuário deve ser uma prioridade, propondo a implementação de um assistente virtual para facilitar a interação dos pacientes com os resultados. A equipe discutiu a centralidade da planilha de Lázaro na análise de exames, com a intenção de focar inicialmente em 50 exames, mas com a possibilidade de expandir para outros no futuro.
+
+A conversa também abordou a segurança dos dados, com Marcelo e Felipe discutindo a necessidade de vincular o upload de exames ao nome e CPF do usuário. Embora o MVP inicial não tenha restrições, uma versão futura deve incluir essa funcionalidade. Além disso, a equipe discutiu a utilização de dados sintéticos para alimentar modelos de IA, evitando a coleta de dados reais, e a importância de uma base de dados precisa para garantir a confiabilidade das análises. A reunião concluiu com a necessidade de um estudo mais aprofundado sobre a tecnologia a ser utilizada, incluindo o uso do LLM da OpenAI.
+
+
+Capítulos e tópicos:
+
+Demonstração do Sistema de Processamento de Exames
+Felipe explicou o funcionamento de um sistema que utiliza produtos da Microsoft para processar PDFs de exames médicos. Ele mostrou como o sistema armazena informações em um banco de dados vetorial e como é possível fazer perguntas sobre os exames, recebendo respostas detalhadas.
+
+Discussão sobre a Extração de Informações e MVP
+A conversa entre Felipe e Marcelo gira em torno da extração de informações de documentos, com Felipe enfatizando que a IA não apenas recupera dados, mas também os elabora. Marcelo busca entender se a informação está sendo extraída da planilha de Lázaro, mas Felipe confirma que estão focando apenas no PDF para o MVP inicial.
+
+ Discussão sobre Nomenclaturas de Exames de Colesterol
+ AP questiona Felipe sobre como lidar com as variações de nomenclaturas nos exames de colesterol. Felipe explica que está criando uma lista de sinônimos para facilitar a busca semântica nos dados. Marcelo acrescenta que os principais laboratórios dominam o mercado, o que pode ajudar na padronização das nomenclaturas.
+
+Análise de Resultados de Exames de Urina
+AP compartilhou uma planilha que mapeia os resultados de exames de urina, enfatizando que existem várias aberturas de dados para cada tipo de exame. Felipe destacou que os pacientes devem ter acesso fácil a essas informações por meio de uma plataforma, permitindo que façam perguntas sobre seus resultados de forma natural.
+
+Discussão sobre a Planilha do Lázaro e Análise de Exames
+A conversa gira em torno da planilha do Lázaro, que contém informações específicas sobre exames e seus valores de referência. Marcelo destaca que, inicialmente, a plataforma se concentrará na análise de 50 exames, com a possibilidade de expandir para outros exames e patologias no futuro. Felipe complementa mostrando como a planilha será integrada ao banco de dados.
+
+Desenvolvimento do Aplicativo de Prescrição e Análise de Exames
+AP apresenta um projeto de aplicativo que armazena exames em PDF e realiza a leitura dos dados, permitindo que os usuários acessem informações relevantes. Felipe sugere que a equipe defina claramente os públicos-alvo para as funcionalidades do sistema, como prescrição e recomendação de exames, visando uma entrega mais rápida e eficaz.
+* Desenvolvimento do MVP e cronograma de entrega.
+
+Discussão sobre Dados e PDFs para Modelos de Inteligência Artificial
+Marcelo Nissenbaum destacou a importância de ter mais PDFs para o projeto, e Felipe Silva sugeriu a criação de dados sintéticos para evitar a dependência de documentos reais. AP mencionou que existem sites com detalhes sobre exames, mas a equipe não possui os exames em si. A discussão também incluiu a quantidade de PDFs já disponíveis.
+* Geração de dados sintéticos para testes.
+* Uso de inteligência artificial e suas limitações na análise de dados.
+
+Discussão sobre Análise de Exames em PDF
+Felipe expressou interesse em entender quantos PDFs seriam necessários para os testes, enquanto AP sugeriu que o primeiro passo seria importar dados de uma planilha. A discussão se concentrou em como a IA deve processar e comparar informações dos exames em PDF com os dados do Lázaro.
+
+Discussão sobre o MVP e segurança de dados
+Marcelo menciona que, embora o MVP inicial não exija travas, uma versão mais robusta deve incluir segurança baseada em nome e CPF. Felipe concorda com a necessidade de um sistema que impeça o upload de exames de terceiros. AP se despede, deixando Marcelo e Felipe para continuarem a discussão.
+
+Análise de Exames e Extração de Dados
+A conversa gira em torno da extração de dados de exames médicos, com Marcelo Nissenbaum e Felipe Silva analisando os resultados e discutindo a precisão das informações. Felipe menciona que a IA confundiu alguns valores, como o HCM e o CHCM, e a importância de ajustar a base de dados para evitar erros. Eles concordam que a extração correta é crucial para a análise.
+* Integração da planilha do Lázaro com a IA para análise de exames.
+
+Discussão sobre o uso de LLM no MVP
+Marcelo Nissenbaum pergunta sobre a utilização do LLM no MVP e se pode usar sua conta da OpenAI. Felipe Silva confirma que o MVP usará o LLM, mas destaca que o custo é separado do acesso ao chat GPT. Ambos discutem a possibilidade de alucinações e a necessidade de expertise para treinar um modelo próprio.
+
+
+Tarefas:
+
+* Marcelo Nissenbaum e Felipe Silva irão definir um cronograma para a finalização do MVP, com a expectativa de que seja concluído em 20 a 30 dias.
+* Marcelo Nissenbaum pedirá ao Lázaro que os alunos façam exames que estão na planilha para obter mais PDFs.
+* Felipe Silva irá verificar a possibilidade de gerar dados sintéticos para alimentar o modelo de IA.
+* Felipe Silva irá compartilhar o código desenvolvido com Marcelo Nissenbaum para que possam trabalhar juntos na construção do projeto.
+* Felipe Silva irá ajustar o código para garantir que a IA faça a correspondência correta entre os dados extraídos dos PDFs e a planilha do Lázaro.
+
+
+Perguntas-chave:
+
+* Qual era o nosso problema lá quando a gente estava fazendo o mapeamento anterior?
+* Como a IA lidará com diferentes nomenclaturas de exames nos PDFs?
+* Você acha que consegue finalizar isso até quando, mais ou menos, Felipe?
+* Qual é o número ideal de PDFs necessários para realizar os testes?
+
+
+Bloco de Notas:
+
+* Sem anotações

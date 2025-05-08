@@ -1,0 +1,556 @@
+FSTech & Bio_Scan 
+ter., 6 de mai. de 2025
+
+0:00 - felipe silva você faz, você aciona ela. Mano, depois você tem tudo registrado bonitinho, você usa isso para fazer orçamento, usa isso para poder fazer estudo de viabilidade, documento técnico, para fazer tudo.
+
+0:14 - Marcelo Nissenbaum Facilitador, assim, incrível. Fala, Marcelo, queridão. Fala, Mostro.
+
+0:18 - AP Fala aí, ó. Tranquilo? Tranquilo. Vamos lá?
+
+0:22 - Palestrante Não Identificado Vamos, Neto.
+
+0:23 - Palestrante Não Identificado Vamos.
+
+0:23 - felipe silva Então, eu não sei... Eu não sei o que você já está sabendo, Altemir. O que eles já te informaram em relação ao nosso estudo, ao projeto que a gente quer iniciar? Não sei se, de repente, o Marcelo quer passar alguma orientação, alguma diretriz, enfim.
+
+0:42 - Marcelo Nissenbaum A maior preocupação do Miro era fazer a limpeza lá, fazer a normalização lá dos exames. Esse era um dos maiores problemas que a gente tinha, correto, Miro?
+
+0:52 - AP Isso. Só para contextualizfelipelipe, como é que a gente estava fazendo isso? A gente estava usando uns produtos da Microsoft, da Azure. Certo. Aquele documento intelligence lá da Microsoft, que ele basicamente é um serviço de inteligência que você, no caso aqui para a leitura de PDF, você faz um taggeamento do PDF e depois você roda por trás o modelo. Certo. Então, qual é uma das grandes dificuldades que a gente estava encontrando? É que, como ele gerava um modelo estatístico por trás, se eu não tivesse muitos PDFs, as corais dele acabavam sendo baixas. Correto. E aí, como você começou esse trabalho com o Marcelo, aí o Marcelo falou, cara, a gente está conseguindo ler tudo e, basicamente, é perfeito.
+
+1:48 - felipe silva É, a nível de conhecimento, Eu até trouxe para você aqui dar uma olhadinha. Para você ver que eu não estou mentindo, Marcelo. Toda vez que eu vou me reunir com vocês, acontece alguma coisa. Está vendo aqui em cima? Está pedindo para eu dar um restart aqui na minha IDE, porque ele quer fazer uma atualização. Eu falei assim, não vou fazer não. Não vou fazer porque eu vou entrar na reunião com os caras, sei lá quanto tempo vai demorar para essa atualização acontecer na IDE. Eu não vou conseguir mostrar o que eu quero para o pessoal. Então, eu já deixei tudo no esqueminha aqui para poder mostrar para você, Emílio. Perfeito. Então, Miró, basicamente, esse aqui é o CLI da aplicação. Basicamente, ela conecta com o servidor MCP, que está conectado com um banco de dados vetorial, no caso, a SupaBase, que é onde a gente armazena as informações dos PDFs, dos exames. Certo. Você chama o CLI aqui, .py, traz esse pequeno menu, onde ele te dá aqui algumas opções. Processar PDF, carregar o PDF, não sei por que não está aparecendo a primeira opção aqui, mas ok. Perguntar sobre o exame, ver detalhes de exame e sair. Aqui ó, eu escolho a opção 1, que é carregar o documento, tá? Dou o caminho aqui do PDF, que está local, para ele poder carregar isso. No caso, o modelo PDF Ramos Medicina, que o nosso amigo enviou Cedo lá no grupo, né, e eu usei. Arquiviado com sucesso. Modelo pdf ramosmedicina.pdf. Deseja processar o arquivo agora? Sim. Beleza. Iniciando o processamento do arquivo. Modelo pdf ramosmedicina.pdf. Enviando solicitação para o host. Arquivo processado com sucesso. Exames encontrados, 14. Aí, vamos lá. Aqui, ó. Esse cara aqui, ó. Ele está pegando e separando Isso aqui é uma regra que eu já coloquei no próprio código, como que o programa pega as informações, separa em blocos para poder mandar para o banco de dados vetorial. Então, ele pega por exame. Então, você tem aqui esse primeiro exame, depois você tem essa performance urea sérica, desculpa se eu estiver falando algum termo errado. Aí você tem a proteína total, albumina, hemoglobina, T4 livre, todos esses exames relacionados a qual PDF, aquele primeiro lá que a gente fez o upload. Perfeito. Então ele vai dando pra gente aqui essas informações, ó, tô subindo isso pro banco vetorial, tô subindo tudo isso daqui, blá, blá, blá. Beleza, subiu tudo, aí a gente vai pra próxima opção. Perguntar sobre exames pro chat, que é a opção 3. Escolho uma opção 3, faço uma pergunta sobre exame. A pergunta é, gostaria de informações sobre o colesterol do Rodrigo Michel Xavier. Enviar pergunta, status da resposta é 200, ele traz aqui o estado direitinho, e aí, olha, aqui estão as informações sobre o colesterol do paciente Rodrigo Michel Xavier com base nos dados fornecidos. Então, colesterol total 236mgDL, HDL, colesterol bom, 55mg. Aí, cara, vem o bacana aqui da nossa aplicação. Ele tem um prompt já embarcado no sistema, para ele não apenas fazer a mas ele já tá agindo, de certa forma, como um profissional da área, né? Ele tem uma persona, que foi feita ali, justamente pra ele poder pegar essas informações e fazer uma leitura. Então, aqui no caso, ó, ele traz a questão do colesterol do paciente Rodrigo, dizendo que tá alto, ó, tá dizendo que 240mg por DL é o valor, aqui no caso, né, 236. Tá na faixa limitrofe, isso significa que o colesterol total tá acima do ideal, mas ainda não é considerado alto. É um sinal de alerta para possível risco cardiovascular, especialmente se houver outros fatores de risco associado. Se a gente pegar essa informação e dar uma olhada lá no PDF do Rodrigo, que é o que eu quero mostrar aqui para vocês, esse match. Deixa eu ver se eu vou abrir o certo aqui.
+
+5:57 - Palestrante Não Identificado Esse aqui.
+
+5:58 - felipe silva Ele traz exatamente aquela informação lá do colesterol total de 236. O que mostra que a IA, de fato, está conseguindo pegar a informação precisa dentro do documento, mas não só pegando a informação, mas elaborando alguma coisa em cima dela, que é o que eu acho que é o grande diferencial, talvez, da ferramenta, não apenas fazer o retrieval do...
+
+6:21 - Marcelo Nissenbaum Felipe, isso fazendo, na verdade, a extração da informação que está na planilha do Lázaro, correto? Não, aqui a gente está usando exclusivamente...
+
+6:29 - felipe silva Aqui não, né? Aqui não. Aqui a gente está usando exclusivamente só a informação do PDF.
+
+6:35 - Marcelo Nissenbaum Ah, tá.
+
+6:36 - Marcelo Nissenbaum Só do PDF e a ILM sem se basear com...
+
+6:40 - felipe silva Sem se basear no estudo lá. Isso pode ser implementado, tanto que a ideia inicial era a gente colocar isso para rodar, mas acho que para efeito de demonstração de um MVP simples, eu acho que para a gente ter a perfeita noção de que a coisa realmente funciona, eu vou misturar direitinho, eu acho que já tá válido, tá?
+
+7:02 - Marcelo Nissenbaum Mas olha só, Felipe, isso tem que estar linkado de qualquer jeito com a planilha do... Não!
+
+7:06 - AP Não, mas tem que ser, é... É o mesmo no MVP, tá?
+
+7:10 - felipe silva Não, não é, no MVP é que a gente vai fazer, que a gente vai fazer, vamos dizer assim, o segundo MVP, o MVP mais robusto.
+
+7:17 - Marcelo Nissenbaum Ah, tudo bem, isso aqui você tá dando só uma geral, que tá fazendo a leitura e tudo mais.
+
+7:22 - felipe silva É, que tá fazendo a leitura, tá funcionando, se ele ler o PDF, Marcelo, ele vai ler, a planilha também. Isso daí, cara...
+
+7:29 - Marcelo Nissenbaum Até porque a instrução vai estar muito bem dada em relação à base de conhecimento que a planilha é do Lázaro.
+
+7:36 - felipe silva Exatamente. Exatamente. Então, não é o que a gente tem que, vamos dizer assim, se preocupar pra caramba. Putz, a planilha não está aqui. Ela vai funcionar, isso daí eu não tenho dúvida.
+
+7:47 - AP Agora, deixa eu te fazer uma pergunta, Felipe. Qual era o nosso problema lá quando a gente estava fazendo o mapeamento anterior, tá? Esse exemplo que você deu, o colesterol, deixa eu até ver aqui, Amília.
+
+8:01 - Palestrante Não Identificado Colesterol...
+
+8:01 - AP Pronto, vamos pegar esse colesterol. Você falou o HDL aí, não foi? Mostra a tela aí, por favor. É, tá aqui, ó.
+
+8:10 - felipe silva Tem o colesterol total, faixa de referência adulto, desejável menos de 200, limitrofe entre 200 e 239, alto 240 e o Rodrigo tem 236, como a gente viu lá no PDF. Aí o que ele fala é o seguinte, que ele tá nessa faixa aqui de limitrofe, ó. Que que é isso? Eu não faço ideia, mas isso significa...
+
+8:32 - Marcelo Nissenbaum É a limitrofe, é a faixa, é o range que ele tem que estar.
+
+8:36 - felipe silva É, aqui ó. Aí, sem a planilha do nosso amigo, diz o seguinte, que o colesterol total tá acima do ideal, mas ainda não é considerado alto. É um sinal de alerta pra possível risco cardiovascular, especialmente se houver outros fatores de risco associado. Aí ele traz aqui também esse HDL, que é o colesterol bom, o desejável é acima de 40 e o valor do Rodrigo é 55, o que é considerado bom, está acima do mínimo recomendado e tal.
+
+9:01 - AP Minha pergunta é o seguinte, quando a gente pega, como é que você consegue fazer esse mesh aí quando você colocou lá o pedido para trazer colesterol? E por que eu estou perguntando isso? Porque na verdade em cada PDF esse nome ele pode mudar e a gente tem muitas variações, entende? Pra gente vai na dificuldade muito grande, porque, por exemplo, se você colocar colesterol, ou sei lá, LDL, aí num PDF veio LDL. E num outro PDF, ele chama aquele LDL de colesterol, LDL e alguma outra coisa. Legal. Que, na verdade, é o mesmo. Então, eu tinha feito um depara, exatamente porque, cara, tem uma quantidade absurda de... Quer ver? São mais de quase mil registros, a gente são poucos exames, são 137 exames, mas ele se quebra em 947 registros, até onde a gente tinha feito, né? Então era uma diferença, era isso que acabava... Tá dando uma olhada aí na minha tela?
+
+10:04 - felipe silva Tô vendo. Tá vendo que eu coloquei aqui uma lista de padrões comuns de exame, formato padrão, registro, código interno, unidade, aí tem aqui para a gente tem hemoglobina, hemoglobina, GDL, ou seja, eu tenho listado aqui, ó, VCM, perfil lipídico, função renal, enfim, aqui nesse extractor, basicamente, eu estou lançando as diferentes nomenclaturas para uma mesma, vamos dizer assim, para uma... Diferentes nomenclaturas para uma mesma coisa, entendeu? Que vai fazer parte do banco vetorial e que da maneira como for citado no chat, ele vai fazer essa busca semântica. Se ele encontrar dentro do banco de dados vetorial, para aquele documento do exame, a nomenclatura especificada pelo usuário, ele já vai trazer direto. Se ele não achar, ele vai fazer uma correspondência, baseado nessa lista, aqui.
+
+11:09 - Palestrante Não Identificado Entendeu?
+
+11:09 - Palestrante Não Identificado Entendi.
+
+11:10 - Palestrante Não Identificado Você faz um...
+
+11:13 - AP Levanta um pouquinho aí teu código, por favor, rapidinho. Lá naquela lista que você montou um...
+
+11:27 - Palestrante Não Identificado Isso aí.
+
+11:28 - Palestrante Não Identificado Tá, o colesterol total.
+
+11:32 - AP Aí, no caso, quando você pegando ali o colesterol total, em amarelo aí, esse nome, você tá pegando algo, esse aí é o campo que você tá criando ou é o campo que ele tá pesquisando? É o campo que ele tá pesquisando. Tá pesquisando, aí você colocou colesterol underline total, é isso? Isso. E se ele vier, por exemplo, total não vier, vier outra coisa?
+
+11:58 - felipe silva Então, ele vai fazer um comparativo. Eu tenho uma outra lista, vamos dizer assim, com sinônimo. Eu pedi para ele fazer uma busca, na internet mesmo aqui, usando a minha própria ideia, para ele buscar diferentes maneiras que os laboratórios utilizam. Primeiro de tudo, ontem na conversa com o Marcelo, ele falou que tem, vamos dizer assim, os grandes laboratórios que dominam, vamos dizer assim, a maior parte do mercado, e que não são muitos, são uma centena, talvez, algo dessa natureza.
+
+12:36 - Marcelo Nissenbaum Não estou te ouvindo, Marcelo. Grandes laboratórios devem ser uns 10 no Brasil e devem ocupar 70, 80% da população.
+
+12:51 - felipe silva Então, a ideia foi fazer uma busca, fiz uma busca inicialmente, por essas nomenclaturas, da maneira como elas são usadas nos principais laboratórios.
+
+13:05 - Palestrante Não Identificado Entendeu?
+
+13:05 - felipe silva Para que quando a interação com o agente acontecer, mesmo, por exemplo, mesmo que a pessoa que estivesse aqui interagindo usasse uma terminologia, ele ia fazer uma busca dessa terminologia com os seus sinônimos. E buscar a informação que ele encontrasse, trouxesse, na verdade, o resultado que ele encontra dentro do banco de dados vetorial. Então, por exemplo, eu poderia, ao invés de usar aqui o TSH, usar Tireoestimulante. É que aqui eu coloquei os dois, entendeu? Mas eu poderia usar só um. Se não está Tireoestimulante, estimulante no PDF tá só o TSH, o programa ele já sabe que isso daqui é igual a isso daqui.
+
+14:02 - Palestrante Não Identificado Entendi.
+
+14:02 - Palestrante Não Identificado Deixa eu...
+
+14:03 - AP Essa é a vantagem de a gente trabalhar com um banco de dados vetorial, entende?
+
+14:11 - felipe silva Porque você tem a condição de colocar um volume grande de dados, de informação que é Sim, dentro daquela mesma relação.
+
+14:23 - Palestrante Não Identificado Exatamente.
+
+14:24 - AP Deixa eu te mostrar uma coisa aqui.
+
+14:29 - AP Vou compartilhar a minha tela rapidinho.
+
+14:33 - Palestrante Não Identificado Tá bom.
+
+14:35 - Palestrante Não Identificado Cadê?
+
+14:35 - Palestrante Não Identificado Eu fiquei super empolgado, cara.
+
+14:39 - felipe silva Quando começou a dar os resultados aqui e mostrar...
+
+14:45 - AP Cara, sensacional.
+
+14:47 - AP Sensacional. Estão vendo minha tela aí? Estou.
+
+14:50 - Palestrante Não Identificado Vamos lá.
+
+14:51 - AP O que eu estava te falando é isso aqui. Por exemplo, a gente tinha aqui, isso aqui foi um planilha que depois acho que é interessante mandar para você ter uma noção. A gente acabou mapeando tudo, mas vamos pensar aqui, por exemplo, na urina. Por exemplo, na urina a gente tinha o exame, tipo urina, sendo que a gente tinha várias outras aberturas, né? Então, a gente tinha urina, pH, urina, não sei o que, urina, não sei o que e tal, sendo que aí eu coloquei tipo, o tipo de exame acaba, continua sendo urina, sendo que aí é que a gente vai quebrando, né, por dentro desse, essa especificação, né? Então, a gente tem vários, a gente tem o valor de referência e o valor que veio do teste, né? Então, acho que isso é interessante, porque, por exemplo, a gente, quando for falar de urina, a gente não tá só falando de um exame. Nesse caso aqui a urina, por exemplo, ele tem aqui 44 aberturas, entendeu? Sim. Então tem PDF que ele vai ter, sei lá, dependendo do tipo de exame que o médico pediu. Às vezes o cara pode trazer, sei lá, 4 exames e vai ter outro que vai ter 12, outro que vai ter 20, ou então pode pegar um completo que tenha tudo.
+
+16:10 - felipe silva Por exemplo, aqui, quer ver? Vamos mostrar o que eu achei aqui.
+
+16:15 - Marcelo Nissenbaum Olha galera, sabe o que eu tô achando aqui?
+
+16:19 - felipe silva Eu acho que com... Aqui por exemplo a gente tem essa urina 1 aqui ó. Tem toda essa informação aqui ó. Sei lá. Aí tem aqui o técnico, assinatura digital e tal. Essa informação aqui, por exemplo, o usuário. Vamos pensar com a cabeça do usuário. Quer saber o resultado da urina, dentro do exame dele. No caso, sei lá, o próprio paciente, vamos supor que ele tem acesso à plataforma, vai ter acesso à aplicação que a gente quer desenvolver e tal, entendeu? Ele vai poder, de maneira natural, por meio de conversa natural, com o assistente, perguntar qual são os resultados do meu exame de urina. Ele vai buscar informação aqui, Ele vai buscar a informação aqui. É o que está no PDF dele. É o que está no PDF do próprio usuário. Entendeu? A minha dúvida que eu quero tirar com vocês é o seguinte. O que ele precisa é de uma interpretação, talvez um pouco mais acessível a ele em relação a esse resultado, não é isso?
+
+17:29 - Marcelo Nissenbaum Sim, por isso que existe a planilha do Lazaro. Porque ele fica muito em aberto Quando ele tem a resposta assim, olha, possivelmente você tem isso, isso e isso.
+
+17:41 - felipe silva A do lado vai estar bem específica, entendeu? Tá, mas é que tá. Pro nível do usuário, essa especificidade, até onde ela é extremamente necessária, porque o próprio usuário não vai ter uma linguagem, a mesma linguagem...
+
+17:55 - Marcelo Nissenbaum Não, não, mas isso tudo já tá machigado na planilha do Lázaro, tá?
+
+18:00 - felipe silva Cadê, Lázaro?
+
+18:01 - felipe silva Mostra aí.
+
+18:02 - Marcelo Nissenbaum Não, o Lázaro não está aqui, o Lázaro vai estar às 18h.
+
+18:06 - AP Mas o Miro não tem, por exemplo, essa planilha? Não, eu tenho, essa é a própria planilha que eu estava te mostrando, mas pensa o seguinte, são várias coisas, por exemplo, na planilha do Lázaro, deixa eu compartilhar novamente, aí eu te mostro.
+
+18:20 - Marcelo Nissenbaum Acho que ele está falando da planilha do Lázaro, é a planilha de exames com as correspondências de todos os valores de referência e exames, e o que significa cada...
+
+18:30 - felipe silva É, acho que é esse cara aí mesmo.
+
+18:33 - AP Então vamos lá, imagina o seguinte, eu tenho um tipo de exame aqui, beleza? Tenho uma lista aqui gigante e aí na planilha do Lázaro, o Lázaro mandou o que é uma coisa específica da especialidade dele, beleza? E ali ele tem um detalhamento, por exemplo, às vezes você pega um cara como o Marcelo que é um atleta, que faz coisa tal, às vezes o resultado vai ser baseado para aquele tipo de coisa, entende? Então na planilha do Lázaro ele tem várias, tem vários exames aqui, por exemplo, Astragiol, beleza, tá lá, a gente tem. Quando o cara selecionar, é como se a gente pegasse, por exemplo, o cara fez um exame de sangue, pegou um PDF, o cara fez, exemplo, 200 exames, mas no fim a gente só vai querer comparar 40, que são os 40 que tem na planilha do Lázaro. Então, na verdade, a gente vai ler, a gente pode mostrar para ele...
+
+19:23 - Marcelo Nissenbaum Isso é uma verdade, porque aos poucos a gente vai implementando e abrindo o leque de exames, porque o foco, na verdade, dessa planilha do Lázaro está muito mais ligada para esporte, atividade física e atletas. Quando a gente abrir esse leque de exames, a gente vai para pacientes comuns, aí a gente vai estar podendo olhar também patologias, por exemplo, como uma doença, vamos dizer, ácido úrico elevado com outras coisas elevadas, pode significar, exemplo, uma má função renal, excesso de alimentação com proteínas ou alguma falta de alguma enzima, alguma deficiência, entendeu? Isso a gente vai aos poucos implementando, entendeu? Então uma leitura basicamente vão ser de 50 exames que a gente tem lá na planilha do Lázaro.
+
+20:14 - AP Que são essas aqui. Então na planilha do Laro são 50, exatamente isso.
+
+20:24 - Palestrante Não Identificado Tem essa lista.
+
+20:25 - AP Então, em teoria, por exemplo, o cara tem lá, imagina ácido úrico. Aí se eu pego aqui, por exemplo, ácido úrico. Vamos olhar aqui, ácido úrico. Pronto. A gente tem vários ácidos úricos aqui, tá vendo? Eu tenho o valor de referência para quando é masculino, feminino, tal, tal, beleza, eu tenho tudo. Mas o que importa para mim é esse daqui. Então, por mais que o cara tem lá, pediu no exame dele no PDF, pode aparecer lá um exemplo. Vinte lá tipos de exames do ácido úrico. Na hora que a gente for comparar com a planilha do Lázaro, que isso aqui, a gente pensa que a planilha do Lázaro, na verdade, a gente vai armazenar dentro do banco. Eu vou ter lá qual o tipo de exame, a gente vai ter que bater nessa coluna, cria uma tabela para isso, tipo de exame e tal, porque na verdade, na planilha do Lázaro, ele vê um detalhamento, por exemplo, no Ácido Úrico, ele tem toda uma coluna que ele detalha esse exame, que é isso que interessa para o atleta, entendeu? Aí ele vê lá todo o direcionamento que é baseado nos estudos dele, em todo esse trabalho acadêmico que ele faz. Então, esse detalhamento do Lázaro é o que interessa para a gente. Então, por exemplo, Ácido Úrico, imagina que o projeto leu lá no PDF 200 exames. No fim, entre aspas, nesse início, a gente vai querer retornar os 50 do Lázaro, Acabou. Aí vai comparar. O ácido úrico que a gente leu no PDF está 40, o valor de referência é tanto a tanto, e aí depois vem toda a explicação, obviamente pensando num app. Fala aí, Marcelo.
+
+21:58 - Marcelo Nissenbaum Isso que você falou é uma verdade, pode vir até 200, mas a gente vai entender sempre o fluxo de entrada que vai acontecer, que é o seguinte. A nossa especialidade nesse início, vamos dizer, nessa aplicação web, vai ser sempre analisar 50 exames. A gente pode até dar informação sobre os outros 150, mas na verdade o que é a expertise nossa é em cima desses 50, entendeu? Então, por isso que um dos motivos que quando eu falei rapidamente ontem, que por exemplo, a pessoa em vez de ir no médico, pedir um nutricionista, endotonologista, um cardiologista, sei lá, o clínico geral, fazer uma bateria de exame e manda lá dentro da nossa plataforma, a gente lê tudo, a gente vai estar fazendo mais ou menos o que o Sérgio só que a gente vai entregar mais ou menos algumas informações a mais, que são aqueles valores de referência, porque fugiu, porque tá acima ou porque tá muito abaixo. Aí a gente vai falar sobre os extremos. O que a gente quer, na verdade, é focar na inteligência do Lázaro, que a gente chama, né? Que seria, vamos dizer, o cérebro do negócio. E aos poucos, a gente expandindo esses exames. Então, a maioria das vezes, o cara tá lá, cadastrado nessa plataforma, pediu o exame pra gente, a gente vai fazer seria sempre desses 50 e o cara depois retorna fazendo upload desse exame, isso que seria o ideal. Mas esse é o fluxo perfeito, aí o fluxo que não é perfeito, ele vai trazer um exame dele, mas quando a gente fizer a leitura, a gente vai dizer, olha, aqui você está, beleza, vamos te entregar, mas só que a gente só está fazendo a leitura de 27 exames que a gente tem correspondência para a nossa inteligência dentro da plataforma, isso a gente tem que conseguir fazer esse matchzinho para ficar bonitinho, entendeu?
+
+23:38 - AP EntfelipeDeixa eu mostrar uma coisa aqui agora, complementar isso que o Marcelo falou, o Filipe, é o seguinte, estão vendo minha tela aí? Sim. Beleza, a planilha do Lázaro é essa aqui, tá? Então a gente tem o exame, o tipo de exame, está vendo que aqui é voltado para o parâmetro no exposto, está vendo? Ele já tem uma especificação, uma explicação, tem referência, se tiver referência, e depois vem um comentário do Laudo, e enfim, ele tem vários comentários aqui, se for do sexo masculino é uma coisa, se for feminino é outra, tem umas coisas de valor de referência mínimo e máximo, a população e tal. Então assim, basicamente é, a gente vai pegar essa planilha do Lázaro e vai armazenar dentro do banco de dados, beleza? Certo, sim. E aí vai ter, vamos criar um depara, bota o nome do que vai aparecer para o usuário e cria um valor de referência. Uma referência, um código interno, que depois a gente vai mapeando e tudo certo. E aí a gente vai ter todas essas colunas que estão aqui na planilha do Lázaro. Beleza? Beleza. Então, se o cara for um cara masculino, eu vou mostrar o que tiver aqui para o cara masculino. Então, para cada tipo de exame, eu tenho um detalhamento. Se for feminino, é uma coisa. Se for masculino, é outra e assim por diante. Você vê que para cada tipo de exame, a gente tem essa diferenciação. Está vendo aqui? Então, isso é o que a gente chama da planilha do Lázaro. A base Lázaro, o planilho Lázaro, a inteligência do Lázaro. Lázaro é a pessoa que você fez a reunião, vai fazer a reunião mais tarde, que ele é o médico especialista e tal. E aí, um dos projetos que já existe, que a gente até no tempo já pesquisou, que ele até mandou uma lista hoje, que eu agora não lembro de cabeça, o que é legal lá também da parada? Porque lá é um pouco diferente, assim, ele abrange tudo. Então, acaba sendo que o aplicativo... Imagina que você está toda hora fazendo um monte de exame e tal, o usuário sempre vai estar como se fosse importando para dentro. Isso eu pensando lá na frente, não é o MVP agora. Mas pensa que a gente sempre vai estar... Imagina que eu carreguei um PDF e vou ter lá o registro. Altamiro, usuário Altamiro tal, que é o CPF tal. Ele carregou um documento PDF no dia 6 do 5, que é hoje, e veio com 200 campos. O robô foi lá, leu tudo e armazenou tudo. Está lá. Depois eu posso, daqui a três meses, subir um novamente. Ele também vai estar lá registrado. Que a gente vai conseguir ver isso. E até quando a gente estava fazendo lá o desenho do MVP, que eu tinha feito um desenho aqui para explicar como é que ia fazer. Então, ela ia fazer uma ingestão aqui, um web app, tal, tal, ia armazenar na nuvem o PDF, ia ficar lá o próprio PDF, o digitalizado como imagem. Isso aqui a gente pode morrer, porque basicamente tudo isso aqui você já matou. Então, a gente estava usando a gente já estava treinando o modelo, e depois eu iria armazenar isso aqui no CosmoDB, porque na verdade era mais fácil fazer um JSON, né?
+
+26:33 - felipe silva É, isso daí já não existiria mais.
+
+26:35 - AP Exatamente. E aí depois, se a gente for olhar nessa parte aqui de enriquecimento, que é onde a gente começa a gerar análise de sistema especializado, o próprio aplicativo para trazer coisa para o usuário final, aqui a gente tinha colocado várias coisas que a gente poderia fazer.
+
+26:50 - felipe silva Aí é o que eu achei importante, desculpa te cortar, A gente conseguir listar quem é que vai consumir isso aí. Quem é que vai consumir o quê? Eu acho que é uma fase importante. Você quer que eu responda esse último quadradinho aqui ou eu te respondo? Sim. Na verdade, não. Não é uma pergunta. Eu acho que poderia fazer parte do fluxo a nomenclaturação. Vamos dizer assim, a gente realmente adicionar, olha, para sistema de prescrição de exame, sistema de recomendação, vai para o público X, é o nosso foco. Porque não é todo mundo que vai consumir o sistema de prescrição e o sistema de recomendação, correto?
+
+27:37 - Marcelo Nissenbaum Pode ser, pode ser, pode ser uma boa.
+
+27:40 - felipe silva Até porque isso daí viabiliza uma entrega mais rápida, entendeu? A gente pode, por exemplo, atacar primeiro aquilo que de repente vai dar um retorno muito maior pra gente no médio, no curto e médio prazo, vamos dizer assim, até pra gente ganhar fôlego e falar, pô, a gente sabe que se a gente fizer alguma coisa agora voltada pra essa galera aqui específica...
+
+27:59 - Marcelo Nissenbaum Com certeza eu já sei o que dizer, tem que ser focado no atleta, que é o que a gente tem pra mensurar, são esses 50 exames.
+
+28:06 - felipe silva Muito bem, aí quando a gente fala então do atleta, a gente tá falando de qual item aqui?
+
+28:11 - felipe silva Prescrição de exame, não é isso?
+
+28:13 - Marcelo Nissenbaum Prescrição de exame, que pode ser analisado pela inteligência do Lázaro, 50 exames E sistema de recomendação também, né?
+
+28:19 - AP A gente mais ou menos faria... Perfeito. A gente faria...
+
+28:23 - felipe silva Então, a gente focaria no sistema de prescrição, no sistema de recomendação, botaria o bicho para rodar direitinho, 100%, entendeu? Isso.
+
+28:30 - AP E outra coisa, o histórico de exames, em teoria, esse início é o histórico de exame, né? Que basicamente vai ser... Claro que a gente está aqui no MVP, mas à medida que a pessoa entra no aplicativo, seleciona um PDF lá no WhatsApp dele, coisa, manda dar o upload, na hora que ele carregar, é o que a gente vai fazer, vou armazenar esse PDF lá na nuvem, vou ler a porra toda e vou armazenar isso no banco, acabou. Isso aí na prática meio que já está acontecendo. Exatamente, se ele cair, obviamente, linkado com o usuário. Com o usuário. Isso, perfeito. Esse usuário aqui, ele tem X exames e cada exame daquele tem X tipos de exames, exemplo, o PDF do exame do dia 6 do 5, que é hoje, que ele fez o upload. Cara, o projeto, o AI, leu lá, exemplo, 200. E vai armazenar os 200 tipos de exames. Sendo que, nesse momento, o nosso foco é, desses 200 exames aqui, quais dão o match com a planilha do Lázaro? 30. Pronto. O que a gente vai mostrar para o usuário... É só os 30.
+
+29:38 - felipe silva Exatamente. É a planilha do Lázaro.
+
+29:40 - AP Aí, cara, isso numa telinha bonitinha para mostrar Olha, esse exame aqui, o recomendado é isso, você é do sexo masculino, tal, tal, tal. O trabalho da inteligência do Lázaro por trás é o que a gente interessa nesse momento. Claro que depois, cara, a gente conseguiu. Cara, o principal você já fez, tá? Que eu acho que é fazer toda a leitura e já está conseguindo interpretar cada tipo de dado ali. Depois a gente pode ver isso armazenado, que aí eu consigo aqui fazer umas consultas e dando uma olhada. Mas, cara, esse é o principal. Fazendo isso é depois agora fazer com a planilha do Lázaro. E aí a gente tem que armazenar essa planilha do Lázaro. E depois é só fazer match. Então, para fazer match, eu até tinha mostrado, tinha falado para os caras, cara, depois que a gente armazenar, a gente pode criar um dashboard até para mostrar para um cliente, um futuro investidor, alguma coisa que seja.
+
+30:27 - Marcelo Nissenbaum Eu vou pedir para o Lázaro fazer uma prescrição para o Felipe fazer o exame que nem a gente fez, eu e você, os 50 exames. Aí o Felipe pode ser testado também. A gente vai saber como que o Felipe é, se ele vai morrer mais rápido, vai morrer cedo.
+
+30:41 - felipe silva Eu não vou morrer, não. Eu não quero fazer esse exame, não. Eu não quero descobrir, não.
+
+30:45 - AP Eu vou morrer, meu irmão. Meu exame deu ruim pro caralho, mas eu tenho que fazer um novo.
+
+30:50 - felipe silva Pfelipeque eu faço o exame e descobro que eu vou morrer semana que vem, não vai ter projeto mais aí.
+
+30:56 - AP Mas entendeu, Filipe?
+
+30:57 - Marcelo Nissenbaum Então, mas sabe que a gente precisa de PDF com esses 50 exames. É por isso, cara. A gente tem que arranjar cobais, entendeu?
+
+31:04 - felipe silva Mas olha só, esse PDF que você mandou aqui, por exemplo, do Ramos, aqui, a medicina do Rodrigo.
+
+31:09 - Marcelo Nissenbaum Eu tenho uma ideia para o Lázaro. Já essa semana ele disparar para os alunos.
+
+31:14 - felipe silva O Lázaro, por exemplo, o exame do Lázaro tem um monte de coisa aqui. Hemograma, TSH. Mas você pegou o meu e do Miro?
+
+31:21 - Marcelo Nissenbaum Você pegou o meu e do Miro?
+
+31:23 - felipe silva Eu peguei só o do Ramos. Não, você pegou, você mandou print hoje.
+
+31:26 - AP O do Rodrigo. Não, não, mas para essa apresentação aqui eu só usei dois.
+
+31:30 - felipe silva Só usei dois.
+
+31:31 - AP Tá, tá, perfeito.
+
+31:32 - Marcelo Nissenbaum Mas você tem que usar o meu então e o do Miro, do Altamiro. Marcelo e Altamiro. Por quê? A gente tem quase todos os exames, felipenão me engano, da planilha do LASM. E aí você vai conseguir fazer a leitura.
+
+31:46 - AP E aí o que a gente pode fazer, Filipe? Você tentar ver, por exemplo... Cara, eu vi que você fez uma coisa muito interessante, porque você mocou, né? Cada coisa que ele lê, o robô lê, ele já tá marcando. Então, cara, é só armazenar essa porra dessa informação.
+
+32:02 - felipe silva Depois você pode jogar num... É, a gente conseguindo realmente fechar essa parceria, cara, eu já vou compartilhar esse código aqui contigo, entendeu? Porque ele já serve, assim, ele já tá muito bem estruturadinho, é um ajuste ou outro que, de repente, vai ter que fazer aqui, entendeu? E eu acho que com a sua experiência, sua expertise, a sua visão, Miro, você vai conseguir identificar, de repente, alguns gaps, algumas melhorias. Então, é... Essa é a minha ideia, entendeu? Já pegar o que já foi desenvolvido até aqui e já compartilha isso com você para a gente começar a trabalhar junto, entendeu? Eu não sou especialista em programação não, tá?
+
+32:42 - AP Eu sou um cara de dados. Eu entendo programação porque eu acabo mexendo, né?
+
+32:47 - felipe silva Não, mas fica tranquilo. Mas eu mexo para Spark, né?
+
+32:51 - AP Para análise de dados, não é voltado para...
+
+32:54 - felipe silva Não, mas a sua participação é fundamental aqui na construção porque você tem a visão mais ampla, né? Você tem a big picture do do projeto, então a gente precisa disso, para poder desenvolver. Sim.
+
+33:06 - Marcelo Nissenbaum Uma coisa que eu vou pedir para o Lázaro, gente, olha só, que eu vou lembrar isso aqui na reunião, é que se a gente tiver esse... Você acha que você consegue finalizar isso até quando, mais ou menos, Felipe?
+
+33:20 - felipe silva Isso é uma curiosidade, sem pressão.
+
+33:22 - Palestrante Não Identificado Sem pressão?
+
+33:23 - felipe silva Na verdade, assim, para mim funciona melhor você dizer qual é o seu orçamento em termos de tempo, em termos de tempo. Em termos de tempo, o ideal pra gente é ter isso em 30 dias, de ter isso em 20 dias, 15 dias.
+
+33:37 - Marcelo Nissenbaum Eu tenho aula no final do mês, lembra que ele falou dia 20 ou 27?
+
+33:41 - felipe silva Por que eu tô falando isso, cara? Porque eu tô com outros projetos em andamento. Tem várias coisas acontecendo aqui, entendeu? E eu não quero alimentar falsas expectativas.
+
+33:50 - Marcelo Nissenbaum Chega pra mim e fala assim, eu preciso disso pra semana que vem. Não, não, não. Olha só, teoricamente, você acha que, sei lá, duas semanas a gente consegue ter isso? Porque o que eu ia pedir para o Lázaro? Eu ia pedir uma coisa para o Lázaro interessante, que era pedir para essas pessoas que estão lá no curso dele fazerem exatamente esses exames que ele tem na planilha. Cada um vai fazer num laboratório, não sei qual vai fazer. Também não sei se todos vão fazer, mas se a gente já tiver mais 10 PDFs, por exemplo, seria maneiro.
+
+34:21 - Palestrante Não Identificado Posso conversar isso com ele hoje.
+
+34:23 - felipe silva Não existe um banco de dados com exame que a gente possa usar? Tem.
+
+34:27 - Marcelo Nissenbaum Tem banco de dados, mas não...
+
+34:29 - Marcelo Nissenbaum Não, banco de dados que eu quero dizer... Você quer dizer o quê? Com exames como se fossem... Não, não tem...
+
+34:36 - felipe silva Esses PDFs aqui, armazenados em algum lugar? Não, não tem, não tem.
+
+34:40 - Marcelo Nissenbaum Não que a LGTB é terror pra isso.
+
+34:42 - AP Você consegue pegar os nomes dos exames, que é por isso que muda tanto.
+
+34:47 - AP Existe um site que tem todos esses detalhamentos de nomes de exames, um padrão e tal. Mas o exame em si a gente não tem. Mas lembrando o seguinte, Na verdade, antes a gente precisava de muitos PDFs, porque eu estava usando o modelo estatístico por trás.
+
+35:03 - felipe silva Vocês já ouviram falar do conceito de dados sintéticos? Já só escutei, mas não faço ideia. Basicamente, a premissa é a seguinte, é você alimentar o modelo de inteligência artificial com dados que não são reais. O que eu quero dizer com isso? A gente trabalharia, por exemplo, na produção fictícia, a gente trabalharia, por exemplo, na produção de dados fictícios dentro do modelo já estruturado, por exemplo, de um PDF, entendeu? Pra não ter que ficar pedindo pra um monte de gente fazer isso daí. Zero problema, se você consegue gerar isso.
+
+35:40 - Palestrante Não Identificado Ué, cara, isso é a coisa mais fácil do mundo.
+
+35:44 - felipe silva A gente pega cinco, seis modelos aí de PDF, cria um scriptzinho rapidinho aqui pra ele pegar, pegar isso como exemplo e replicar isso com nome diferente, parâmetros diferentes. Você tem o meu aqui no próprio?
+
+35:56 - Marcelo Nissenbaum O próprio já tinha pt, você não tem que fazer isso?
+
+35:59 - felipe silva Cara, eu acho que a gente nem precisa disso, tá?
+
+36:03 - AP Eu acho que com esses pdf que a gente tem, eu não sei quantos Marcelo te passou, mas cara, a gente já tem aqui uns 14 pdf, eu acho. Eu mandei isso tudo lá no grupo. É, então, já tem tudo.
+
+36:15 - Marcelo Nissenbaum Eu mandei para o Felipe aqui, deixa eu ver.
+
+36:18 - felipe silva Mandou, mandou, mandou. Mandei. Felipe, você pode usar todos esses PDFs aqui que eu mandei, cara.
+
+36:23 - Palestrante Não Identificado Tá bom. É porque...
+
+36:24 - felipe silva É porque algum deles não tem nome, não aparece o nome, não aparece... Mas não aparece corporositalmente, é verdade. Entendeu?
+
+36:30 - Marcelo Nissenbaum Aí eu acho que, por exemplo, pra gente poder testar funcionalidade como essa que eu demonstrei pra vocês...
+
+36:35 - felipe silva Não tira esse que não tiver nome, acho que é só um que não tem.
+
+36:39 - AP Não, não, vários não tem, na verdade.
+
+36:41 - AP Tem vários, tem vários. A maioria não tem nome. Tanto que eu tava tendo problema exatamente por causa disso.
+
+36:47 - felipe silva Porque às vezes eu queria fazer uma consulta aqui para ver, sei lá, o hemograma completo do fulano.
+
+36:53 - Marcelo Nissenbaum Então muda a consulta para a data e hora. Muda só a consulta para a data e hora, só para efeitos de...
+
+37:01 - AP Eu estou olhando os pedéfilos aqui, a maioria realmente não tem. Os que vão ter são o meio do Marcelo e esse agora que o Lázaro mandou. E eu acho que tinha um outro aqui que o Marcelo tinha me passado. Não era aquele completar um outro que ele fez.
+
+37:19 - felipe silva Tem esse daqui do Rodrigo Michel Xavier, da Ramos Medicina, que eu recebi aqui, que aparece no caso o nome dele. Tem outras informações aqui. E esse do Lázaro. Eu acho que tinha um outro também, se eu não me engano, que você me mandou, que tinha. Ele estava mais completinho. Mas, enfim. Eu não sei quantos PDFs a gente precisa para poder fazer os testes. Qual que seria o número ideal?
+
+37:46 - AP Eu acho que agora, esse primeiro momento, Felipe, talvez é pegar a planilha do Laser e você conseguir importar isso em algum banco de dados. Não, isso daí eu faço. Aí beleza, com aqueles exames você lê todos esses PDF que tiver e fazer um match, porque às vezes ele vai achar, em um PDF ele vai achar 20 exames do Laser, no outro PDF vai achar 30 e no outro vai achar 10, por exemplo, entendeu? Entendi. O importante é que a gente consiga identificar, cara, dos 15 esses PDFs que eu li, dos 15, todos os exames do Lázaro, eu consegui pelo menos uma informação?
+
+38:20 - felipe silva Só para me certificar que a gente está na mesma página e que eu entendi a premissa de vocês, a ideia é a seguinte, é a gente pegar o exame em PDF, que vem com essas informações aqui, e quando a gente fizer a solicitação para a IA, ela as respostas que ela vai trazer, vai considerar o resultado que a gente tem aqui e o parecer do... E o parecer do... Do... Do Lázaro, não. Do...
+
+38:54 - felipe silva Do Lázaro.
+
+38:55 - Marcelo Nissenbaum Isso.
+
+38:56 - felipe silva E o parecer do Lázaro de acordo com a planilha. Então, por exemplo, sei lá, aqui ele tá falando desse hemograma completo eritrograma emácias. Lá na família do Lázaro, vai ter uma informação específica sobre esse tipo de exame, sobre o hemograma e hemácias. É trazer a resposta dele para a IA, para que essa resposta seja então expressa, mostrada para o usuário final? Na verdade, eu acho que é o contrário, não.
+
+39:27 - AP Na verdade, a gente vai ter a informação do Lázaro armazenada e eu vou pegar o PDF, vou ler a informação e armazenar depois eu vou fazer a comparação. Não é isso, não?
+
+39:40 - felipe silva Não, não, tudo bem.
+
+39:42 - felipe silva Então eu entendi certo. É isso.
+
+39:44 - AP Primeiro, o AIA vai ler o que está no PDF e armazenar.
+
+39:49 - AP Estou mandando o exame do Miro aí, vou pegar aqui o outro exame que é o meu. Aí depois que ele armazena, eu comparo. Beleza. Quantos deram mecha aqui no exemplo, tá? Imagina que o HDL é o, por exemplo aí, o EMAC. Por exemplo, imagina que a gente vai chamar emácias como o tipo de exame EMAC, um exemplo. Aí vai ter lá uma tabela separada, um array, qualquer coisa que seja, com os dados do Lázaro. E aí depois a gente vai fazer um mesh. O que eu achei aqui armazenado e o que está no Lázaro? Perfeito. Dos 200 exames que a gente leu, 30 está lá na planilha do Lázaro. Nesse momento é isso que interessa para a gente. E depois eu consegui comparar. Qual é o valor de referência que tá no PDF? Ah, tanto. Qual é o valor que ele indica aqui no Lázaro?
+
+40:42 - felipe silva E a gente vai fazendo essas análises aí, esses depara da vida, sacou? Perfeito.
+
+40:47 - Palestrante Não Identificado Perfeito.
+
+40:48 - felipe silva Ele mandou aqui um PDF aqui.
+
+40:50 - Palestrante Não Identificado De quem que é esse?
+
+40:52 - felipe silva É de vocês dois.
+
+40:54 - Marcelo Nissenbaum Deixa eu baixar aqui. Roda ele aí, de repente.
+
+40:57 - felipe silva Eu vou rodar ele aqui.
+
+40:59 - AP Eu me desculpe, pessoal, mas eu vou ter que sair, tá? Vai ter que ir embora? É, estão me chamando aqui para outra reunião. Consegue tocar aí, Marcelo?
+
+41:08 - Marcelo Nissenbaum Eu consigo, tá ótimo. Mas era bom você ver, mas tudo bem, tá ótimo.
+
+41:13 - AP 5 minutos de futebol? Era bom, era, mas eu tenho reunião, pô. O que é que eu vou fazer? Não tem comfelipeT. Não, mas o principal você viu. Isso, exato. Mas entendeu a parada... Entendi, entendi.
+
+41:26 - Marcelo Nissenbaum Tá compreendido.
+
+41:27 - Marcelo Nissenbaum Eu só vou ver dar uma rodada aqui, então.
+
+41:32 - felipe silva Beleza, então.
+
+41:33 - AP Valeu, pessoal. Filipe, obrigado, tá?
+
+41:35 - AP Cara, prazer.
+
+41:36 - felipe silva Tudo de bom.
+
+41:38 - Palestrante Não Identificado Prazer aí.
+
+41:39 - felipe silva Valeu. Valeu.
+
+41:40 - felipe silva Um abraço.
+
+41:41 - Palestrante Não Identificado Tchau.
+
+41:41 - felipe silva Marcelo, vamos lá, então. Eu baixei o PDF que você me mandou aqui. Deixa eu ligar o servidor.
+
+41:54 - Marcelo Nissenbaum Então, Felipe, a gente tem que fazer uma trava. No MVP não precisa fazer trava nenhuma. Mas no MVP um pouquinho mais robusto, de repente tem que fazer uma trava que é pelo CPF da pessoa. Nome, CPF... Nome, CPF. Porque, por exemplo, quando a pessoa entrar num sistema... Por exemplo, eu estou inscrito lá no sistema. Se bem que no MVP não vai acontecer isso, né? Vai poder subir qualquer PDF. Só quando realmente... A plataforma for funcionar. Porque, por exemplo, eu com meu login e senho, linkado meu nome e meu CPF, não poderia subir exame de outra pessoa, entendeu?
+
+42:34 - felipe silva Sim. Sim.
+
+42:35 - Palestrante Não Identificado Sacou?
+
+42:35 - Palestrante Não Identificado Saquei.
+
+42:35 - Marcelo Nissenbaum Até pra não dar problema na plataforma, porque o que que aconteceria? Ele teria um histórico que daria problema, entendeu? Sim.
+
+42:44 - felipe silva É, mas aí a gente tem que pensar nisso, né? É. É um fluxo. O que vai impedir o cara de, por exemplo, fazer o login na senha dele e subir o exame da esposa?
+
+42:57 - Marcelo Nissenbaum Nada, mas ele sobe, mas não vai pegar.
+
+43:00 - felipe silva Por quê?
+
+43:01 - felipe silva Porque ele tem que fazer o match com o nome e o CPF. Com o nome dele e com o CPF. Isso aí. Aí acabou. É isso aí. Perfeito. Vamos lá, deixa eu...
+
+43:12 - Marcelo Nissenbaum Deixa eu dar continuidade aqui nesse cara. Cara, o Felipe me dá... De atividade, se você... Cara, e se não conseguir, tudo bem também, não tem problema, cara. Assim, presta, se você me perguntar, não tem. Seria legal ter ele até o dia vinte e pouco desse mês? Seria maneiraço. Entendeu?
+
+43:34 - Palestrante Não Identificado E valor, assim, mais ou menos.
+
+43:37 - felipe silva E eu falar com o pessoal, entendeu? Sim. Deixa eu só fazer o teste aqui. O do Altamiro tá aqui, lá o do completo, e voltar a mirar o PDF.
+
+43:51 - Marcelo Nissenbaum A planilha do Lázaro ainda não tem MET, correto?
+
+43:58 - Palestrante Não Identificado Não.
+
+43:59 - Marcelo Nissenbaum Ainda não.
+
+44:12 - Palestrante Não Identificado Está extraindo.
+
+44:25 - felipe silva Aqui ele começa toda a fase de extração. Tá extraindo tudo do Altamiro. Tá vendo? Já pegou coisa pra caraca. É, na verdade o que vai ser legal... Altamiro, Pedro Júnior, sexo masculino, doutor, não sei o que e tal... Ele tagueia tudo, ele arranca tudo do PDF.
+
+44:45 - felipe silva Arranca tudo do PDF e manda lá pro banco de dados, entendeu?
+
+44:53 - felipe silva Terminou. Arquivo processado com sucesso, exames encontrados. Vamos lá. Três. Faço uma pergunta. Quer fazer uma pergunta? Está com o PDF aí? Quer fazer uma pergunta?
+
+45:09 - Marcelo Nissenbaum Você bota assim, me informe dos exames fora dos padrões de referência. Vamos ver.
+
+45:18 - Palestrante Não Identificado O Diego não faz nada da vida, né?
+
+45:25 - felipe silva No meio da tarde o cara tá gritando gol.
+
+45:32 - Palestrante Não Identificado Puta mesmo.
+
+45:34 - felipe silva Com base nos exames apresentados e considerando os valores de referência Para adultos, seguem as análises. Está vendo aí? Hemoglobina, 15.2, GDL, referência usual. Homens, 13.5, 17.5. Mulheres, 12.0, 16, dentro do padrão. Eritrócitos, dentro do padrão. Hematrócitos, dentro do padrão. Leucócigo está fora. Está dizendo que está muito baixo aqui do valor de referência Você tem como ver aí no PDF?
+
+46:14 - Palestrante Não Identificado Tem.
+
+46:14 - felipe silva Só pra gente certificar que, de fato, ele trouxe a informação.
+
+46:18 - Marcelo Nissenbaum Tem como ver agora aqui. Mandei aqui pro grupo MVP.
+
+46:22 - felipe silva É, tá no grupo lá. Esse aqui é o do Lázaro, tá? Não, esse é o do Altamira, que você quer dizer.
+
+46:30 - Marcelo Nissenbaum Isso, perdão, desculpa, do Altamira. O Leo Costos?
+
+46:33 - felipe silva Já tô nele, o Leo Costos. Tá fora mesmo?
+
+46:36 - Marcelo Nissenbaum Tá 100 ponto...
+
+46:37 - Palestrante Não Identificado 4 a 2 mil.
+
+46:39 - Palestrante Não Identificado É.
+
+46:40 - felipe silva Peraí, qual o valor?
+
+46:43 - Palestrante Não Identificado Aqui, ó.
+
+46:45 - Marcelo Nissenbaum 4.011 mil, qual o valor que tá? 4.000 a 10.000, mas não tô vendo. Não, tá marcando tudo igual aqui. Leucopenia. 8.500. O valor de referência está aqui. A gente pode bater isso com o Lázaro, vai ser mais fácil. Tá bom.
+
+47:16 - felipe silva Bom, enfim, aí trouxe aqui os outros que estão dentro do padrão. Trouxe um outro aqui, o HCM. Está dizendo que está ligeiramente acima do padrão. 33.5 pg o valor. Diferença entre 27 e 33.
+
+47:35 - Marcelo Nissenbaum Não tô conseguindo ver isso, é uma coisa estranha.
+
+47:39 - felipe silva Não tá abrindo o seu PDF?
+
+47:41 - Marcelo Nissenbaum Ah, eu tô vendo ele aqui.
+
+47:44 - felipe silva Deixa eu ver ele aqui no WhatsApp, que eu vou ver ele melhor aqui. Aí ele trouxe um resumão, ó, exames fora do padrão. O leucócito e o HCM.
+
+47:55 - felipe silva O primeiro tá muito abaixo do normal e o segundo ligeiramente eu vou abrir aqui o pdf cara tá mas o bom assim que agora eu agora eu consegui mostrar ele rodando para você que eu queria ter feito ontem eu tô tentando ver cadê o resultado dele eu tô vendo todo O que você tá vendo aí?
+
+48:31 - Marcelo Nissenbaum Ele pegou 33 ou ele pegou 30? 33.5 Isso é o CHCM HCM, hemoglobina corpuscular média É, mas ele tá dando 30 aqui que eu tô vendo Então calma HCM.
+
+48:56 - felipe silva Tem uma globina, vou dar uma olhada de cima pra baixo.
+
+49:03 - felipe silva É, eu achei aqui também.
+
+49:06 - felipe silva Deixa eu ver aqui no... Deixa eu ver aqui no... No documento que ele subiu. É que interessante, ele subiu certo. Tá vendo aqui o HCM?
+
+49:26 - Palestrante Não Identificado É, viu?
+
+49:26 - felipe silva Tá vendo minha tela aí?
+
+49:29 - Marcelo Nissenbaum Isso, e o CHCM que tá 33. Isso aqui tá certo, essa leitura.
+
+49:34 - felipe silva Ah, cara, eu acho que ele deu uma alucinadinha aqui, então. Ele trouxe o CHCM 33 ao invés de trazer o HCM.
+
+49:43 - Marcelo Nissenbaum Por isso que a gente precisa dar base de dados. É impossível fazer...
+
+49:49 - felipe silva Aqui, tá vendo? Tá certo aqui, 33.5. Ele confundiu. Ele deu uma alucinada aqui no HCM. De fato, era pra ele ter trazido 30.0. Caraca, que interessante. Bom, o RDW tá certo.
+
+50:07 - felipe silva Olha só, pra mim, tá totalmente dentro do padrão isso, sabe por quê?
+
+50:14 - Marcelo Nissenbaum Porque, na verdade, conhecimento nenhum. A gente, na verdade, pegou no repositório da OpenAI e pediu para ela fazer a leitura.
+
+50:27 - felipe silva Sim. Na verdade, o erro aqui da IA está sendo ainda na questão do match das informações, entendeu? Eu não sei se de repente eu preciso ajustar alguma coisa em termos de temperatura, da IA, pra ela trazer uma coisa ainda mais assertiva, entendeu? Aqui, ó, tá claro pra mim que ela confundiu o HCM com o CHCM. Tanto é que ela duplicou aqui o HCM, tá vendo? Ela trouxe duas vezes o HCM aqui, ó. E depois trouxe o certinho, ó.
+
+51:09 - felipe silva Tá vendo essas três referências aqui?
+
+51:12 - Marcelo Nissenbaum Ah, porque é aquilo que a gente fala, por exemplo, se a gente bota a base de conhecimento com um vetor para ela, estrito, que ela tem que fazer aquilo, entregar aquilo, ela vai entregar para a gente.
+
+51:30 - felipe silva É, o que eu imagino é que, por exemplo, essa situação aqui de referência puxaria da planilha.
+
+51:37 - Palestrante Não Identificado Isso.
+
+51:38 - felipe silva Não é isso?
+
+51:39 - Marcelo Nissenbaum É, exatamente. Vai puxar da planilha. Não, tem que puxar da planilha. Tem que puxar da planilha. É, o que vai ser mostrado para o usuário.
+
+51:49 - felipe silva Porque senão a gente não tem o resultado correto, não tem a extração correta.
+
+51:54 - Marcelo Nissenbaum Porque se a gente pegar a valor de referência do PDF, a gente está morto, porque vai bater de frente com o valor de referência da planilha do Lázaro, da inteligência, vamos dizer.
+
+52:06 - felipe silva É isso aí. O que vai acontecer é isso. Vai extrair as informações do PDF e vai jogar no banco. Aí, a IA vai pegar a informação do PDF e vai ver a correspondência na planilha do Lázaro. E depois que pegar essa correspondência, vai trazer só aquilo que está na planilha do Lázaro para o usuário final. Isso, exatamente.
+
+52:28 - Marcelo Nissenbaum E uma coisa, na verdade, quando o MVP estiver pronto, a gente vai estar usando o LLM também ou não?
+
+52:36 - felipe silva Já vai estar usando. Mas já vai ter o custo da OpenAI aí.
+
+52:41 - Marcelo Nissenbaum Não, não, não. Eu tô falando do MVP.
+
+52:43 - Palestrante Não Identificado Sim.
+
+52:44 - felipe silva Aqui a gente já tá usando, pô.
+
+52:46 - Palestrante Não Identificado Não, tá.
+
+52:47 - Marcelo Nissenbaum Mas eu quero te fazer uma pergunta. Por exemplo, eu tenho conta na OpenAI. Poderia usar a minha conta? Poderia, claro. Beleza. Outra pergunta que eu tenho. Mesmo assim, você acha que pode ter alucinação nessa situação? Cara, não só é...
+
+53:00 - felipe silva Não apenas isso. Quando a gente para pra pensar em termos de arquitetura, de software e tal, e a gente tem ali aquele pilar de disponibilidade, a verdade é que a gente vai estar sempre no bolso da OpenAI.
+
+53:14 - Marcelo Nissenbaum Beleza, tá bom. Agora vai a pergunta monstra. OpenAI Pro, você acha que ainda vai continuar com, que seria aquela de 200 dólares no caso?
+
+53:23 - felipe silva Não, não, aí você tá confundindo as coisas. Uma coisa é o acesso que você tem a ferramentas...
+
+53:30 - Marcelo Nissenbaum Beleza, os super, ultra poderes e poderes mais ou menos, mas as situações...
+
+53:35 - felipe silva Não, não, não. Não é isso não. Uma coisa é o quanto você paga por mês para acessar o chat GPT. Você paga lá 200 dólares no Pro, no Ultra, Mega Power, você paga 20 dólares no Plus, você não paga nada no gratuito. Isso. O que a gente está falando aqui é de uso de API, é o uso da tecnologia. Beleza.
+
+53:56 - Marcelo Nissenbaum Isso aqui não está... Entendi. Que não deixa de ser uma tecnologia, ela pode ter as mesmas tem variações em qualquer um desses padrões que você está falando? No grátis, no 20 dólares ou no 200?
+
+54:09 - felipe silva Não, não é isso que eu estou falando também, não. O que eu estou falando para você é que a OpenAI, ela basicamente tem dois produtos. Ela tem mais, mas basicamente aqui para efeito de conversa, ela tem dois produtos. Ela tem o chat GPT e ela tem a disponibilização do serviço de LLM deles, ou seja, a disponibilização do modelo de linguagem grande deles, para ser utilizado dentro de aplicações específicas. Ou seja, é como se você pegasse a tecnologia do chat GPT e colocasse, embarcasse dentro do seu projeto. Entendi. Então, perfeito. Mas o uso dessa tecnologia para a sua aplicação não está atrelado ao produto chat GPT. Há um pagamento que é feito totalmente separado. Cada chamada que eu faço aqui desconta lá da minha conta institucional que eu tenho com a OpenAI. Eu faço lá um pagamento, sei lá, de 50 dólares e cada vez que eu consumo a API deles, faço uso da tecnologia deles, dependendo da quantidade de token, isso é debitado da minha conta.
+
+55:13 - Marcelo Nissenbaum Não, beleza, beleza, eu sei esses limites de token, eu entendo isso, mas algo que eu quero saber de você é o seguinte, sendo LLM, sempre pode ter alucinação, correto? Correto, perfeito. Independente se é o modelo super, ultra, mega, super, super ou o modelo mais ou menos. Pode alucinar, é um risco. Mas quando a gente rodar de fato o projeto, de verdade, vamos dizer, a empresa está rodando, as coisas estão acontecendo, estão vendendo.
+
+55:38 - Marcelo Nissenbaum A gente não vai usar LLM, é isso que eu quero saber.
+
+55:42 - felipe silva Não, a gente vai continuar usando porque a gente não vai treinar um modelo. Porque se você quiser entrar nessa de querer treinar um modelo próprio, aí não é nem comigo a conversa. Aí você precisa de um cara extremamente especializado em ar.
+
+55:57 - Marcelo Nissenbaum Entendi, entendi, porque existe treinar o modelo LLM para especificamente fazer só isso aqui, eu entendi. Exatamente. Então, por exemplo, tem as plataformas que fazem música, fazem apresentações, elas são treinadas para isso.
+
+56:10 - felipe silva Trabalho de transcrição, exatamente. Você teria que criar a sua própria OpenAI, vamos dizer assim, para o seu trabalho e serviço específico, entendeu? Entendi, entendi. Aí envolve uma expertise a qual eu não possuo, nesse caso.
+
+56:25 - Palestrante Não Identificado Tá.
+
+56:26 - Marcelo Nissenbaum Mas você acha que com isso aqui a gente resolve bem essa situação? Porque o meu medo é dar uns pau maluco.
+
+56:35 - felipe silva Cara, eu acho que você tem que tomar como referência própria a OpenAI. Você assina o chat EPT? Eu assino.
+
+56:44 - Marcelo Nissenbaum Aquela porcaria alucina de vez em quando? É, alucina, mas normalmente é porque eu tenho uma conversa com a OpenAI normalmente, Vamos dizer assim, eu sei mais ou menos fazer as requisições, não sou um especialista. Comigo não acontece muito, mas se começa a fazer porcalhada, um débil mental, conversar com aquilo, vai dar.
+
+57:06 - felipe silva Você entendeu? Então, eu acho que quanto mais restritiva, de repente, for a temperatura, que a gente chama de temperatura, do uso da nossa LLM, por exemplo...
+
+57:16 - Marcelo Nissenbaum Tem tecnologias OCR que fazem, na verdade, a leitura desses PDFs, Cara, tem, tem, tem.
+
+57:22 - felipe silva E aí você nem ia precisar, na verdade, você nem ia precisar de I.A. No seu processo.
+
+57:29 - Marcelo Nissenbaum Não, é isso que eu tô só assim, só elucubrando.
+
+57:32 - felipe silva Sim. Talvez vá dar um pouco mais de trabalho? É muito possível. Mas... É possível. Entendi. Não, mas como MVP isso aqui tá bom.
+
+57:42 - Marcelo Nissenbaum Porque, na verdade, o que eu acho que tem que ter depois um estudo pra, de fato, ter Eu tenho certeza se a gente vai com AI ou se a gente vai com alguma outra tecnologia que pode fazer extração dessas informaçMarcelo.
+
+57:58 - felipe silva Para você ter uma ideia, eu estava...
+
+58:00 - Marcelo Nissenbaum Acho que vai acabar a reunião daqui a pouco. Mas a gente depois pega aí seis horas.
+
+58:06 - felipe silva Beleza, queridão. O importante é que você viu funcionando, viu que tem...
+
+58:11 - Marcelo Nissenbaum Vamos pegar aí seis horas e a gente volta de novo, porque senão...
+
+58:15 - Palestrante Não Identificado Tá bom.
+
+58:16 - Marcelo Nissenbaum Valeu, Marcelão. E aí finaliza a conversa bem lá.
+
+58:19 - Marcelo Nissenbaum Tá bom.
+
+58:20 - Palestrante Não Identificado Abraço. Obrigado.

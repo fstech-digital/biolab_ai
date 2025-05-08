@@ -1,0 +1,50 @@
+FSTech & Bio_Scan 
+ter., 6 de mai. de 2025
+
+Resumo:
+
+A reunião abordou o desenvolvimento de um MVP que utiliza inteligência artificial para a análise de hemogramas, destacando a necessidade de precisão nas informações fornecidas aos usuários. Felipe apresentou o projeto, enquanto Lázaro e Marcelo discutiram a integração de dados com a LLM da OpenAI, enfatizando a importância de equilibrar as respostas geradas pela IA com as informações contidas nas planilhas. A equipe também considerou a expansão da base de dados para incluir mais exames e a utilização de web crawlers para enriquecer as informações disponíveis. Lázaro sugeriu a criação de módulos específicos para diferentes públicos, como atletas, para personalizar as análises.
+
+Durante a discussão, foram levantadas preocupações sobre a interpretação de resultados laboratoriais, como um valor de leucócitos considerado extremamente baixo. A equipe reconheceu a necessidade de exames complementares e de um padrão para a interpretação dos dados, além de discutir a falta de informações sobre a função tireoidiana. Felipe destacou a importância de desenvolver uma interface web e servidores em nuvem para um MVP mais funcional, comprometendo-se a enviar uma proposta detalhada ao grupo. A equipe concordou em avançar nas etapas de extração e comparação de dados, com a expectativa de iniciar o projeto após a avaliação dos detalhes.
+
+
+Capítulos e tópicos:
+
+Discussão sobre Integração de Inteligência Artificial em Exames Médicos
+Felipe compartilhou os resultados de uma reunião anterior com Miro, onde foi demonstrado um MVP que utiliza inteligência artificial para analisar exames médicos. Lázaro e Marcelo debateram sobre a integração da planilha de Lázaro com a LLM, considerando a importância de equilibrar as informações provenientes de ambas as fontes.
+* Limitações e capacidades do modelo de inteligência artificial.
+* Integração da planilha com a inteligência artificial.
+
+Análise de Exames e Sugestões de Exames Complementares
+Durante a conversa, Lázaro Nunes questiona sobre a necessidade de exames adicionais para entender melhor a alteração no HCM. Felipe Silva apresenta dados sobre os resultados do HCM, indicando que, embora os valores estejam dentro da faixa de referência, exames complementares podem ser úteis em caso de suspeitas clínicas.
+
+Discussão sobre Testes e Validação de MVP
+Durante a conversa, Lázaro destaca a relevância de um exame alterado e a necessidade de cuidado com dados de pacientes, mencionando a questão da LGPD. Felipe sugere a criação de documentos fictícios utilizando inteligência artificial para facilitar os testes e validações.
+* Testes e validações do sistema com dados sintéticos.
+
+Integração de Exames e Processamento de Dados
+Durante a conversa, Felipe detalha o fluxo de upload do PDF e a necessidade de informações específicas do exame para identificar resultados alterados. Lázaro sugere que a primeira pergunta seja sobre os exames alterados de um paciente específico, Rosimeire Souza, enquanto Felipe confirma a exatidão do nome.
+
+Análise de Exames Laboratoriais
+Durante a análise dos exames, Felipe destaca que os valores de hemoglobina e eritrócitos estão abaixo do normal, indicando anemia. Lázaro corrige um erro de interpretação relacionado ao valor dos eritrócitos e discute a importância de um padrão para a realização de cálculos nos exames. Eles também mencionam a ausência de informações sobre a função tireoidiana nos resultados apresentados.
+
+Proposta de Desenvolvimento do MVP
+Felipe destacou a importância de elaborar uma proposta formal que inclua custos operacionais e desenvolvimento de uma interface gráfica para o MVP. Lázaro elogiou a apresentação e enfatizou a necessidade de entender melhor os valores e o tempo necessário para o projeto. A equipe concordou em seguir em frente com a extração de dados e a comparação individualizada.
+* Apresentação do MVP em evento de nutricionistas.
+
+
+Tarefas:
+
+* Lázaro Nunes irá testar o MVP durante uma palestra no evento de nutricionistas, que ocorrerá no dia 4 de julho.
+* Felipe Silva irá elaborar uma proposta formal para o desenvolvimento do projeto, incluindo custos e horas trabalhadas.
+
+
+Perguntas-chave:
+
+* Quais informações a inteligência artificial pode fornecer?
+* Como será a integração da planilha com o sistema de inteligência artificial?
+
+
+Bloco de Notas:
+
+* Sem anotações

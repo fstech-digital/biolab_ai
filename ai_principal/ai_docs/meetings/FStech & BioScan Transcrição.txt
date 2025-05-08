@@ -1,0 +1,330 @@
+FStech & BioScan 
+qua., 7 de mai. de 2025
+
+0:43 - felipe silva Fala aí, Marcelo. Boa tarde. Fala aí.
+
+0:46 - Palestrante Não Identificado Cheguei agora.
+
+0:47 - Marcelo Nissenbaum Estava na minha fisioterapia, vim voado.
+
+0:49 - Marcelo Nissenbaum Não bebi nem água. Estou aqui... Pô, bebe uma água, cara. Vai lá.
+
+0:55 - Palestrante Não Identificado Estou esperando aqui, então vamos trazer aqui.
+
+0:59 - felipe silva E aí, como é que tá?
+
+1:01 - Marcelo Nissenbaum Tá tudo em ordem?
+
+1:03 - Marcelo Nissenbaum Tá melhorando, né?
+
+1:04 - Marcelo Nissenbaum Vou te mostrar um negócio aqui pra você ver. Acho que o Miro não entrou ainda, então a gente vai conversando amenidades aqui.
+
+1:14 - Palestrante Não Identificado Quem entrou? Alguém entrou?
+
+1:16 - Palestrante Não Identificado E aí, beleza?
+
+1:17 - Palestrante Não Identificado Entrou?
+
+1:17 - AP Então vamos lá. O Miro entrou.
+
+1:20 - AP Fala aí, Miro, beleza? Tranquilo, meu amigo.
+
+1:23 - felipe silva Pô, desculpa aí o... Não, beleza. Assim, aconteceu de... É incrível, cara, ser um pouco mais cedo, porque como eu tenho aula hoje à noite, então às vezes ficar muito em cima, eu acabo ficando todo embananado aqui, todo atrapalhado.
+
+1:38 - AP Então foi bom, vamos lá. Show. Então beleza, cara, eu queria tirar umas dúvidas, porque acabei que ontem eu saí lá, surgiu um imprevisto, enfim. E eu vi o material que você mandou da proposta, e aí eu queria só tirar umas dúvidas em relação ao desenvolvimento, tá? Tá bom. Então vamos lá, deixa eu só abrir uma coisa aqui Só um pouquinho. Beleza, então vamos lá. Olha, analisando aqui o que você mandou, e aí eu vi aqui que... Eu vou passar um por um, tá? Algumas coisas que eu tinha anotado, que era dúvida, para aí a gente vai falando sobre cada um, tá? Tá bom. No escopo 1, que é o upload de processamento dos PDFs, né? E aí interface web para upload, né? Então basicamente aqui vai ser uma telinha web, né? Onde a gente vai colocar lá, realizar o upload do arquivo. Certo. E a pessoa vai, beleza, selecionar na máquina dela, no WhatsApp, sei lá, qualquer lugar. Selecionei o PDF, cliquei em realizar o upload, importar qualquer coisa que seja.
+
+3:10 - AP Essa é a ideia dessa IDE.
+
+3:13 - Palestrante Não Identificado Seria isso, certo?
+
+3:14 - felipe silva É da interface, né?
+
+3:16 - AP Você disse. Isso, perfeito.
+
+3:17 - Palestrante Não Identificado Da interface web. Isso.
+
+3:19 - felipe silva Exatamente isso.
+
+3:21 - felipe silva Exatamente isso.
+
+3:22 - felipe silva A gente vai replicar o funcionamento que eu mostrei para vocês no CLI, no CLI, no prompt de comando, na tela preta, vamos dizer assim. A gente vai replicar aquilo com uma interface gráfica mais amigável para o usuário. Perfeito.
+
+3:36 - AP E aí, no momento que eu faço, que a pessoa faz o upload desse arquivo, é nesse momento que eu chamo a LLM para ele fazer toda a leitura do PDF e armazenar esses dados no banco de dados. Isso.
+
+3:49 - felipe silva Começa, então, esse processo. É onde dá o start no processo. Isso daí vai subir para o banco de dados vetorial em paralelo com o MCP. Vai andar junto, sempre em conjunto. É o quê? Desculpa. É o que a gente chama de model context protocol. É um protocolo de contexto para modelo de linguagem grande, para LLMs. Isso facilita a interação entre a LLM e o banco de dados vetorial, entendeu? Como se fosse uma ponte. É como se fosse uma chamada de API, só que mais, vamos dizer assim, ela é mais utilizada para modelo de linguagem. Grande. Mais que a LLMM.
+
+4:36 - Marcelo Nissenbaum Só para ter uma noção. Maravilha.
+
+4:39 - AP Vamos lá.
+
+4:40 - AP Maravilha. Show de bola. Então, beleza. Fiz a leitura. O modelo, o LLM vai lá, lê, todo aquele PDF, claro que ontem você mostrou naquele sprint, e ontem você mostrou o código ali, tem a questão daquela semântica, que você vai meio que traçando tudo ali.
+
+4:57 - felipe silva Lembrando que a gente vai ter também lá no nosso back-end, a gente vai ter lá no banco de dados a planilha do nosso amigo, que vai ser como o principal referencial para as respostas da LLM para o usuário. Então ele vai mandar o exame, a LLM, o primeiro passo da IA vai ser, na verdade, buscar dentro da planilha todas as referências que estão ligadas ou que existem, na verdade, existem no PDF do exame, vai dar o match disso, vai combinar essas duas coisas e aí vai trazer as respostas baseado nesse match. Foi o que eu entendi, que a gente vai ter a planilha, Essa planilha vai fazer parte do nosso back-end, vai estar lá no nosso banco de dados. O usuário vai subir o exame via PDF. O exame tem uma série de itens, uma série de tópicos. Uma das funções da LLM vai ser justamente casar os exames que tem no PDF com aquilo que tem na planilha. Casar essas informações e trazer as respostas mediante a interação que o usuário vai ter com o chatbot, no caso, com o assistente.
+
+6:12 - Marcelo Nissenbaum Deixa eu fazer, então, só um adendo. Quando fizeram esse beta teste lá, que o Lázaro falou que existem nesse evento em torno de mil profissionais, vamos dizer que a gente tem que pensar que ao mesmo tempo mil profissionais podem estar fazendo o acesso ali. Podem não. Provavelmente vão fazer com acessos bem aproximados ali no momento. E não só isso. O Lázaro sabe que, vamos dizer, ele tem 50 exames ou 60 exames e pode ser que venha A gente também vai ler outros exames, só não vai fazer a correspondência com a exatidão que está no banco, que são os exames do Lázaro, correto? Mas vai fazer a leitura geral, não é isso?
+
+6:51 - felipe silva Vai fazer a leitura geral porque a gente já vai ter a planilha upada, né? A gente vai ter a planilha já fazendo parte do banco de dados.
+
+6:59 - Marcelo Nissenbaum Não, sim, mas o que eu quero dizer é que a planilha, ela é limitada, ela é uma planilha de 50 exames, mesmo que o Lázaro aumente para 100, ele não eu pegaria, por exemplo, de repente, um exame específico para Alzheimer, por exemplo.
+
+7:13 - felipe silva Estou dando um chute aqui. Sim, aí precisaria, de repente, de se pensar a questão de regra de negócio das funcionalidades da aplicação, entendeu? A gente pode deixar a LLM funcionando, como foi o caso da demonstração que eu fiz ontem para vocês, a gente cria uma persona para ela, para ela ter a capacidade de responder sobre esses exames independente pode ser o exame vai ter vai ter a sua correspondência na planilha do Lázaro ou não.
+
+7:42 - AP É isso aí e na verdade é isso tá. Eu esperei o Marcelo terminar mas assim só para a gente dar um exemplo prático imagina que eu peguei meu PDF eu fiz lá um exame que tem 200 tipos de exame lá dentro tá um arquivo gigante vamos pegar um grandão aí 200 exames na hora que a gente fizer o para aquele meu usuário, vamos chamar lá Altamira, o CPF tal, tal, tal. E, claro, vai ser num array, num vetor, em coluna, tanto faz, mas é. Aqueles 200 itens vão ter que ser armazenados. Depois daqueles 200 tipos de exame dentro daquele PDF, eu vou fazer um match com a planilha do Lázaro. Porque, às vezes, eu posso ter um PDF que eu tenho 200 exames e só vai dar match 30 e o dele tem 50. E eu posso ter um PDF com menos exames, tipo 70, e dar o match nos 50. Então sempre vai ser a ideia. A gente vai ter que sempre pensar que a gente tem que ler ele todo, tudo que está ali, armazenar. E depois a gente faz esse match, porque esse match depois eu posso fazer até via banco, via query, qualquer coisa. Ou seja, imagina que eu vou ter uma tabela de usuário, uma tabela de exame usuário, Enfim, e que vão ter todas essas colunas e depois a gente vai ter como se fosse um deparo. Por exemplo, na primeira do lado vai ter lá o exame HDL, vai ser o código 43 e a sigla HDL. Na hora que armazenar, a gente vai armazenar como se fosse o HDL, depois eu posso fazer o relacionamento e dizer, beleza, eu achei o HDL nesse exame que esse cara colocou aqui e eu trago a referência lá do lado. Ou seja, no HDL ele vai trazer, se o cara for masculino e a idade for tão, tanto, então ele vai ter lá uma descrição de coisas que ele indica, que ele sugere. Então, basicamente, é isso. Então, em teoria, a planilha do Lázaro vai ser carregada numa tabela específica, que vai ser a nossa inteligência, vamos chamar assim, e depois eu vou fazendo o match com os dados que a gente carregar via LLM. Então, basicamente, seria isso. E aí, os principais campos, quando a gente for armazenar os dados usuários, sempre vai ser o CPF dele, que vamos dizer que seria Porque, por exemplo, eu posso carregar um exame agora nessa data e daqui a seis meses eu fazer. O cara, sei lá, um cara...
+
+10:05 - Marcelo Nissenbaum Data é muito bom e horário também é bom. Se todos os exames obrigatoriamente tem horário, também acho que é legal, que é mais uma codificação interessante.
+
+10:14 - AP Mais uma forma de garantir que o acesso vai ser feito só ali pela pessoa.
+
+10:19 - AP É, porque o cara, na verdade, vai ter o dado do exame dele, que vai ter os principais campos. Idade dele e o sexo, porque tudo é baseado na referência, valores de referência e as coisas do lado, tudo é baseado na idade da pessoa e no sexo, então esses são os campos mais importantes. E além da data do exame, a gente vai ter a data do upload, porque por exemplo, durante um ano o cara pode subir três vezes, por exemplo, quatro vezes que o médico falou, cada três meses eu quero que você faça esses exames e ele vai subir lá exatamente para fazer essa verificação. Por exemplo, ele subiu, diminuiu, enfim, ele consegue fazer toda essa análise, já que a informação está armazenada. Então, depois de estar armazenada, a gente entra com a Analytics lá para fazer qualquer informação que a gente queira. E, principalmente, o Mesh com o Lázaro. Perfeito. Perfeito, é isso afelipei está claro, Filipe? Beleza, não é? Claríssimo. Perfeito. Aí, depois, eu vi aqui na implementação, lá das informações, beleza. Normalização dos dados, sistema de mapeamento, que é exatamente o que a gente está falando, as nomenclaturas de exames. Aí, uma pergunta. Essas nomenclaturas de exames, a gente, em teoria, a gente precisa depois lhe passar, né? Sim. Porque a gente tem muitos exames. E aí, uma pergunta que eu queria te fazer é o seguinte. Por exemplo, imagina que a gente pegou aquele PDF lá, um daqueles que eu te mandei ontem. Uma pergunta. Eu tenho lá uma HDL, não sei se esse exame, talvez o Marcelo até responda melhor, mas imagina assim, eu peguei uma HDL, aí lá no valor de referência ele geralmente vem assim, masculino até 18 anos, aí depois, de 18 a tantos anos para masculino, geralmente ele pode vir por faixa de idade, às vezes é por mês, às vezes ele mescla mês e ano e sexo, Então, assim, tem muitas mesclagens. Da forma que você está lendo, a gente consegue armazenar isso realmente em cada coluna? Sim.
+
+12:25 - Palestrante Não Identificado Consegue, né?
+
+12:26 - AP Consegue. Deixa eu até tentar pegar um exemplo aqui que fica até mais fácil para você entender. Porque, cara, isso é muito detalhe e isso é uma das coisas que a gente bateu muita cabeça lá quando estava fazendo. Então, deixa compartilhado.
+
+12:46 - felipe silva Por que você não precisa se preocupar tanto? Porque a LLM, ela vai tratar cada exame de maneira individual, independente dos dados que a gente tem armazenado. Ela sempre vai buscar, através de semântica, associar a informação que tem no PDF com todos os referenciais relacionados, que existem dentro do banco vetorial.
+
+13:14 - Marcelo Nissenbaum Então, deixa eu ratificar um negócio aqui. Muito importante seria que o peso da planilha do LASO para esses 50 exames, eu diria que de zero a um, poderia ser um. Porque a gente quer que seja estritamente a inteligência da planilha do LASO para esses exames. O resto pode extrabolar. Pular, quer dizer, o mínimo possível dentro, obviamente, do que a gente está construindo. E eu acho que o Miro também ainda vai falar, só vou comentar, só um minuto, pode ser que o Nicolay já esteja no radar dele, ele vai falar depois da evolução do sistema, não é isso, Miro? Depois do MVP.
+
+14:00 - felipe silva Beleza, então vou deixar para o Miro, não vou nem cortar mais, vamos lá. Estou vendo sua tela, Miro.
+
+14:07 - AP Beleza. Desculpa que eu tava um tempinho que arrumei aqui para fazer um lanche, mas vamos lá. Deixa eu só...
+
+14:14 - Marcelo Nissenbaum Aqui, ó. Caraca, horrível demais. Seguinte.
+
+14:17 - AP Esse exemplo que eu tô dando, Marcelo, é isso aqui.
+
+14:20 - Palestrante Não Identificado Desculpa, Felipe.
+
+14:21 - AP Tô vendo. A gente pega aqui o LDLC, ele é um tipo de exame. Então provavelmente a gente vai ter esse tipo de exame. Vamos chamar que a gente tem uma tabela de tipo de exame, tá?
+
+14:35 - Palestrante Não Identificado Então vai ter a tabela do Lázaro.
+
+14:38 - AP Na verdade vai ter a tabela do Lázaro, isso, exatamente. Mas aí penso o seguinte, imagina que eu preciso, imagina que o Altamiro, esse aqui é o meu exame. Aí imagina que aqui eu vou ter uma coluna chamada esse exame, certo? Já que ele é vetorial, estou imaginando isso. Certo.
+
+14:57 - Palestrante Não Identificado Eu vou ter lá o LDLC.
+
+14:59 - AP Sendo que esse LDLC, aí ele vem com os valores valores de referência, que para a gente também é muito importante, por quê? Aqui, ele fala categoria de risco. Esse tipo de exame para o baixo, categoria baixo, com jejum e sem jejum, tá vendo? Então, esse tipo de exame, ele já abrange mais três colunas e ele vai trazer os valores de referência. Certo.
+
+15:20 - Palestrante Não Identificado Entendeu?
+
+15:21 - AP Então, é isso que eu estava falando, que a gente tem que garantir que a gente consiga pegar tudo. Porque, por exemplo, deixa eu ver se eu acho outro aqui. Esse aqui Não, esse aqui, ferro, esse aqui é o valor do...
+
+15:35 - Marcelo Nissenbaum É, mas foi o que eu entendi, Miro. Ele pega.
+
+15:39 - AP Ele pega pela semântica, cara. Não tem como. Entendi, tá. Ele consegue pegar tudo isso aqui, né?
+
+15:45 - felipe silva Sim, e vai depender muito também da maneira como a requisição vai ser feita pra gente. A gente não tá falando de uma automação, a gente tá falando de um uso, um assistente com IA, que vai conversar com o usuário como se fosse ali uma pessoa atendendo. Então, o cara que vai fazer a pergunta, quanto mais específico ele for em relação à informação que ele quer, é o que vai fazer a diferença se vai trazer a informação ou não.
+
+16:17 - AP Então, mas esse é um detalhe.
+
+16:19 - AP A gente, apesar de você ter mostrado isso, a gente não vai usar isso, tá? Exatamente, o usuário não vai interagir perguntando, ah, esse meu exame aqui ferro 87 é um bom? Apesar de ele trazer aqui o valor de referência, a gente não vai perguntar isso, nunca vai acontecer isso, tá? Na verdade, a gente vai querer armazenar esse 87.
+
+16:43 - AP Pode ser que no futuro, com a evolução do sistema, muito refinado, a gente libere isso, porque a gente vai ter uma tendência ao limite zero de erro.
+
+16:55 - Palestrante Não Identificado Exatamente, porque qual é a ideia, Felipe?
+
+16:57 - AP Imagina o seguinte, fiz o piloto do arquivo, o meu Altamiro, beleza? Vai estar lá registrado lá meu nome, a data de nascimento, minha idade, tal, tal, sexo, beleza. Aí na hora que eu for, na hora que eu importar o PDF, aí o LLM vai ler a porra toda aqui, pum, armazenou. Quando eu verificar qual é o ferro que veio no meu exame, ele tem que trazer 87. Qual é o valor de referência dele? Tanto a tanto, é isso aqui, de tanto a tanto ao total, entendeu?
+
+17:25 - Palestrante Não Identificado Entendi, só que como essa chamada vai ser feita?
+
+17:27 - AP Ela não vai ser feita, ela vai estar armazenada a informação.
+
+17:31 - felipe silva Tudo bem, mas aí o usuário vai querer ter acesso a essa informação, correto?
+
+17:35 - AP Exato, mas aí eu vou ter uma tela pra ele, né?
+
+17:38 - felipe silva Ah, então você vai ter uma tela específica com as perguntas já estipuladas.
+
+17:41 - AP Isso aí, na verdade eu vou conseguir, porque quando ele vai fazer o importe do PDF, eu posso, por exemplo, na planilha do LASA, pensa assim, imagina que que importei, aquele exemplo que eu dei no início. Importei 200 exames, beleza? Nesse meu PDF aqui, ele conseguiu ler todos os 200, armazenou todos esses valores de referência, armazenou tudo. Porém, esse meu PDF, ele só encontrou 30 lá da planilha do Lázaro. O resumo que a gente vai dar para o usuário são esses 30 exames. Mas a informação vai estar armazenada, entendeu?
+
+18:11 - felipe silva Vai estar armazenada. A minha pergunta para você agora, com que você levantou, é de que maneira vai interagir com a aplicação. Porque até agora a minha visão era a seguinte, ele vai fazer o upload do arquivo, ele vai fazer o upload do PDF, vai acontecer todo o processamento e depois ele vai interagir com a aplicação para obter as informações.
+
+18:36 - Marcelo Nissenbaum A gente entendeu e a gente viu, mas o que acontece? Como existe uma possibilidade de alucinação, existe também uma outra coisa interessante, que a gente ainda não vai conseguir fazer nesse momento, é a curar-se a 100%. Ele não vai estar 100%.
+
+18:55 - Palestrante Não Identificado Entendi.
+
+18:55 - Palestrante Não Identificado Tudo bem.
+
+18:56 - felipe silva Mas a minha pergunta persiste. Ela continua. Como que a interação vai acontecer, então? A gente vai...
+
+19:05 - AP Vai ser uma tela. Vai ser exatamente isso. Ele não vai interagir perguntando nada do exame. Porque qual é a ideia dele? Ele como é um cara atleta e a especialização do Lázaro é exatamente essa. Quando o Lázaro verificar por exemplo o ferro armazenado em 87 o Lázaro vai dar indicações baseado nesse valor dele aqui e não necessariamente vai ser essa referência porque essa referência vem do laboratório mas a especialização do Lázaro ele pode indicar uma referência inclusive diferente dessa aqui e aí vai dizer olha a indicação para isso aqui relacionado com outro exame que deu XPTO, o indicado pra você é isso, isso e isso. Então, o que interessa pra gente é o feedback que eu vou dar pro usuário relacionado aos exames dele é baseado no LASER, não é baseado em pergunta pra IA, sacou? Saquei.
+
+19:57 - Marcelo Nissenbaum Por isso que eu disse que é de 0 a 1 na variação da IA. Tem que ser 1.
+
+20:03 - AP É, 1. É isso aí, sacou, Felipe? Por isso que isso pra gente é muito importante, cada detalhe desse. Porque isso no Lázaro ele também vai estar detalhado, então ele pode dizer a leitura porque é como se fosse assim, eu vou ter um valor realizado do exame dele, que no meu caso é esse aqui que deu isso, e eu tenho o valor referência lá.
+
+20:24 - felipe silva Isso, o laboratório da 1X e o Lázaro Y. E a diferença é muito grande, não é algo padronizado? Não, não é muito grande não.
+
+20:31 - AP Não, não é muito grande não, mas é porque o mais importante na verdade pra gente é que esse valor de referência a gente pode utilizar. Por isso que a gente precisa armazenar. Mas o principal para a gente é isso porque às vezes o do lazer ele pode ter uma indicação o ferro quando chegar no parâmetro de tanto a tanto aí ele vai porque aqui ele fala que ele dá uma observação. O do lazer ele também vai dar uma observação mas ele vai dar uma observação voltada para aquela especialidade do cara que é um cara nesse exemplo que eu tô dando que é voltado para o atletismo.
+
+21:06 - felipe silva No PDF é uma coisa mais generalizada. Isso aí. Na aplicação vai ser uma coisa mais específica para a pessoa que estiver usando. Aí a gente vai entrar numa outra questão. Por quê? Porque o usuário vai ter que fornecer informações pessoais dele. Não faz mal.
+
+21:23 - Marcelo Nissenbaum Nesse momento o nego vai estar cagando, eu acho. E o nego vai estar fazendo beta-teste, vai enviar a porra do exame, vai querer ver o resultado. Cara, se a gente entrar nas seis Searas...
+
+21:35 - felipe silva Não, tudo bem. A minha preocupação é a seguinte, como isso vai ser exposto aí para um número, sei lá, expressivo de pessoas, você falou de mil pessoas que vão usar uma aplicação na... Mas como você é um cara muito conceituado, ninguém vai se preocupar aí lá fora.
+
+21:52 - Marcelo Nissenbaum Gente, não se preocupem, isso está lá no meu banco de dados.
+
+21:57 - AP Não, mas olha só, outra coisa, mas em relação a informação como armazenagem, a gente pode criptografar, pode ter Tem N formas de a gente fazer isso.
+
+22:06 - Marcelo Nissenbaum Isso, a gente pode falar com o Lázaro para ele fazer durante a palestra.
+
+22:10 - AP Isso, mas assim... Uma nota sobre isso. É, mas vamos pensar no seguinte. O usuário, quando ele entrar no aplicativo, é o login dele. Então, imagina que quando ele abrir... Claro que na IDE para funcionamento de MVP. Não, o cara vai pegar lá. Se a gente conseguir pegar os dados aqui do nome do cara e tal, como está aqui no meu, a gente vai conseguir usar. Beleza, o cara nasceu dia tal, tem tantos anos, o sexo é esse aqui, que isso é o mais importante.
+
+22:37 - Marcelo Nissenbaum Eu vou pensar numa coisa aqui de marketing aqui, galera.
+
+22:40 - AP Não, Marcelo, calma aí, rapidinho, só para não perder a linha no raciocínio. Aí pensa o seguinte, isso para o MVP é beleza, agora imagina que depois isso está em um app, o cara vai ter o login dele, então quando ele logar no login dele, na tela de cadastro dele a gente pode pegar inclusive todos esses dados, porque depois eu nem preciso ler, é como se fosse assim, Se aquele usuário está fazendo um upload de um arquivo, eu vou subentender que aqueles dados são dele. Então eu já vou ter a idade dele armazenada na tabelinha, o nome dele, o login, tal, tal, masculino e assim por diante, entendeu? À medida que eu faço o upload disso aqui e armazeno todas as informações, eu vou ter lá. Vamos pensar em tabelas de exames. Aí vai ter lá. O cara fez o exame no dia XPTO. Esse PDF foi lido e armazenou 200 variáveis, 200 tipos de exame e cada um trazendo todas as subcategorias que tem para cada exame. Categoria, se é com genju ou não, às vezes vem, por exemplo, aqui mostrou só...
+
+23:40 - felipe silva Vai pegar a informação do PDF inteiro, vai ficar lá armazenado, entendeu? Exatamente, pronto, perfeito.
+
+23:46 - AP Esse é o principal, entendeu? Aí depois disso, já que a informação está armazenada, como é que seria essa tela, essa ideiazinha, uma tela de consulta para o usuário? Aí seria basicamente ler a informação daqui, fazer um relacionamento com a tabela do Lázaro.
+
+24:02 - AP E trazer um resumo.
+
+24:04 - AP Exatamente, resumo.
+
+24:04 - AP Imagina assim, imagina que o ferro tem lá no do Lázaro. Aí vai vir lá o resumo, ferro, o resultado do cara, deu 87. Aqui a gente ao invés de aparecer a variação, que também já está armazenada, mas aqui se eu quiser eu posso até colocar variação desse laboratório, variação do Lázaro. E aí onde tem esse texto aqui, vai vir todo detalhamento do Lázaro, que a gente já tem armazenado também. Então basicamente é, na hora que eu for mostrar, pode ser um PDF desse como relatório, mostrando cada exame com detalhamento do Lázaro, ou pode ser numa tela. É, vai ser na tela, vai ser na tela. Isso, exato. Então assim, tanto faz. O importante é, eu tenho o dado do Lázaro armazenado, li tudo do PDF e armazenei tudo. E acabou, é isso. E depois eu faço o mesh. Ah, dos 200 achei 30, então vou exibir 30 coisas para ele. O que a gente falou, que o Marcelo também comentou no início, é que independente de a gente exibir os 30, a gente quer ter essas informações armazenadas. Por quê? Porque daqui a pouco o Lázaro fez uma especialidade e tal, gerou um estudo e falou, agora eu quero usar também o Fertina. A gente já vai ter a informação armazenada. Inclusive, eu posso dar isso para o usuário. Eu não já botei lá os três exames dele armazenados?
+
+25:18 - Marcelo Nissenbaum É como se renderizaram lá dentro do sistema, ele olhasse novamente e refizesse toda a busca.
+
+25:23 - felipe silva No caso, ele teria que muito provavelmente refazer o processo.
+
+25:27 - Marcelo Nissenbaum Não faz mal, a gente fala para ele alguma atualização. Se você quiser, vamos dizer, a melhor otimização do teu relatório e ver o site no seu dashboard, faça um novo upload daquele teu PDF.
+
+25:42 - felipe silva Ou deixar uma função dentro da aplicação de refresh. Isso.
+
+25:46 - AP Não, mas não vai nem precisar disso, pessoal, porque pensa o seguinte, Fiz a leitura lá no dia 1º. Já vai estar no banco, né? É, já está no banco, pô.
+
+25:57 - felipe silva Dia 1º de janeiro eu fiz um upload lá. Tudo bem, o PDF vai estar, mas a planilha... De qualquer forma, a planilha do... Isso.
+
+26:05 - Marcelo Nissenbaum O Lázaro vai ter que... Vai ter que mandar uma referência do PDF e vai prestar atenção lá do Lázaro.
+
+26:11 - AP É, exato.
+
+26:12 - AP É tipo assim, no dia 1º lá de janeiro. Imagina o seguinte, o ferro fazia parte do Lázaro, beleza? E o ferritina não fazia. Aí eu fui lá e coloquei, aí mostrei lá na telinha de resumo os 30 exames do Lázaro para esse usuário, para o Altamiro. Aí mostrou lá o ferro 87 na telinha, aí trouxe todas as observações do Lázaro, ele meio que prescreve algumas coisas, tal, tal, beleza. Aí imagina que, cara, então ferritina agora a gente vai colocar. Incluiu esse campo, cara, na hora que eu ler aquele exame do dia 1º de janeiro, o ferritina vai estar, eu já vou apontar com o do Lázaro e acabou, entendeu? Não precisa reprocessar. Mas isso assim, esse detalhe é o que menos interessa, porque o importante é a informação estar armazenada. Depois a gente faz o mesh, que é claro, vai ter datas, enfim, esse detalhamento do dado em si, como for armazenar, se for o caso, depois a gente vai entrar em mais detalhes sobre isso, mas o importante é garantir que a gente vai ler a informação, entendeu, Felipe? Que aí você está falando que vai, que vai conseguir fazer Então, esse é o principal. Perfeito. Está claro? Está claro, não é? Claríssimo. Show. Aí, deixa eu ver alguma coisa aqui. A integração, beleza. Primeira versão web e tal. Esse desenvolvimento da interface Opera ou Pilot com setor de exame processado, funcionalidade via chat. Essa funcionalidade via chat... Não vai ter, não. Exatamente. Nesse momento, não precisa. Se, mais ou menos, já está construído, já deixa o comentário.
+
+27:38 - felipe silva Eu acho que, assim, como a gente pensa nessa feed, no futuro, a gente pode deixar ela prontinha, só que simplesmente não expor ela. Exatamente.
+
+27:46 - AP É um feature que a gente não vai usar. Ela pode estar implementada, só não vai estar em produção. Perfeito.
+
+27:52 - felipe silva O que eu acho até melhor, inclusive, para a gente não ter trabalho lá na frente. Já faz tudo agora, já deixa a informação pronta. Isso aí.
+
+27:59 - Marcelo Nissenbaum Isso aí, eu não sei quanto tempo você tem, não sei quanto o Miro tem, mas o Miro, na verdade, ele queria avançar um pouquinho, porque com o MVP dando certo, tudo certinho, a gente precisaria, vou adiantar rápido aqui, entender como que seria a construção de fato do negócio, porque seria fazer realmente uma aplicação robusta, entendeu? Deixa eu fazer uma pergunta que acho que vai ficar mais específica.
+
+28:22 - AP Vamos pensar o seguinte, esse projeto aqui, Felipe, você desenhou muito bem o MVP, tudo funcionou perfeitamente, a gente estava batendo muita cabeça com isso, viu que o negócio funciona, o Marcelo até mandou, explicou um pouco a questão dos gastos, Então vai usar um banco e por enquanto não paga. Aí tem os serviços da nuvem pode ser qualquer nuvem Azure e AWS. Tanto faz aí. Isso não é o que importa nesse momento. Beleza. Aí o que é que eu estava falando. Galera para MVP. Show de bola a gente consegue ter agora se eu quiser ter realmente um app. Porque a ideia disso aqui é num app. Imagina o cara que é corredor lá. Cara ele vai vai ter a plataforma lá ele vai fazer todo o exame que ele fizer com o médico. Ele vai fazer um Opilogi tem que ser Então a ideia é muito, ou seja, basicamente vai ter um cadastro de usuário, a parte de exame ele consegue ver todo o detalhe.
+
+29:15 - felipe silva E aí é toda a questão de escalar, o projeto vai escalar. Exatamente. Vai ficar à disposição aí para centenas de milhares de pessoas, entendeu? Então vai ter que se estudar toda essa parte de infraestrutura.
+
+29:27 - AP E além da infraestrutura, porque na IDE web a gente vai fazer uma telinha que vai como se fosse assim, imagina uma tela principal, Eu tenho uma tela, uma caixa de texto que eu vou dar com um botãozinho para fazer um upload e tal. Para MVP é perfeito, mas para um app, da forma que a gente está idealizando, é um segundo passo, é um passo mais avançado e tudo mais. Aí a pergunta que eu queria te fazer é, você por acaso, você desenvolve app também?
+
+29:57 - felipe silva Sim. Desenvolve. Claro, faz parte do...
+
+29:59 - Palestrante Não Identificado Do scope de vocês aí.
+
+30:01 - felipe silva Do scope da nossa empresa, sim. Perfeito. Sem dúvida. A gente tem desenvolvedores que utilizam ferramentas como o Flask, como... Tem toda a especialização em desenvolvimento, tanto para dispositivo iOS, como para dispositivo Android. Efeito.
+
+30:19 - AP Tá. Aí, o que é que eu queria fazer uma sugestão aqui?
+
+30:26 - Palestrante Não Identificado Flask, não.
+
+30:27 - Palestrante Não Identificado Flutter, desculpa.
+
+30:28 - AP Oi?
+
+30:29 - AP Beleza. Aí, a minha sugestão, tá? Em relação a esses detalhes, depois vou fazer uma reunião com o Lázaro até para alinhar as coisas e tudo mais, falando do MVP, desse escopo aqui. E aí eu queria perguntar para você, se a gente fizer uma proposta, porque aí na verdade eu tenho que entrar desenhando um mockup de app da forma que a gente imagina, pensando em tudo, e vai entrar mais detalhes também da forma de armazenar esses dados, porque ali você mostrou como um teste, depois eu preciso entender um pouco melhor da parte do banking em si, vai ficar essa questão do armazenamento, mas é possível, se a gente desenhar um mockup de como a gente queria, com isso você conseguiria fazer uma proposta para a gente, baseado em tudo isso aqui que a gente está falando, mais um mockup do aplicativo, é uma forma que você consegue, você precisa de mais detalhes para o desenvolvimento de um app.
+
+31:19 - felipe silva Eu acho que a gente vai precisar um pouquinho mais de detalhes, inclusive em termos de usabilidade desse MVP, porque entende uma coisa...
+
+31:26 - Marcelo Nissenbaum Porque isso aí, vou dizer que, cara, apesar de eu não mas eu tenho uma visão ergonômica de interagir com as coisas de forma muito boa. Realmente, isso tem que ser algo, para mim, fantástico. Entendeu?
+
+31:40 - felipe silva Até porque esse MVP vai servir como fundamento, ele vai servir como fundação para aquilo que a gente for elaborar e desenvolver para uma escala maior, entendeu? Deixa eu te fazer uma pergunta técnica agora.
+
+31:56 - AP É isso. É rapidinho, Marcelo. E só para você entender, essa questão da escala não quer dizer que eu vou ter milhões de usuários processando, tá? Na verdade, é assim. A pessoa, depois que ele entra, que ele quer realmente fazer a parceria, ele vai ter um usuário cadastrado. Aquele cara, ele não vai ficar toda hora processando milhões de arquivos. Ele vai subir uma única vez, a gente vai processar, vai armazenar. E depois é só leitura do dado já armazenado.
+
+32:19 - felipe silva Sim, a gente vai ter que pensar em toda a parte de arquitetura. Isso, exato. Às vezes vai usar microserviços, às vezes vai usar monolito, enfim. Toda uma parte de estudo de arquitetura mesmo, sabe? Mais profunda. Mas tendo como base e fundamento o que a gente já está construindo agora, entendeu? Isso, exato.
+
+32:36 - AP É porque, pensa assim, o que a gente está desenvolvendo agora é como se fosse o motor do que a gente precisa, sendo que por cima tem toda uma parte de projeto como se fosse funcional, que vai entrar aí questão de arquitetura, um próprio desenvolvimento de aplicativos, se vai rodar o web, se vai... Vai ser um app ou também pode rodar.
+
+32:57 - felipe silva É legal pensar nos seguintes termos. Quando a gente fala de um MVP, a gente tá falando do quê? Pensa no seguinte. Eu tenho uma visão final daquilo que eu quero. Eu quero uma Ferrari. Eu quero uma Ferrari. Essa é a minha visão final do projeto, onde eu quero chegar. O que é o MVP? É um Fiat Uno.
+
+33:20 - AP Isso, sim. Perfeito. Exatamente. É isso que eu tô falando. Pro MVP, cara, tá show de bola, tá perfeito. Aí a minha pergunta é já, é por isso que eu perguntei, você desenvolve app? Desenvolvo. Aí num segundo passo, a gente quer dar, talvez possamos dar esse passo juntos.
+
+33:36 - felipe silva Eu só não vou conseguir dizer pra você agora, 100%, qual seria uma proposta de valor de custo pra uma aplicação, pra um app, porque tá muito lá na frente ainda, entendeu? Eu vou ter que dispor de muito mais tempo, de muito mais análise, inclusive exigir até mais do tempo de vocês para ver exatamente a maneira como que vocês vão querer esse app funcionando. Esse passo do MVP ele é fundamental até para vocês poderem ter uma visão mais clara de como vai ser esse produto final, entendeu? Baseado no funcionamento desse MVP. Posso fazer uma pergunta interessante?
+
+34:12 - Marcelo Nissenbaum Pode, queridão.
+
+34:13 - Marcelo Nissenbaum Enquanto ele não vai para o mercado de MVP, eu entendo que a LLM Ela é muito boa, mas ela não é perfeita nesse sentido. Então, eu acho que vai ter um pouco de migração de tecnologias para a gente fazer a leitura desse PDF, ou não.
+
+34:34 - AP Não, acho que não, Marcelo. Eu também acho que não.
+
+34:39 - Marcelo Nissenbaum Para leitura de PDF, não.
+
+34:41 - Marcelo Nissenbaum Para você fazer, vamos dizer, A criação do relatório, sim.
+
+34:46 - felipe silva A criação do relatório, a gente pode ter problema, a gente pode ter entradas aí em termos de acurácia, né? Mas eu acredito que, à medida que o tempo for avançando e as tecnologias forem avançando também, isso naturalmente tende a diminuir com o tempo, entendeu? A questão de alucinação, tudo porque, cara, querendo ou não, a tecnologia vai continuar avançando, vai continuar evoluindo, o negócio não vai ficar estagnado.
+
+35:12 - Marcelo Nissenbaum Não, perfeito. Mas é porque a minha pergunta é essa, porque a preocupação grande, eu sei que o Lázaro tem essa preocupação, porque eu e ele, a gente nesse sentido é muito cartesiano em relação aos analitos do sangue. Porque quando a gente pega esses parâmetros hematológicos e bioquímicos e a gente de repente foge um pouquinho, cara, sempre vai ter um doutor bioquímico conhecido com alguma coisa ou alguém para conseguir ver algum erro, alguma coisa, e sempre socar o outro lado. Então, por isso que eu estou perguntando, entendeu? Porque o ideal é que a gente não tenha essas fugas, vamos dizer assim. Então, é só a única preocupação da LLM, porque, na verdade, pelo que eu entendi, o chá semântica puxa perfeitamente, mas fazer esse filtro para transformar em relatório já é uma outra coisinha.
+
+36:07 - AP Mas que filtro? Sério, para fazer relatório, não entendi.
+
+36:10 - Marcelo Nissenbaum Porque, olha só, o Lázaro, quando ele tiver a planilha dele, vamos dizer que ele tenha 100 exames, a gente pode ter outros exames que não vão estar ali. Vai ler e vai puxar isso de algum banco, de alguma informação.
+
+36:24 - felipe silva Ou vai ser da do Lázaro ou vai ser do próprio conhecimento dele específico que a gente vai determinar por meio de...
+
+36:31 - AP Ou então uma integração com a API lá, de negócios de exames lá, o Lázaro no tempo Então assim, cara, depois que a informação está armazenada, Marcelo, é o que menos interessa. É verdade, eu não vou bater a cabeça nisso, mas eu concordo que eu acho que a gente vai conseguir sanar isso, é verdade. Exatamente, porque assim, a gente está pensando em MVP, então para MVP é isso que a gente precisa, a gente precisa ler o PDF. Armazenou a informação, consigo dar um match com o Lázaro? Cara, o trabalho de MVP é esse. A informação precisa estar armazenada. Depois eu penso como eu vou relacionar, eu posso depois ter uma integração com a outra API americana que faz não sei o que, isso é o que menos interessa. A informação está armazenada e tudo é via API. Acabou. Como se fosse já estar encapsulado no que já estáfelipe desenvolvido. Então não é problema realmente. E obviamente que eu concordo com o Filipe. Para a gente talvez evoluir para o segundo passo a gente precisa ter mais detalhes. Mocap, desenho. Ele vai ter conhecimento para entender como é que vai ser a arquitetura, perfil de usuário.
+
+37:31 - Marcelo Nissenbaum Eu vou estar mais envolvido no negócio. Exatamente.
+
+37:34 - Marcelo Nissenbaum Exatamente. Que vai voltar muito mais lá na frente e eu queria entender um pouquinho uma felipe Não faço ideia de valores, ordem e grandeza, mas a gente tem dois caminhos aqui, Filipe, que obviamente, um é buscar investidor, mas não é fácil, só aparece. Não, não, eu sei, eu tenho pleno conhecimento disso. Outra, aí eu vou até perguntar, o Miro tá aqui na minha frente, vou falar com ele também, depois eu vou falar com o Lázaro, é a gente ter um sócio tecnológico. Não sei o quanto você gostaria de participar de um projeto desse e a gente ter alguma coisa juntos, mas nada impede também da gente também despender um pouco financeiramente também para desenvolver tudo, não 100% você precisa de repente...
+
+38:20 - felipe silva Cara, ó, já se respondendo muito certeiro com você, eu achei o projeto muito bacana, muito legal, eu acho que a possibilidade de uma parceria como essa num no segundo momento, saindo da fase de MVP para uma parte mais de arquitetura, mais pesado, produção. Havendo todo esse entrosamento relacionado à própria estratégia de negócio e tudo mais. Inclusive, esse tempo para o desenvolvimento e lançamento do MVP é como se fosse uma fase de namoro. Até para vocês verem... Até para vocês poderem ver a agilidade, ver o meu trabalho. Puts, o Felipe realmente é um cara que entrega, um cara que funciona. Vale a pena realmente a gente oferecer essa parceria. Então, realmente, eu tenho, sem dúvida, nenhum interesse lá na frente.
+
+39:06 - Marcelo Nissenbaum E eu vou falar uma palavra muito difícil aqui, que é o seguinte, eu sei que para ter investidor, o ideal é a gente tracionar, fazer dinheiro. Se a gente estiver fazendo, aí eu vou dizer que é muito mais fácil conseguir um investidor. É só pegar o MVP e botar, rodeia, funciona. Mas o cara, e aí, está fazendo dinheiro? Não. Ah, então não quero não.
+
+39:31 - Palestrante Não Identificado É.
+
+39:31 - felipe silva É assim. A realidade é essa. É verdade. Você está 100% certo. Você tem que ter ali um entregável já para mostrar para o cara e dizer, putz, meu, a gente tem uma base... Se você chegar para o investidor e dizer o seguinte, a gente está no MVP, mas para esse MVP a gente já tem uma base de usuário, o ativo, que está testando a aplicação junto com a gente, de, sei lá, pelo menos umas 1.000 pessoas, o cara já olha de frente, o cara tem uma base de usuário de 1.000 pessoas usando o MVP, tem alguma coisa aqui, deixa eu prestar um pouquinho mais de atenção.
+
+40:08 - Marcelo Nissenbaum Isso que eu ia falar, essa captura desses 1.000 clientes nesse evento do Lázaro é altamente qualificado para a gente vender. Isso já é uma coisa fantástica, porque eu nem imaginava que o Lázaro tinha uma palestra para 1.000 pessoas. Cara, isso não é uma brincadeira. Pô, botar isso pra mil pessoas no MVP, pra mim, cara, eu tô sonhando.
+
+40:30 - AP E outra coisa, né, é claro, a gente tá pensando em MVP, sendo que já tem alguns features, Felipe, que o próprio Lázaro, no início do projeto, quando a gente tava meio que idealizando, ele já foi vendo, por exemplo, talvez fechar alguma parceria com um negócio de assinatura, enfim, você vai montando várias coisas, porque às vezes você tem um público de um atleta ali, tipo, sozinho, Marcelo, por exemplo, que é atleta, ele fala.
+
+40:54 - Marcelo Nissenbaum Deixa eu explicar isso até essa parte, Felipe. Eu fui atleta a vida toda do Flamengo, fui da Seleção Brasileira de Remo e fui do triatlon. Eu estou próximo das confederações brasileiras de triatlon, de todos. Então, assim, não é promessa de venda, mas a facilidade que eu tenho em entrar no mercado, por exemplo, a federação de vôlei do Rio de Janeiro. A esposa do meu marido tá lá, a Ana Richa. Então, assim, eu tô muito próximo dessa linhagem, vamos dizer, do esporte. Eu tô dentro do Flamengo. Eu converso com o head coach do Flamengo. Entendeu? Por exemplo, você sabe quem é o Bruno Spindle?
+
+41:37 - Palestrante Não Identificado Já ouvi falar, sim. Meu padrinho de casamento. Olha. Legal, é isso aí, pô.
+
+41:42 - Marcelo Nissenbaum Entendeu? Promessa? Não. Não é promessa nenhuma, mas...
+
+41:46 - Palestrante Não Identificado Mas existe uma facilidade, né, de... Isso eu tenho.
+
+41:49 - Marcelo Nissenbaum Esse método foi muito interessante, porque o Miro é da área de tecnologia, o Lázaro tem isso dentro dele, essa linha de 30 anos quase fazendo pesquisa, e eu... Perfeito.
+
+42:02 - felipe silva Eu acho que a gente está no caminho certo, viu, Marcelo? Eu acho que a gente está no caminho certo de desenvolver esse MVP, de ver ele funcionando dia a dia, profissionalidades, testes e por aí vai. Isso, unido a isso, o nosso próprio entrosamento como equipe, eu na parte de desenvolvimento, vocês também aí na parte de desenvolvimento, estratégia, gestão, tudo isso aí vai mostrar pra gente se o nosso time realmente deu liga, vai conseguir escalar esse MVP pra um outro patamar, onde você ali, com os seus contatos, de repente vai ter uma penetração, vai ter uma entrada, boa para a divulgação da aplicação, do aplicativo, cara, e aí a gente consegue atingir o nosso objetivo, é que ter bastante clientes, conseguir vender.
+
+42:54 - Marcelo Nissenbaum Para mim, esses mil, isso aí, para mim, sai de uma inércia absurda, porque um teste com mil pessoas, não é um teste com cinco, com dez profissionais.
+
+43:07 - AP Pois é. E a gente já tem também uns concorrentes. Essa ideia do lazo, não sei se ele chegou a comentar lá atrás.
+
+43:15 - Palestrante Não Identificado E outra, se tem concorrente, significa que...
+
+43:17 - AP Exatamente. Dá pra fazer, pô. Exatamente. Então, assim, inclusive foi um aluno dele de uma coisa que ele fez num pós-doutorado, alguma coisa que o cara meio que saiu... A verdade roubou dele. Roubou a ideia dele, entendeu? Então, assim, a ideia é a gente agora construir algo que seja mais... E, cara, é muito simples o aplicativo lá. A gente fez o teste, eu, o Marcelo, a gente no tempo... É bem basicão. É bem basicão. É como se o desenho que a gente está querendo fazer no MVP sendo que fazendo em tela de aplicativo. O cara já foi já deu um passo adiante obviamente. Mas assim não é nada demais e claro que o Lazaro tem toda a expertise a experiência dele. Ele é um cara muito conceituado no mercado. Então assim cara basicamente roubaram a ideia dele e criaram um aplicativo fizeram o que ele queria fazer. O que ele idealizou. Exatamente o que ele idealizou. Então a nossa ideia agora que se ele foi o O cara que idealizou isso, a gente tem muito mais condições de implementar com muito mais coisas do que o concorrente.
+
+44:15 - felipe silva Ele está com a gente. Exatamente. Ele vai conseguir manter a gente no trilho, vamos dizer assim, para aquilo que ele realmente sabe que é o que funciona, que é o que vai dar certo.
+
+44:28 - AP Maravilha. Perfeito, perfeito. Cara, então assim, beleza. Eu acho que era isso, Felipe.
+
+44:33 - felipe silva Em termos de valores, eu tentei enxugar o máximo possível. Horas e tudo mais para realmente a gente conseguir fechar essa parceria. Como eu falei para vocês, eu trabalho com uma equipe aqui em chuta, tem um desenvolvedor que trabalha. Eu fico mais focado na parte estratégica aqui do meu negócio. De vez em quando eu coloco a mão no código e tudo mais, mas normalmente eu desenvolvo toda a parte de arquitetura técnica, repasso isso para o meu dev, para o meu desenvolvedor para ele poder executar e vou acompanhando, vou dando as diretrizes para ele e tudo mais. Mas basicamente é assim. Então, como eu tenho esse custo adicional operacional, por isso que eu preciso cobrar esse MVP um pouco, a fase 2 desse MVP, entendeu? Mas eu tentei chegar num valor que não fosse astronômico, nada fora do que é mercado também, sabe, em termos de MVP, para a gente poder fechar. Então, em relação a custo, preço, está dentro? Funciona para vocês?
+
+45:33 - AP Acho que sim. Eu não sei se o Marcelo chegou a comentar com... Eu não sei se aquele menino viu o Lázaro, mas a gente vai trocar uma ideia com ele e a gente vai conversar com ele. A gente vai te dar um retorno, obviamente, com isso. Perfeito. E, cara, a gente fechando, aí é isso. Vai desenvolvimento. Eu vi ali o detalhamento da proposta e, cara, aí a gente vai acabar se envolvendo mais para detalhar o que passar. O Lázaro está com a planilha atualizada. Falar para a gente, então a gente teria que passar. Ele falou também que ia dar um tapa nas plantilhas. É, vai dar um tapa lá. Melhorar, perfeito. Muito legal. A gente vai armazenar a última versão e as futuras versões. A gente vai fazer direto no banco, então cria uma nova versão lá. Então a gente vai ter tudo ali armazenado. E detalhar muito essa questão dos exames. Eu tenho um planilha gigante, com todo o detalhamento que eu fiz lá atrás com o Marcelo. Vai ser um momento também, de repente, de enviar para ficar no detalhe aí, porque realmente é muito tipo de exame. A gente tinha mais de 1.000 lá quando o Marcelo fez, quase 1.947, 1.987, sei lá. Então, assim, é muito detalhe. E, obviamente, a gente vai, à medida que for realizando as etapas, a cada sprint... A cada sprint? É, aí a gente vai testando, vai analisando, muda isso aqui, faz assim, faz assado. E, obviamente, vai testando, vai fazendo tudo isso junto. Vai aprimorando.
+
+46:55 - felipe silva É, é um trabalho que a gente vai fazer junto, com certeza.
+
+46:58 - AP Perfeito, perfeito, cara. Cara, eu acho que é isso, acho que as dúvidas que eu tinha, né, acho que já foram bem explicadas aqui e sanadas. Então, show de bola, Felipe. Mais uma vez, obrigado pela disponibilidade. Desculpa ter que mudar, mas...
+
+47:12 - felipe silva Não, imagina, imagina, pessoal. Eu acho que é isso aí. Se a gente pretende ter uma parceria de longo prazo, a gente tem que estar junto.
+
+47:20 - AP Perfeito. Maravilha. Maravilha, então. Vamos falar lá com o Lázaro. Isso, a gente vai marcar uma reunião. Eu não consigo mais, me enrolei aqui. Enfim, amanhã ou depois a gente tenta marcar ainda uma reunião entre eu, o Marcelo e o Lázaro, para a gente dar um retorno enquanto antes disso aí.
+
+47:37 - Palestrante Não Identificado Tá bom. Obrigado, pessoal. Obrigado mesmo. Fico no aguardo.
+
+47:39 - AP Fechado. Felipe, brigadão. Tá bom. Valeu. Valeu, monstro. Um abraço. Tchau, tchau.

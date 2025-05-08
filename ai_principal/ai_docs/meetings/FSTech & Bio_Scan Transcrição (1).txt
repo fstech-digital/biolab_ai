@@ -1,0 +1,372 @@
+FSTech & Bio_Scan 
+ter., 6 de mai. de 2025
+
+0:08 - MN Fala aí, Marcelo. Vou dar um alô aqui no Lázaro, que ele já deve estar entrando. Já está entrando aqui, estou ouvindo.
+
+0:28 - Palestrante Não Identificado Foi.
+
+0:38 - Lázaro Nunes Boa tarde, Lázaro.
+
+0:41 - felipe silva Tudo jóia?
+
+0:42 - felipe silva Tudo jóia, e você? Tudo jóia.
+
+0:46 - Lázaro Nunes Seu microfone está um pouquinho baixo.
+
+0:51 - Lázaro Nunes Agora melhorou. Estava fora aqui, não estava apertado. Tranquilo? E aí, Marcelo?
+
+0:59 - MN Está escutando aí todo mundo?
+
+1:03 - felipe silva Eu estou escutando bem.
+
+1:07 - Lázaro Nunes Beleza. Acho que só o áudio, só o microfone do Larzo tá um pouquinho baixo.
+
+1:12 - felipe silva Eu tô te ouvindo, Larzo, mas tá um pouquinho baixo, não sei se... Deixa eu ver se eu consigo melhorar aqui.
+
+1:19 - Lázaro Nunes É que eu acho que tá com...
+
+1:22 - felipe silva Não, dá pra ouvir, dá pra ouvir. Tá bom, dá pra ouvir. Eu que tô ficando velho, tô ficando surdo.
+
+1:29 - Lázaro Nunes O que eu vi é que ele está no dispositivo externo. Melhorou?
+
+1:43 - Lázaro Nunes Melhorou, significativamente.
+
+1:46 - Lázaro Nunes Beleza, deixa eu tirar aqui. Eu estava pegando o microfone externo aqui, aí não fica legal.
+
+1:58 - felipe silva Então, Lázaro, olha só, a gente teve a oportunidade de se reunir um pouquinho mais cedo com o Miro.
+
+2:07 - MN Miro?
+
+2:07 - felipe silva Sim, solta Miro, Miro, exatamente. Com o Miro, isso. A gente fez aqui o uso desse MVP Simplório, mas para poder demonstrar aí as capacidades do uso de LLN, de inteligência artificial para um produto que vocês têm aí a visão de deixar mais robusto no futuro próximo. O Marcelo também teve a oportunidade de ver ele rodando, vendo funcionando direitinho. É óbvio, né? Ainda sem a planilha que você disponibilizou aí para a gente também poder fazer o uso. Essa última reunião foi bem importante para mim para poder ter uma visão ainda mais clara em relação ao projeto e tudo mais. Basicamente, eu acho que para esse encontro aqui seria tentar explicar um pouquinho melhor para você o fluxo que está sendo usado até o momento, tá? E já começar a pensar e imaginar em como a gente vai integrar o uso também da sua planilha para a elaboração das respostas do programa para o usuário final, tá bom? Mas basicamente, a gente começa ativando um servidor local. Eu começo ativando um servidor local. Esse servidor local, depois de ativado, ele recebe no CLI, que a gente chama, que é uma interface bem simples para o usuário, onde a gente tem a possibilidade de fazer o upload do exame, fazer o processamento do PDF enviado, pergunta sobre no caso, a funcionalidade do chat, ver detalhes e sair. Aqui, então, a gente fez o upload do seu documento, do PDF, do seu exame e tudo mais. A gente fez aqui uma pergunta, olha, pedi para que ele realizasse informações relacionadas ao hemograma. Ele trouxe aqui hemoglobina, valor, referência, referência usual para homens e para mulheres, uma interpretação bem simples, nada muito complexo. Trouxe aqui também o hematócrito, o leucócito, plaquetas, VCM, enfim, tudo aquilo que você entende muito bem. No final, ele trouxe aqui um resumo, todos os parâmetros do hemograma estão dentro dos valores de referência para adultos, exceto um dos valores de HCM 33.5, que está discretamente acima limite superior, mas isso geralmente não tem significado clínico isoladamente. Não há indício de anemia, leucopenia, leucocitose e etc. As palavras são difíceis. O hemograma está globalmente normal, tá? Como se trata do seu, eu acho que, bater o olho, você consegue identificar se tá dentro, se tá certo, se as informações que ele conseguiu obter do PDF tá Está correto.
+
+5:10 - Lázaro Nunes Sim, sim.
+
+5:11 - MN E aí, no caso... Uma coisa, Lázaro, ele não está pegando isso lá da tua planilha, não, só para você saber. Isso, isso. Isso é a LLM que está trazendo do banco da OpenAI, na verdade, do repositório, que existe esse repositório, e ela traz essa informação.
+
+5:30 - felipe silva É, é importante salientar que existe, sim, um prompt que eu criei para que ele, adicionando à LLM uma persona, Eu pedi para que ele se comporte como um profissional capacitado a dar esse tipo de informação, sabe? Não de maneira 100%, até porque existem certas restrições dentro da própria OpenAI, né? De não dar, por exemplo, receita médica, falar, olha, você tem que fazer isso para poder melhorar. Enfim, existem certas restrições do próprio modelo que é um... Que é um guard rail, por assim dizer, da própria empresa, da fornecedora da tecnologia, da inteligência artificial, de não se comportar dessa maneira, mas dentro dos parâmetros que eu consegui adicionar nesse prompt, ele consegue trazer, não aquilo que você deve fazer, mas ele consegue trazer isso daqui, olha, tá dentro dos valores de referência para adulto, tá certo isso? Tá certinho. Perfeito, mas nunca assumir ali uma postura de um médico, de uma pessoa que vai chegar e vai dizer assim, olha, você está precisando fazer tal coisa e tal. O máximo que ele faria aqui seria, olha, se você precisa de informações melhores, é importante que você procure um médico. Inclusive, isso é algo que pode ser implementado futuramente.
+
+6:57 - Lázaro Nunes Certo. E, no caso, por exemplo, esse modelo, ele poderá buscar para essas referências na plataforma da OpenAI ou também nas referências da planilha?
+
+7:07 - felipe silva É, a gente pode trabalhar dentro desses dois formatos, dando, de repente, uma ênfase, um peso maior para as respostas virem diretamente da sua planilha, preferencialmente, aí fica a critério de vocês, como que a gente vai trazer esse equilíbrio entre o que a gente vai querer que a IA fale e o quanto a gente vai querer que ela fale mas utilizando como base de conhecimento exclusivamente a planilha. Entendeu? Deixa eu dar umLázaroação aqui, Olazaro.
+
+7:37 - MN Existe uma possibilidade de alucinação também da LLM. Na verdade, nesse primeiro momento, a gente está usando a LLM porque ela está fazendo esse rastreio fácil para a gente. Esse lance que ele falou agora da pontuação dar mais peso lá para o nosso banco de conhecimento que seria a tua planilha, eu vejo que se realmente na hora de funcionar, A gente, possivelmente, vamos dizer, a coisa acontecendo e ficando realmente giga, a gente não vai usar LLM, tá? Eu tenho quase certeza disso. A gente tá usando nesse primeiro momento, mfelipeija depois, Filipe, a gente tá usando nesse primeiro momento pra fazer realmente um MVP e fazer a coisa rodar, pofelipeenão aqui o Filipe ia ter que fazer uma programação, ia ter que ser uma coisa super outra, bem elaborada, e cara, demora, vai demorar de repente até, sei lá, 2, 3 meses para fazer isso.
+
+8:30 - Lázaro Nunes Eu acho legal Marcelo, porque por exemplo, a planilha, por mais que a gente alimente ela, ela é limitada.
+
+8:39 - MN Ela é limitada, mas ela é limitada naqueles 50 exames, correto?
+
+8:44 - Palestrante Não Identificado É, a gente pode colocar mais ali, aqueles que a gente julga mais interessantes.
+
+8:50 - MN O que eu felipecom o com o Filipe. A gente, inicialmente quando, vamos dizer, a gente vai ter que ter um fluxo de entrada lá do cliente. O cliente, quando ele entrar, ele tem que saber que ele só vai ter a especificidade da inteligência planilha LASMAR para aqueles 50 exames, ou 49, ou 51, ou 52...
+
+9:16 - Lázaro Nunes Eu penso que a gente poderia colocar em torno de 100 ali...
+
+9:21 - MN Ótimo! A gente vai acrescentar, vamos dizer que a gente leia 100. Aí o cara entrou e faz um pedido, o médico lá dá a receita pra ele e vai lá e faz. Vamos dizer que agora a gente tem um cliente que ele já trouxe o PDF dele. A gente vai falar pra ele, ô, amigão, você vai subir teu PDF aqui? Ele subiu, aí ele vai dar a resposta, olha, nesse seu PDF a gente consegue ler 61 exames dos 100 que a gente tem a possibilidade. Os outros 39, por exemplo, a gente vai ter que pegar essa informação, ou em algum lugar, que existem acho que sites que referendam, a gente vai fazer um web crawler, que na verdade é um crawler que na verdade ele puxa suas informações direto desse site, ou a gente consegue baixar um banco de algum lugar com uma API.
+
+10:11 - felipe silva Ou ainda, ou ainda Marcelo, a gente pode considerar o uso da própria LLM, cara? Também pode. Olha só, no nível que está chegando de conhecimento e expertise, pô cara, porque querendo ou não, elas são alimentadas pelo conteúdo que existe na internet. Exatamente, eu acho que o que vale a pena a gente é testar, testar, entendeu? Para ver se de repente vale a pena a gente indexar a resposta via API de outros lugares, ou se a gente pode simplesmente criar um prompt muito bem estruturado, muito bem feito, para que ele se comporte de uma determinada forma e forneça as respostas que estejam bem alinhadas com aquilo que a gente já tem na planilha do Lázaro.
+
+10:58 - Lázaro Nunes Beleza, com certeza. E outra coisa, eu até comentei com o Marcelo mais cedo, não sei se vocês falaram disso na reunião, mas eu vi aí que tem diversas aplicações atualmente fazendo isso e agora, com essa reunião aqui, eu começo a perceber que isso acaba porque tem essa busca da LLM, porque eu vi aí vários sites que estão não só fazendo essa questão do exame, mas alguns eu já vi que estão conectados, por exemplo, eu vi um grupo de farmácia de manipulação que ele meio que já sugere protocolos ali, eu acho que baseado naquilo que ele vende, ali e tal, é uma coisa meio, vamos dizer assim, ele está oferecendo ali uma plataforma para a pessoa interpretar ali, tentar tirar uma informação clínica, mas acho que em segundo plano ele está vislumbrando vender os produtos dele também. Pois é. E a gente tem essa possibilidade de trabalhar com uma coisa às vezes também voltada para o esporte, aí eu acho que olhando essa apresentação a gente poderia ter, sei lá, dois módulos, né Marcelo? Um que trata de uma maneira geral e o outro que tem uma coisa mais voltada para quem faz atividade física. Então, por exemplo, a pessoa vai subir ali o exame, acho que uma das principais perguntas que tem que ter ali no início pra guiar pra onde o exame vai, é se faz atividade física ou não.
+
+12:20 - MN Exatamente, eu concordo com isso. Eu acho que a gente tem que ter exatamente isso. Cara, e na verdade é a gente no início tentativa e erro também um pouco e aprimorando isso. Com certeza.
+
+12:35 - Lázaro Nunes E aí eu vi ali que tem ações sugeridas, ver detalhes mais completos exames ou até, talvez, ele sugir ali exames complementares. Não sei se é isso que ele pode fazer.
+
+12:48 - felipe silva Pode ser? Pode ser. Quer ver? Vamos tentar pegar mais informações aqui. Imagina que você está querendo fazer, sei lá, pegar mais informações do seu exame. Que tipo de pergunta você faria?
+
+13:02 - Lázaro Nunes Por exemplo, se eu preciso pesquisar algum outro exame para ver se esse se esse HCM aumentado aí não tem nenhum problema, né?
+
+13:13 - Palestrante Não Identificado Esse único parâmetro. Como seria a requisição?
+
+13:17 - Lázaro Nunes Como seria a pergunta? Ou sugerir outros exames que complementem essa alteração de HCM. Sugerir outros exames que complementem essa alteração de HCM. Que foi o único exame que deu alterado aí. Se a gente o outro que tivesse alteração, talvez ele... Sim. Foi só isso?
+
+13:41 - MN Aquela alucinação que teve...
+
+13:43 - felipe silva Foi em relação, ele pegou, ele trouxe aqui, vamos ver aqui, com base nos valores fornecidos, estou lendo aqui para vocês, o HCM apresentou dois resultados, 30 e 35.5, ambos estão dentro da faixa referencial usual, sendo o segundo valor 35.5 no limite superior. Não há alteração significativa, mas se houver suspeita clínica de distúrbios hematológicos, alguns exames complementares podem ser úteis para investigação de alterações discretas no HCM ou para avaliação global da saúde hematológica. Sugestão de exames complementares, reticulócitos, avalia a produção de novas hemácias pela medula óssea, útil para investigar anemias e respostas medular, ferrocérico, ferritina, capacidade total de ligação do ferro, vitamina B12, ácido fólico, eletroforese de hemoglobina, dosagem de bilirrubinas e LDH e exame de sangue periférico. Observação importante, os demais parâmetros do hemograma, hemoglobina, hematocrito, VCM, CHCM, eritrócitos e plaquetas estão dentro dos limites de referência. O valor de leuctose informado O cubo está extremamente baixo e incompatível com a vida.
+
+15:05 - Palestrante Não Identificado Entendi.
+
+15:06 - Lázaro Nunes Aí, olha só, até essa parte aí está fantástico. Os exames que ele colocou, o indicativo, o exame e a explicação do que serve está perfeito. Aí o que aconteceu? Esse valor de leucósis informado, ele pegou ali...
+
+15:21 - Lázaro Nunes Ele pegou o valor de referência.
+
+15:24 - Lázaro Nunes Alguma coisa do valor de referência ali. Confundiu alguma coisa, porque 100 milímetros cúbicos realmente não...
+
+15:30 - MN Não existe, né?
+
+15:31 - Palestrante Não Identificado Exato, existe isso aí.
+
+15:33 - Lázaro Nunes Mas o resto está fantástico.
+
+15:35 - felipe silva Perfeito. Essa é a importância dos testes exaustivos, antes de qualquer ideia, de qualquer pensamento de lançamento para abertura para o público em geral, entendeu? E assim, a participação de vocês dois nesse processo é fundamental justamente para a gente poder localizar esses gaps, entendeu? E entender de que maneira eu posso resolver essas alucinações, esses probleminhas, entendeu? Mas eu fico feliz e satisfeito em saber que talvez 80, talvez 90% das respostas estejam de acordo com aquilo que é esperado por um MVP bem simples e que, poxa, mostra pra gente alguma coisa que funciona.
+
+16:26 - Lázaro Nunes Aqui, por exemplo, eu teria algum outro exame aqui, que é um exame alterado, e aí eu acho que o alterado ele vai mostrar outras... Vai dar essa informação.
+
+16:35 - felipe silva Ah, manda aqui pra mim, manda aqui pra mim no grupo.
+
+16:38 - Palestrante Não Identificado Deixa eu ver se eu consigo...
+
+16:40 - felipe silva Eu vou subir ele aqui, pra gente poder testar.
+
+16:43 - Lázaro Nunes A única coisa que a gente tem que ter um cuidado é que esses exames alterados aqui, como são de pacientes, a gente tem aquela...
+
+16:50 - MN questão da LGBT, né?
+
+16:52 - MN Olha só, aqui a gente tá num... A gente tá num buraco de minhoca, a gente tá numa dimensão que ninguém vai saber de nada, pelo amor de Deus, a gente tá na física quântica aqui quase, fica relaxado.
+
+17:05 - Lázaro Nunes Deixa eu ver aqui, peraí que tem um aqui, deixa eu dar uma olhada aqui.
+
+17:10 - felipe silva Inclusive, a gente estava na reunião passada, a gente até conversou sobre essa questão e para a gente poder, de repente, validar alguns testes, a gente pode até pensar em dados sintéticos, a gente pode, por exemplo, simular, criar de forma simulada esses documentos de PDF, utilizando IA mesmo, para poder formatar, poder trazer exemplos fictícios de exames, fictícios, mas que estejam dentro de uma realidade plausível, dá para assim dizer, e realizar esses testes.
+
+17:40 - felipe silva Para fazer aqui, para poder subir aqui no chat, será que dá?
+
+17:45 - Lázaro Nunes Deixa eu ver aqui.
+
+17:47 - MN Dá, no chat dá. No nosso grupo? Tem um grampinho ali de anexar documento.
+
+17:54 - Lázaro Nunes Deixa eu ver aqui. O meu navegador aqui não está com o grampinho. Eu vou colocar no grupo aqui.
+
+18:02 - Palestrante Não Identificado Acho que é mafelipeil. Tá bom.
+
+18:05 - Lázaro Nunes No grupo a gente pega aqui. Ele pega aqui o Filipe.
+
+18:09 - Palestrante Não Identificado Vou pegar aqui.
+
+18:10 - Lázaro Nunes Achei um aqui bem interessante que tem um quadro de anemia. Eu acho que ele já vai pegar aqui.
+
+18:18 - MN isso é pro MVP, tá, Lázaro? Depois a gente, né? Vai afunilando e vai melhorando isso também, né?
+
+18:26 - Palestrante Não Identificado Vai treinando isso, né?
+
+18:28 - MN E Lázaro, você você tem a essas aulas no dia vinte e sete desse mês, é isso? Que cê poderia ficar pronto, cê poderia usar nas aulas, é isso?
+
+18:40 - Lázaro Nunes É, eu poderia fazer um teste, agora eu tô pensando também aqui numa uma outra No dia 4 de julho eu vou ter uma palestra num evento de nutricionistas. Deve ter lá uns mil nutricionistas lá na palestra. Nossa, que lindo! A ideia era colocar alguma coisa ali, sei lá.
+
+19:03 - MN Vamos para esse evento que é melhor então. O que você acha, Felipe?
+
+19:09 - felipe silva Olha, eu acho que pelo prazo, considerando que a gente tem aí praticamente 30 dias, é isso? Olha, eu acho viável. Eu acho que é possível.
+
+19:22 - Lázaro Nunes Porque lá, o público ali é o principal foco. E aí, quem sabe, alguma coisa de quem estiver participando...
+
+19:31 - MN E você pode também fazer uma chamada para essas pessoas também levarem para lá, quer dizer, digitalmente no seu celular, É, geralmente o pessoal que vai, são todos aí nutricionistas que atendem digitalmente, aí deve ser fácil. Já pode fazer um super teste e aguentar mais de 1200 exames.
+
+19:55 - MN Eu queria fazer isso meio que de surpresa.
+
+19:59 - Lázaro Nunes Isso é bom, gostei.
+
+20:01 - Lázaro Nunes Porque tem algumas pessoas já no meio que tem essas aplicações aí, então ia ser um negócio que ia causar um impacto bem legal. Maravilhoso. Uma pessoa ali para fazer... Eu mandei aí o pdf. Deixa eu pegar aqui. Vê se chegou aí. Chegou.
+
+20:18 - Palestrante Não Identificado Deixa eu trazer aqui para aplicação.
+
+20:21 - Lázaro Nunes Vai ser um congresso de nutrição esportiva.
+
+20:23 - Lázaro Nunes Eu vou falar justamente lá de anemias, né? Então aí eu fiquei pensando, por exemplo, subir um exame igual esse aí e pedir para completar os exames e assim o pessoal fica doido lá, entendeu?
+
+20:39 - felipe silva Então aqui eu vou fazer o upload do pdf. É mais ou menos já o fluxo daquilo que a gente vislumbra lá na frente. Então aqui ele vai fazer Você vai fazer, ele pede a opção, né? Você vai com a opção 1, que é para poder fazer o upload do PDF. Aqui, no caso, ele está me pedindo o caminho do arquivo.
+
+21:21 - Palestrante Não Identificado É o Anemias Gestantes, não é isso?
+
+21:23 - Palestrante Não Identificado Isso, esse mesmo.
+
+21:25 - felipe silva Aí, ele pede para processar o arquivo, né? Essa aqui é a etapa em que ele vai pegar os dados do arquivo, vai converter isso em vetor para o banco de dados vetorial lá no SupaBase, para depois isso ser consumido, vai servir como base de conhecimento para inteligência artificial. Então, aqui ele começa o processo, é como você pode ver aqui, aqui é o servidor, aqui ele fazendo esse trabalho de extração de todas as informações, está vendo?
+
+21:57 - Lázaro Nunes Sim, muito. Estou vendo aí, está pegando exames, valores de referência.
+
+22:03 - felipe silva Depois que terminar o processo, a gente pode começar a fazer as perguntas. Terminou o processo, já está tudo dentro do banco de dados e agora a gente parte para a conversação. Vamos lá, primeira pergunta.
+
+22:20 - Lázaro Nunes Poderia ser aquela mesma, encontrar os exames alterados.
+
+22:24 - felipe silva Pode repetir para mim a pergunta, por favor?
+
+22:28 - Lázaro Nunes Identificar os exames que se encontram alterados. Alterados do paciente. Qual o nome do paciente?
+
+22:35 - felipe silva Puxa vida, qual que é o nome do paciente? Deixa eu ver.
+
+22:40 - felipe silva É, a gente precisa de alguma informação que seja do exame, entendeu?
+
+22:44 - felipe silva Porque senão ele pode trazer de qualquer exame.
+
+22:48 - Lázaro Nunes Deixa eu ver aqui.
+
+22:49 - felipe silva Deixa eu entrar aqui pra ver o nome da...
+
+22:53 - felipe silva É, já deixa até aberto o documento aí com você pra você comparar as respostas.
+
+22:59 - Palestrante Não Identificado É...
+
+22:59 - Lázaro Nunes Rosimeire Souza.
+
+23:00 - felipe silva Você está vendo a minha tela, né?
+
+23:03 - Lázaro Nunes Tô. Tá certo? Rosemeyer... É Rose, com E. Rosemeyer, Souza, com Z. Com Z? Isso, por tela.
+
+23:11 - Palestrante Não Identificado Assim?
+
+23:12 - felipe silva Espera aí, só um minutinho.
+
+23:14 - Lázaro Nunes Isso, aprova. Então, vamos ver aqui. Vou colocar o exame aqui do lado, para manter lindo.
+
+23:28 - Palestrante Não Identificado Ó, vamos lá?
+
+23:30 - Palestrante Não Identificado Vamos lá.
+
+23:31 - felipe silva Para identificar, é necessário comparar os valores...
+
+23:34 - felipe silva Ah, vamos lá, resposta, tá? Então, para identificar os exames alterados, é necessário comparar os valores...
+
+23:41 - felipe silva Calma aí, deixa eu tirar essa daqui.
+
+23:45 - felipe silva Comparar os valores apresentados com as faixas de referência usuais para adultos do sexo feminino, considerando que o nome Rosemary indica pacientes de sexo feminino. Faixas de referência padrão para cada exame. Hemoglobina, referência 12.0, 16.0, valor do paciente 10, abaixo do normal, indica anemia.
+
+24:06 - Palestrante Não Identificado Procede? Tá certo, certinho.
+
+24:07 - felipe silva Eritrócitos, referência 4.0, 5.4 milhões, valor do paciente 345, abaixo do normal, indica anemia. Procede?
+
+24:14 - Lázaro Nunes É, e aí o que acontece, só que tem só um errinho aí, que é o que o valor dela é O valor do exame dela tá aqui, ó, 3,45.
+
+24:28 - Palestrante Não Identificado Ah, ele interpretou como 345.
+
+24:30 - Lázaro Nunes É, 3,45 vezes 10³. Aí, ó, ele acho que não pegou ali a...
+
+24:36 - MN É, não fez a leitura interessante, hein?
+
+24:40 - Lázaro Nunes Do microlitro. Se bem que, ó, se bem que 345... Será que ele fez o cálculo? É, ele pode ter feito uma conversão aí, né?
+
+24:51 - felipe silva De 4 a... É, porque se você ver aqui, ó, interpretação provável, ele coloca o 3.45 vezes 10 elevado a 6. Não sei o que isso significa.
+
+25:04 - Lázaro Nunes É a unidade, né? 10 elevado a 6, né? São 3.450.000 hemácias por microlitros de sangue. Aí, acho que o 345 é que ele colocou errado, tá vendo? Teria 3.45.
+
+25:18 - MN Mas eu acho que isso não tá... Não tá dando problema no resultado.
+
+25:24 - Lázaro Nunes É, seria, continua abaixo do normal. Exato, com certeza.
+
+25:27 - felipe silva Beleza. Tá certo.
+
+25:29 - felipe silva Então, em relação ao hematócrito, referência... Também abaixo do normal.
+
+25:33 - Lázaro Nunes Tá, e esse é o valor do paciente mesmo? Isso, 33.2, ele deu aí 33%, ele deve ter arredondado, mas tá correto.
+
+25:41 - felipe silva Sim, sim.
+
+25:42 - felipe silva Tem os leucócitos, vocês estão conseguindo ler direitinho ou não?
+
+25:46 - Lázaro Nunes Tô conseguindo, tô conseguindo ler.
+
+25:48 - Palestrante Não Identificado Pronto, beleza.
+
+25:49 - Lázaro Nunes vou deixar uma dividida na tela aqui para pegar o exame.
+
+25:54 - Palestrante Não Identificado Tá, é... Continuo lendo ou posso ir passando?
+
+25:58 - Lázaro Nunes Pode ir passando aí, ó.
+
+26:00 - Lázaro Nunes O Leocosto também eu vi que tá ok, pegou o resultado certinho aqui, diz que tá normal. Legal, Paqueta? Também tá normal, leu certinho.
+
+26:11 - Palestrante Não Identificado VCM?
+
+26:12 - Lázaro Nunes Também, só caí a mesma coisa. Olha, o VCM é 96.2 e esse ponto ele não está considerando, ele está dando 962, eu acho que talvez é uma questão aí de ponto e para vírgula, talvez por conta de base de dados do mês.
+
+26:29 - felipe silva A quantidade de exames, por exemplo, que teria que fazer esse tipo de cálculo, esse tipo de conversão é muito grande? Porque é uma instrução que a gente pode dar de forma geral para que ele faça o cálculo de uma maneira específica, entende?
+
+26:44 - Lázaro Nunes Entendi, essas unidades relação meio padrão.
+
+26:47 - felipe silva De repente colocando no próprio prompt.
+
+26:50 - felipe silva Utilize o padrão X para realização de cálculo Y dentro dos exames. Aí ele segue isso como padrão e a gente evita esse tipo de erro.
+
+27:03 - Lázaro Nunes Eu acredito que seja uma relação do ponto, porque aí está vendo? É 307 e 319. Aqui é 30% 31.7 e 31.9.
+
+27:15 - felipe silva Estranha essa leitura, né? Sim.
+
+27:18 - Lázaro Nunes Ele tá substituindo ponto por vírgula aí, não sei se tem alguma coisa, mas tá certo.
+
+27:26 - felipe silva A interpretação tá correta. Aí ele vem aqui embaixo. Resume dos exames alterados. Abaixo do normal hemoglobina, eritrócitos e hematócrito.
+
+27:36 - Palestrante Não Identificado Perfeito.
+
+27:37 - felipe silva Aí depois temos a conclusão. Os exames alterados e confiáveis são eritrócitos e hematócrito, todos indicam anemia. O exame VCM, HCM e CHCM apresentam valores incompatíveis com a fisiologia humana e devem ser revisados. É isso, foi por conta daquela ocasião.
+
+27:55 - Palestrante Não Identificado Exatamente.
+
+27:55 - felipe silva Mas de qualquer forma, para um profissional que esteja aqui, de repente, utilizando, mesmo que ele alucine, o fato dele ter trazido essa informação, sei lá, de repente vai fazer com que o cara faça uma, ele próprio, avaliação. É óbvio que isso daqui não é o ideal, a gente quer deixar o mais redondo possível, mas a conclusão, a informação em si, de certa forma, ela pode ser benéfica no sentido de que, poxa, não, eu sei aonde que eu tenho que ver aqui.
+
+28:29 - Lázaro Nunes Certo. E aí ele deu mais algum exame alterado, porque eu vi aqui que nos exames dela, aqui no restante, ela tem uma alteração aí, por exemplo, de T4 livre, baixo, que pode ser sugerido como um valor de hipotireoidismo.
+
+28:47 - felipe silva É, é que isso exatamente ele não trouxe. Ele trouxe só a parte hematológica por enquanto. Sim, mas de repente a gente pode fazer uma pergunta relacionada a isso, para ver se ele traz.
+
+29:02 - Lázaro Nunes Se ele encontra alterações relacionadas a problemas da tireoide.
+
+29:06 - felipe silva Alterações... Relacionadas à tireoide, tá certo? Tireoide, tá certo. Isso aí.
+
+29:13 - Lázaro Nunes Muito bem. Não existem alterações relacionadas à tireoide nos exames aprimentados, pois não há exames de função tireoide analistados. É, acho que ele não... Não pegou essa parte do exame, né? Não pegou essa parte do exame, exato. Porque essa parte está em outras páginas aqui, né? Deixa eu ver uma coisa.
+
+29:42 - felipe silva Aqui, como eu falei para você, esse aqui é o servidor e aqui a gente tem a partida aqui para baixo, o que tecnicamente consta no documento, tá? Então vamos ver se ele pegou essa parte da tiroteia.
+
+30:02 - Lázaro Nunes Ah, ok.
+
+30:04 - Lázaro Nunes Deixa eu vendo aí. Pode ir descendo aí. Ácido fólico, homocisteína, vitamina D. Se a gente identificar que, na verdade, ele...
+
+30:20 - Palestrante Não Identificado Ah, tá vendo?
+
+30:22 - felipe silva Eu tô achando que, na verdade, ele não fez a ele não pegou o trecho do documento que fala exatamente sobre essa questão da tiroide, entendeu?
+
+30:36 - Lázaro Nunes Isso, porque já tá pegando alguma coisa aí do paciente Altamiro, já tá puxando outras coisas.
+
+30:43 - felipe silva Acabou puxando outras coisas aqui também.
+
+30:45 - Lázaro Nunes Porque esse PDF aqui ele tem, deixa eu ver aqui quantas páginas, tem 16 páginas de exames.
+
+30:52 - felipe silva Então aqui na verdade é uma questão de programação mesmo, tá? Existe uma limitação de páginas a ser escaneada no programa. Justamente para agilizar o processo, não fazer com que o processo não seja tão lento. Agora, se a gente estiver falando de um documento com um número de páginas maior, então a gente vai ter um problema de processamento mesmo, mas isso devido à tecnologia a qual eu disponho aqui. Como não está num servidor dedicado, está funcionando localmente aqui no meu computador, então para a gente poder ter acesso ao resultado resultados um pouco mais rápidos, eu fiz de maneira um pouco mais limitada.
+
+31:31 - Lázaro Nunes Beleza. Entendeu? Mas essa parte aí já deu uma resposta.
+
+31:35 - felipe silva É, já deu para ter um vislumbre.
+
+31:39 - MN Sim, com certeza.
+
+31:40 - Palestrante Não Identificado Então é isso, senhores.
+
+31:42 - felipe silva Eu acho que para uma apresentação de um MVP bem básico, bem simples, para que vocês vejam o funcionamento, a ideia e a daquilo que, de repente, a gente pode alcançar futuramente para um projeto um pouco mais robusto. É isso. Espero ter passado no teste.
+
+32:05 - MN Uma pergunta. Como é que a gente vai avançando nisso?
+
+32:10 - Palestrante Não Identificado Felipe ou Lázaro?
+
+32:12 - felipe silva Felipe. Olha, tendo em perspectiva aqui que a ideia é ter aí um MVP um pouco mais funcional, com uma interface web que rode lá no dia da apresentação, da conferência, é isso, Lázaro?
+
+32:29 - felipe silva Isso, na palestra do Congresso.
+
+32:31 - felipe silva Eu acho que a gente poderia pensar, então, na elaboração de uma proposta um pouco mais formal para o desenvolvimento desse projeto, envolvendo toda a questão de custos referente à parte operacional mesmo, horas trabalhadas, toda a questão do uso da LLM, questão de servidores para poder manter isso rodando num servidor em nuvem e tudo mais. Desenvolvimento de uma interface gráfica que seja boa para o usuário, tudo isso. Enviado essa proposta para vocês, vocês aceitando os termos relacionados a valores e tudo mais, a gente começa.
+
+33:17 - Palestrante Não Identificado Tá.
+
+33:18 - MN Tá bom, é.
+
+33:19 - Palestrante Não Identificado Tá bom.
+
+33:19 - MN Não é isso, Lázaro? Acho que é isso, né?
+
+33:22 - Lázaro Nunes É, vamos ter uma ideia, né? Precisamos ter uma ideia de como que vai ser isso, né? Da questão de valores, tempo, como que a gente vai proceder, mas acho que é o passo. Eu gostei do que foi mostrado, eu acho que é bem isso que a gente precisa. Depois a gente precisa avançar, lógico, na questão da comparação individualizada, mas eu acho que se esse primeiro passo, que é a extração, né, e a comparação com os já foi feito, eu acho que a outra parte de buscar alguma coisa da planilha acho que é o mais simples, pelo que eu pelo menos estou entendendo aqui.
+
+33:57 - felipe silva É, o que a gente conversou inclusive mais cedo com o Miro foi que ele mostrou lá um diagrama das diferentes etapas do projeto qual vocês estavam trabalhando e justamente a parte central que é essa falou, poxa, praticamente resolveu-se resolver-se essa questão, que é da busca das informações, da no caso, pegando elas e processando e trazendo isso como respostas para o usuário final. Com certeza.
+
+34:21 - Lázaro Nunes Isso aí.
+
+34:22 - MN Não é isso, Marcelo?
+
+34:23 - MN Acho que é isso, cara. Acho que não tem muito segredo, não.
+
+34:27 - felipe silva Maravilha.
+
+34:27 - felipe silva Eu vou trabalhar, então, numa proposta. Vou ver se eu preparo entre hoje e amanhã, já, para poder mandar lá no grupo para vocês avaliarem. Vocês aceitando os termos, querendo mudar alguma coisa e tal, para a gente poder fechar esse negócio, a gente começa. Tá bom?
+
+34:42 - Lázaro Nunes Tá bom.
+
+34:42 - Lázaro Nunes Falou. Valeu. Valeu, Felipe. Obrigado. Obrigado, Marcelo. Marcelo.
+
+34:45 - MN Tá bom, então a gente se fala aí, gente.
+
+34:48 - Palestrante Não Identificado Valeu, pessoal.
+
+34:48 - MN Boa noite. Obrigado. Obrigado, Felipe e Lázaro. A gente se fala aí e aguardamos.
+
+34:53 - Palestrante Não Identificado Valeu. Grande abraço.
