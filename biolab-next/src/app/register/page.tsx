@@ -6,6 +6,8 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Toaster } from "@/components/ui/toaster";
 import { toast } from "@/hooks/use-toast";
+import Image from "next/image";
+import Link from "next/link";
 
 export default function RegisterPage() {
   const router = useRouter();
@@ -47,32 +49,61 @@ export default function RegisterPage() {
   };
 
   return (
-    <main className="min-h-screen flex items-center justify-center">
+    <main className="min-h-screen bg-scientific-dark flex items-center justify-center px-4">
       <form
         onSubmit={handleSubmit}
-        className="bg-white p-6 rounded-lg shadow-md w-full max-w-md space-y-4"
+        className="bg-white text-scientific-dark p-8 rounded-xl shadow-lg w-full max-w-md space-y-6 border border-scientific-subtle"
       >
-        <h1 className="text-2xl font-bold">Criar Conta</h1>
-        <Input
-          placeholder="Nome"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        />
-        <Input
-          type="email"
-          placeholder="E-mail"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <Input
-          type="password"
-          placeholder="Senha"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <Button type="submit" className="w-full">
-          Cadastrar
-        </Button>
+        <div className="text-center space-y-2">
+          <Image
+            src="/iconPNG.png"
+            alt="Logo"
+            width={96}
+            height={96}
+            className="mx-auto bg-scientific-dark rounded-full p-2"
+          />
+          <h1 className="text-3xl font-bold">Criar Conta</h1>
+          <p className="text-sm text-gray-600">
+            Preencha os dados para se cadastrar
+          </p>
+        </div>
+
+        <div className="space-y-4">
+          <Input
+            placeholder="Nome"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
+          <Input
+            type="email"
+            placeholder="E-mail"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <Input
+            type="password"
+            placeholder="Senha"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <Button
+            type="submit"
+            className="w-full bg-scientific-success hover:bg-scientific-highlight"
+          >
+            Cadastrar
+          </Button>
+        </div>
+
+        <p className="text-sm text-center text-gray-600">
+          Já tem uma conta?{" "}
+          <Link
+            href="/login"
+            className="text-scientific-highlight hover:underline"
+          >
+            Entrar
+          </Link>
+        </p>
+
         <Toaster />
       </form>
     </main>

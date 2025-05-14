@@ -1,7 +1,6 @@
 import { AuthOptions } from 'next-auth'
 import CredentialsProvider from 'next-auth/providers/credentials'
 import GoogleProvider from 'next-auth/providers/google'
-// import MicrosoftProvider from 'next-auth/providers/microsoft'
 import { MongoDBAdapter } from '@auth/mongodb-adapter'
 import clientPromise from './mongodb'
 import LocalUser from '@/models/LocalUser'
@@ -13,7 +12,6 @@ export const authOptions: AuthOptions = {
         strategy: 'jwt',
     },
     providers: [
-        // Login manual (email/senha)
         CredentialsProvider({
             name: 'credentials',
             credentials: {
@@ -36,14 +34,15 @@ export const authOptions: AuthOptions = {
             clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
         }),
 
-        // Login com Microsoft (Outlook, Hotmail, etc)
-        // MicrosoftProvider({
-        //     clientId: process.env.MICROSOFT_CLIENT_ID!,
-        //     clientSecret: process.env.MICROSOFT_CLIENT_SECRET!,
-        // }),
+
     ],
     pages: {
         signIn: '/login',
+    },
+    callbacks: {
+        async redirect({ url, baseUrl }) {
+            return baseUrl
+        },
     },
     secret: process.env.NEXTAUTH_SECRET,
 }

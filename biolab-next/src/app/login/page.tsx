@@ -6,6 +6,10 @@ import { useRouter } from "next/navigation";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { Toaster } from "@/components/ui/toaster";
+import { toast } from "@/hooks/use-toast";
+import GoogleIcon from "@/components/icons/GoogleIcon";
+import Image from "next/image";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -18,6 +22,11 @@ export default function LoginPage() {
 
     if (!email || !password) {
       setError("Preencha todos os campos");
+      toast({
+        title: "Erro",
+        description: "Preencha todos os campos.",
+        variant: "destructive",
+      });
       return;
     }
 
@@ -29,48 +38,80 @@ export default function LoginPage() {
 
     if (res?.error) {
       setError("Credenciais inválidas");
+      toast({
+        title: "Erro",
+        description: "Credenciais inválidas",
+        variant: "destructive",
+      });
     } else {
+      toast({ title: "Login realizado", description: "Bem-vindo de volta!" });
       router.push("/");
     }
   };
 
   return (
-    <main className="min-h-screen flex items-center justify-center">
+    <main className="min-h-screen bg-scientific-dark flex items-center justify-center px-4">
       <form
         onSubmit={handleSubmit}
-        className="bg-white p-6 rounded-lg shadow-md w-full max-w-md space-y-4"
+        className="bg-white p-8 rounded-xl shadow-lg w-full max-w-md space-y-6 border border-scientific-subtle"
       >
-        <h1 className="text-2xl font-bold">Entrar</h1>
+        <div className="text-center space-y-2">
+          <Image
+            src="/iconPNG.png"
+            alt="Logo BioLab.Ai"
+            width={96}
+            height={96}
+            className="mx-auto bg-scientific-dark rounded-full p-2"
+          />
 
-        {error && <p className="text-red-500 text-sm">{error}</p>}
+          <h1 className="text-3xl font-bold text-scientific-dark">Entrar</h1>
+          <p className="text-sm text-gray-600">
+            Acesse sua conta para continuar
+          </p>
+        </div>
 
-        <Input
-          type="email"
-          placeholder="E-mail"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <Input
-          type="password"
-          placeholder="Senha"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
+        <div className="space-y-4">
+          <Input
+            type="email"
+            placeholder="E-mail"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <Input
+            type="password"
+            placeholder="Senha"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          {error && <p className="text-red-500 text-sm text-center">{error}</p>}
+          <Button
+            type="submit"
+            className="w-full bg-scientific-success hover:bg-scientific-highlight"
+          >
+            Entrar
+          </Button>
+          <Button
+            type="button"
+            variant="outline"
+            onClick={() => signIn("google", { callbackUrl: "/" })}
+            className="w-full flex items-center justify-center gap-2 border-scientific-highlight text-scientific-highlight hover:bg-scientific-highlight/10"
+          >
+            <GoogleIcon />
+            Entrar com Google
+          </Button>
+        </div>
 
-        <Button type="submit" className="w-full">
-          Entrar
-        </Button>
-
-        <Button onClick={() => signIn("google", { callbackUrl: "/" })}>
-          Entrar com Google
-        </Button>
-
-        <p className="text-sm text-center">
+        <p className="text-sm text-center text-gray-600">
           Não tem uma conta?{" "}
-          <Link href="/register" className="text-blue-600 hover:underline">
+          <Link
+            href="/register"
+            className="text-scientific-highlight hover:underline"
+          >
             Criar conta
           </Link>
         </p>
+
+        <Toaster />
       </form>
     </main>
   );
