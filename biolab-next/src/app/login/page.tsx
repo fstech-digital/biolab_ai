@@ -61,6 +61,10 @@ export default function LoginPage() {
           Entrar
         </Button>
 
+        <Button onClick={() => signIn("google", { callbackUrl: "/" })}>
+          Entrar com Google
+        </Button>
+
         <p className="text-sm text-center">
           Não tem uma conta?{" "}
           <Link href="/register" className="text-blue-600 hover:underline">
