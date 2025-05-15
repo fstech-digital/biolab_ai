@@ -9,7 +9,6 @@ export default function Home() {
   return (
     <main className="min-h-screen flex flex-col items-center justify-center gap-6 bg-scientific-dark text-white px-4 text-center">
       <h1 className="text-4xl font-bold">Hello, BioLab.Ai</h1>
-
       {status === "loading" ? (
         <p>Carregando informações...</p>
       ) : session?.user ? (
