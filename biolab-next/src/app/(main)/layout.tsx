@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
-import localFont from "next/font/local";
-import "./globals.css";
-import { Providers } from "./providers";
+import "../globals.css";
+import { Providers } from "../providers";
 import { dbConnect } from "@/lib/mongoose";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
+import AppLayout from "@/components/layouts/app-layout";
 
 export const metadata: Metadata = {
   title: "BioLab App",
@@ -22,7 +22,9 @@ export default async function RootLayout({
   return (
     <html lang="pt-BR">
       <body>
-        <Providers session={session}>{children}</Providers>
+        <Providers session={session}>
+          <AppLayout breadcrumb={{ current: "Início" }}>{children}</AppLayout>
+        </Providers>
       </body>
     </html>
   );
