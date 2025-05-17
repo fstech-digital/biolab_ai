@@ -33,7 +33,8 @@
     "react": "^18",
     "react-dom": "^18",
     "tailwind-merge": "^3.3.0",
-    "tailwindcss-animate": "^1.0.7"
+    "tailwindcss-animate": "^1.0.7",
+    "tesseract.js": "^6.0.1"
   },
   "devDependencies": {
     "@types/formidable": "^3.4.5",

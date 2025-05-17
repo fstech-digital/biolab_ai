@@ -5,8 +5,7 @@ const ExamSchema = new Schema({
     uploadedBy: { type: Schema.Types.ObjectId, ref: 'LocalUser' },
     sourceFile: { type: Schema.Types.ObjectId, required: true },
     analyzedAt: Date,
-    jsonExtract: Schema.Types.Mixed,
-    aiSummary: String,
+    textExtracted: String,
 }, { timestamps: true });
 
 export default models.Exam || model('Exam', ExamSchema);
