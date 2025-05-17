@@ -2,9 +2,8 @@ import { Schema, model, models } from 'mongoose';
 
 const ExamSchema = new Schema({
     patientId: { type: Schema.Types.ObjectId, ref: 'Patient' },
-    uploadedBy: { type: Schema.Types.ObjectId, ref: 'User' },
-    sourceFile: String,
-    collectedAt: Date,
+    uploadedBy: { type: Schema.Types.ObjectId, ref: 'LocalUser' },
+    sourceFile: { type: Schema.Types.ObjectId, required: true },
     analyzedAt: Date,
     jsonExtract: Schema.Types.Mixed,
     aiSummary: String,

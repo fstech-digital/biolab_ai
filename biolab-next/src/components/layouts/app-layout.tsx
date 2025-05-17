@@ -33,17 +33,17 @@ export default function AppLayout({ children, breadcrumb }: AppLayoutProps) {
 
   return (
     <SidebarProvider>
-      <AppSidebar role={role} /> {/* ⬅️ Passando role para a sidebar */}
+      <AppSidebar role={role} />
       <SidebarInset>
-        <header className="flex h-16 shrink-0 items-center gap-2">
-          <div className="flex items-center gap-2 px-4">
+        <header className="flex h-16 shrink-0 items-center gap-2 text-white">
+          <div className="flex items-center gap-2 px-4 ">
             <SidebarTrigger className="-ml-1" />
-            <Separator orientation="vertical" className="mr-2 h-4" />
+            <Separator orientation="vertical" className="mr-2 h-8" />
             <Breadcrumb>
               <BreadcrumbList>
                 {breadcrumb?.parent && (
                   <>
-                    <BreadcrumbItem className="hidden md:block">
+                    <BreadcrumbItem className="hidden md:block ">
                       <BreadcrumbLink href={breadcrumb.parent.href}>
                         {breadcrumb.parent.label}
                       </BreadcrumbLink>
@@ -52,7 +52,9 @@ export default function AppLayout({ children, breadcrumb }: AppLayoutProps) {
                   </>
                 )}
                 <BreadcrumbItem>
-                  <BreadcrumbPage>{breadcrumb?.current}</BreadcrumbPage>
+                  <BreadcrumbPage className="text-white text-xl">
+                    {breadcrumb?.current}
+                  </BreadcrumbPage>
                 </BreadcrumbItem>
               </BreadcrumbList>
             </Breadcrumb>
