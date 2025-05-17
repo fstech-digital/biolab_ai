@@ -76,12 +76,14 @@ export default function LoginPage() {
             placeholder="E-mail"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            className="bg-white"
           />
           <Input
             type="password"
             placeholder="Senha"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            className="bg-white"
           />
           {error && <p className="text-red-500 text-sm text-center">{error}</p>}
           <Button
@@ -94,7 +96,7 @@ export default function LoginPage() {
             type="button"
             variant="outline"
             onClick={() => signIn("google", { callbackUrl: "/" })}
-            className="w-full flex items-center justify-center gap-2 border-scientific-highlight text-scientific-highlight hover:bg-scientific-highlight/10"
+            className="w-full flex items-center justify-center gap-2 border-scientific-highlight text-scientific-highlight hover:bg-scientific-highlight/10 bg-white"
           >
             <GoogleIcon />
             Entrar com Google

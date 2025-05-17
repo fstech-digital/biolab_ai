@@ -73,18 +73,21 @@ export default function RegisterPage() {
             placeholder="Nome"
             value={name}
             onChange={(e) => setName(e.target.value)}
+            className="bg-white"
           />
           <Input
             type="email"
             placeholder="E-mail"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            className="bg-white"
           />
           <Input
             type="password"
             placeholder="Senha"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            className="bg-white"
           />
           <Button
             type="submit"
