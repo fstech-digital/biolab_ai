@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import { Card, CardContent } from "../ui/card";
 
@@ -48,9 +50,9 @@ interface Laboratorio {
 }
 
 interface AnalysisResult {
-  paciente: Paciente;
-  laboratorio: Laboratorio;
-  exames: Exame[];
+  paciente?: Paciente;
+  laboratorio?: Laboratorio;
+  exames?: Exame[];
 }
 
 interface Props {
@@ -58,6 +60,8 @@ interface Props {
 }
 
 export default function ExamResultDisplay({ result }: Props) {
+  console.log("Resultado recebido:", result);
+
   const renderSubexames = (subs?: Subexame[] | null, level = 1) => {
     if (!subs) return null;
     return subs.map((sub, idx) => (
@@ -87,74 +91,80 @@ export default function ExamResultDisplay({ result }: Props) {
 
   return (
     <div className="mt-6 w-full max-w-4xl mx-auto space-y-6">
-      <Card>
-        <CardContent className="p-6">
-          <h2 className="text-xl font-bold mb-2">Dados do Paciente</h2>
-          <div className="grid grid-cols-2 text-sm gap-1">
-            {Object.entries(result.paciente).map(([key, value]) => (
-              <div key={key}>
-                <strong>{key.replace(/_/g, " ")}:</strong> {value}
-              </div>
-            ))}
-          </div>
-        </CardContent>
-      </Card>
-
-      <Card>
-        <CardContent className="p-6">
-          <h2 className="text-xl font-bold mb-2">Laboratório</h2>
-          <div className="grid grid-cols-2 text-sm gap-1">
-            {Object.entries(result.laboratorio).map(([key, value]) => (
-              <div key={key}>
-                <strong>{key.replace(/_/g, " ")}:</strong> {value}
-              </div>
-            ))}
-          </div>
-        </CardContent>
-      </Card>
-
-      {result.exames.map((exame, index) => (
-        <Card key={index}>
+      {result.paciente && (
+        <Card>
           <CardContent className="p-6">
-            <h3 className="text-lg font-bold mb-2">{exame.nome}</h3>
-            <div className="text-sm mb-2">
-              {exame.resultado && (
-                <p>
-                  <strong>Resultado:</strong> {exame.resultado} {exame.unidade}
-                </p>
-              )}
-              <p>
-                <strong>Material:</strong> {exame.material}
-              </p>
-              <p>
-                <strong>Método:</strong> {exame.metodo}
-              </p>
-              <p>
-                <strong>Data Coleta:</strong> {exame.data_coleta}
-              </p>
-              <p>
-                <strong>Data Liberação:</strong> {exame.data_liberacao}
-              </p>
-              {Array.isArray(exame.valor_referencia) &&
-                exame.valor_referencia.length > 0 && (
-                  <>
-                    <strong>Valores de Referência:</strong>
-                    <ul className="text-xs text-muted-foreground ml-4 list-disc">
-                      {exame.valor_referencia.map((v, i) => (
-                        <li key={i}>
-                          {v.sexo ? `${v.sexo}, ` : ""}
-                          {v.idade ? `${v.idade}: ` : ""}
-                          {v.valores}
-                        </li>
-                      ))}
-                    </ul>
-                  </>
-                )}
+            <h2 className="text-xl font-bold mb-2">Dados do Paciente</h2>
+            <div className="grid grid-cols-2 text-sm gap-1">
+              {Object.entries(result.paciente).map(([key, value]) => (
+                <div key={key}>
+                  <strong>{key.replace(/_/g, " ")}:</strong> {value}
+                </div>
+              ))}
             </div>
-            {renderSubexames(exame.subexames)}
           </CardContent>
         </Card>
-      ))}
+      )}
+
+      {result.laboratorio && (
+        <Card>
+          <CardContent className="p-6">
+            <h2 className="text-xl font-bold mb-2">Laboratório</h2>
+            <div className="grid grid-cols-2 text-sm gap-1">
+              {Object.entries(result.laboratorio).map(([key, value]) => (
+                <div key={key}>
+                  <strong>{key.replace(/_/g, " ")}:</strong> {value}
+                </div>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+      )}
+
+      {Array.isArray(result.exames) &&
+        result.exames.map((exame, index) => (
+          <Card key={index}>
+            <CardContent className="p-6">
+              <h3 className="text-lg font-bold mb-2">{exame.nome}</h3>
+              <div className="text-sm mb-2">
+                {exame.resultado && (
+                  <p>
+                    <strong>Resultado:</strong> {exame.resultado}{" "}
+                    {exame.unidade}
+                  </p>
+                )}
+                <p>
+                  <strong>Material:</strong> {exame.material}
+                </p>
+                <p>
+                  <strong>Método:</strong> {exame.metodo}
+                </p>
+                <p>
+                  <strong>Data Coleta:</strong> {exame.data_coleta}
+                </p>
+                <p>
+                  <strong>Data Liberação:</strong> {exame.data_liberacao}
+                </p>
+                {Array.isArray(exame.valor_referencia) &&
+                  exame.valor_referencia.length > 0 && (
+                    <>
+                      <strong>Valores de Referência:</strong>
+                      <ul className="text-xs text-muted-foreground ml-4 list-disc">
+                        {exame.valor_referencia.map((v, i) => (
+                          <li key={i}>
+                            {v.sexo ? `${v.sexo}, ` : ""}
+                            {v.idade ? `${v.idade}: ` : ""}
+                            {v.valores}
+                          </li>
+                        ))}
+                      </ul>
+                    </>
+                  )}
+              </div>
+              {renderSubexames(exame.subexames)}
+            </CardContent>
+          </Card>
+        ))}
     </div>
   );
 }

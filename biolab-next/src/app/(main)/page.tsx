@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { toast } from "@/hooks/use-toast";
 import { FileText, Loader2, Upload } from "lucide-react";
 import { Toaster } from "@/components/ui/toaster";
+import ExamResultDisplay from "@/components/main/ExamResultDisplay";
 
 export default function Home() {
   const [file, setFile] = useState<File | null>(null);
@@ -15,6 +16,8 @@ export default function Home() {
 
   const [extractedText, setExtractedText] = useState<string | null>(null);
   const [examId, setExamId] = useState<string | null>(null);
+
+  const [analysisResult, setAnalysisResult] = useState<any | null>(null);
 
   const interactionDisabled = loadingUpload || loadingAnalyze || sessionLocked;
 
@@ -83,6 +86,9 @@ export default function Home() {
 
       if (!analysisRes.ok)
         throw new Error(analysisData.message || "Erro na análise");
+
+      const parsedResult = JSON.parse(analysisData.result);
+      setAnalysisResult(parsedResult);
 
       toast({
         title: "Análise concluída",
@@ -168,6 +174,12 @@ export default function Home() {
           </Button>
         </div>
 
+        {analysisResult && (
+          <div className="w-full max-w-5xl mt-8">
+            <ExamResultDisplay result={analysisResult} />
+          </div>
+        )}
+
         <Toaster />
       </div>
 
@@ -180,6 +192,8 @@ export default function Home() {
               setExamId(null);
               setExtractedText(null);
               setSessionLocked(false);
+              setAnalysisResult(null);
+
               const input = document.getElementById(
                 "pdf-upload"
               ) as HTMLInputElement;
