@@ -4,14 +4,13 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { toast } from "@/hooks/use-toast";
-import { FileText, Loader2, Upload, Search } from "lucide-react";
+import { FileText, Loader2, Upload } from "lucide-react";
 import { Toaster } from "@/components/ui/toaster";
 
 export default function Home() {
   const [file, setFile] = useState<File | null>(null);
   const [loading, setLoading] = useState(false);
-  const [examId, setExamId] = useState<string | null>(null);
-  const [analyzing, setAnalyzing] = useState(false);
+  const [extractedText, setExtractedText] = useState<string | null>(null);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selected = e.target.files?.[0];
@@ -50,13 +49,14 @@ export default function Home() {
         throw new Error(data?.message || "Erro inesperado.");
       }
 
+      setExtractedText(data.extractedText || null);
+
       toast({
-        title: "Upload realizado",
-        description: "Exame enviado com sucesso!",
+        title: "Upload e extração concluídos",
+        description: "Texto extraído com sucesso!",
         variant: "success",
       });
 
-      setExamId(data.examId); // salvando o ID do exame retornado
       setFile(null);
       const input = document.getElementById("pdf-upload") as HTMLInputElement;
       if (input) input.value = "";
@@ -68,44 +68,6 @@ export default function Home() {
       });
     } finally {
       setLoading(false);
-    }
-  };
-
-  const handleAnalyze = async () => {
-    if (!examId) return;
-
-    setAnalyzing(true);
-
-    try {
-      const res = await fetch("/api/analyze-exam", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ examId }),
-      });
-
-      const data = await res.json();
-
-      if (!res.ok) {
-        throw new Error(data?.message || "Erro ao extrair texto.");
-      }
-
-      toast({
-        title: "Texto extraído com sucesso",
-        description: data.extractedText
-          ? data.extractedText.slice(0, 100) + "..."
-          : "Texto encontrado.",
-        variant: "success",
-      });
-    } catch (err: any) {
-      toast({
-        title: "Erro na extração",
-        description: err.message || "Erro inesperado.",
-        variant: "destructive",
-      });
-    } finally {
-      setAnalyzing(false);
     }
   };
 
@@ -127,7 +89,7 @@ export default function Home() {
             className="flex items-center justify-between px-4 py-3 rounded-lg border border-dashed border-scientific-highlight cursor-pointer hover:bg-scientific-highlight/10 transition"
           >
             <div className="flex items-center gap-2 text-scientific-dark">
-              <FileText className="w-5 h-5 text-scientific-subtle" />
+              <FileText className="w-5 h-5 text-black" />
               <span className="text-sm">
                 {file ? file.name : "Selecionar arquivo PDF"}
               </span>
@@ -155,7 +117,7 @@ export default function Home() {
             {loading ? (
               <>
                 <Loader2 className="h-4 w-4 animate-spin mr-2" />
-                Enviando...
+                Enviando e analisando...
               </>
             ) : (
               <>
@@ -165,24 +127,12 @@ export default function Home() {
             )}
           </Button>
 
-          {examId && (
-            <Button
-              onClick={handleAnalyze}
-              disabled={analyzing}
-              className="w-full bg-blue-600 hover:bg-blue-700 text-white"
-            >
-              {analyzing ? (
-                <>
-                  <Loader2 className="h-4 w-4 animate-spin mr-2" />
-                  Analisando PDF...
-                </>
-              ) : (
-                <>
-                  <Search className="h-4 w-4 mr-2" />
-                  Extrair texto do PDF
-                </>
-              )}
-            </Button>
+          {extractedText && (
+            <textarea
+              readOnly
+              className="w-full h-64 p-2 border border-gray-300 rounded-md text-sm text-gray-800"
+              value={extractedText}
+            />
           )}
         </div>
 
