@@ -1,127 +1,86 @@
-export const runtime = "nodejs";
-
 import { NextRequest, NextResponse } from "next/server";
-import { getToken } from "next-auth/jwt";
+import OpenAI from "openai";
 import { dbConnect } from "@/lib/mongoose";
 import Exam from "@/models/Exam";
-import { MongoClient, GridFSBucket, ObjectId } from "mongodb";
-import fs from "fs";
-import os from "os";
-import path from "path";
-import { openai } from "@/lib/openai";
 
-const MONGODB_URI = process.env.MONGODB_URI!;
-const DATABASE_NAME = process.env.MONGODB_DB || "biolab";
+const openai = new OpenAI({
+    apiKey: process.env.OPENAI_API_KEY,
+});
+
+const assistantId = "asst_jHCHmh76WebWpVpFaIH2Z37K";
 
 export async function POST(req: NextRequest) {
     try {
-        console.log("[API] Início da análise via GPT-4 com PDF");
+        const { text, examId } = await req.json();
 
-        const token = await getToken({ req });
-        if (!token?.sub) {
-            console.log("[API] Token inválido ou ausente");
-            return NextResponse.json({ message: "Não autenticado" }, { status: 401 });
+        console.log("🔹 Requisição recebida");
+        console.log("📝 Texto:", text?.slice(0, 100) + "...");
+        console.log("📄 examId:", examId);
+
+        if (!text || !examId) {
+            console.warn("⚠️ Texto ou ID do exame ausente");
+            return NextResponse.json({ message: "Texto ou ID do exame não fornecido" }, { status: 400 });
         }
 
-        const { examId } = await req.json();
-        if (!examId) {
-            console.log("[API] examId ausente");
-            return NextResponse.json({ message: "ID do exame não fornecido" }, { status: 400 });
-        }
-
-        console.log(`[API] ID do exame recebido: ${examId}`);
-
-        const client = await MongoClient.connect(MONGODB_URI);
-        const db = client.db(DATABASE_NAME);
-        const bucket = new GridFSBucket(db, { bucketName: "pdfs" });
-
-        await dbConnect();
-        const exam = await Exam.findById(examId);
-        if (!exam) {
-            console.log("[API] Exame não encontrado no banco");
-            return NextResponse.json({ message: "Exame não encontrado" }, { status: 404 });
-        }
-
-        const tempPath = path.join(os.tmpdir(), `exam-${examId}.pdf`);
-        const writeStream = fs.createWriteStream(tempPath);
-        const downloadStream = bucket.openDownloadStream(new ObjectId(exam.sourceFile));
-
-        console.log("[API] Baixando arquivo do GridFS...");
-        await new Promise<void>((resolve, reject) => {
-            downloadStream.pipe(writeStream);
-            downloadStream.on("error", reject);
-            writeStream.on("finish", () => resolve());
-        });
-        console.log("[API] Arquivo salvo temporariamente:", tempPath);
-
-        const file = await openai.files.create({
-            file: fs.createReadStream(tempPath),
-            purpose: "assistants",
-        });
-        console.log("[API] Arquivo enviado à OpenAI. ID:", file.id);
-
-        const assistant = await openai.beta.assistants.create({
-            name: "Analista de Exames Médicos",
-            instructions: "Você é um médico que interpreta exames laboratoriais.",
-            model: "gpt-4-1106-preview",
-            tools: [{ type: "file_search" }],
-        });
-        console.log("[API] Assistant criado:", assistant.id);
-
+        console.log("🧠 Criando thread com OpenAI...");
         const thread = await openai.beta.threads.create();
-        console.log("[API] Thread criada:", thread.id);
 
         await openai.beta.threads.messages.create(thread.id, {
             role: "user",
-            content: "Analise o exame médico em PDF e forneça um parecer clínico.",
-            attachments: [{ file_id: file.id, tools: [{ type: "file_search" }] }],
+            content: `Analise o seguinte texto extraído de um exame de sangue e me forneça um resumo clínico em linguagem simples: \n\n${text}`,
         });
-        console.log("[API] Mensagem enviada com o PDF");
 
+        console.log("▶️ Iniciando execução do assistente...");
         const run = await openai.beta.threads.runs.create(thread.id, {
-            assistant_id: assistant.id,
+            assistant_id: assistantId,
         });
-        console.log("[API] Run iniciado:", run.id);
 
-        let status = "queued";
-        while (status !== "completed" && status !== "failed") {
-            await new Promise((r) => setTimeout(r, 1500));
-            const runCheck = await openai.beta.threads.runs.retrieve(thread.id, run.id);
-            status = runCheck.status;
-            console.log(`[API] Status do run: ${status}`);
+        let completed = false;
+        let result: string | null = null;
+
+        const maxTries = 36; // 36 tentativas × 5s = 180s = 3 minutos
+        const delay = 5000; // 5 segundos
+
+        for (let i = 0; i < maxTries; i++) {
+            console.log(`⏳ Verificando status da execução (${i + 1}/${maxTries})...`);
+            const runStatus = await openai.beta.threads.runs.retrieve(thread.id, run.id);
+
+            if (runStatus.status === "completed") {
+                console.log("✅ Execução concluída");
+                const messages = await openai.beta.threads.messages.list(thread.id);
+                result = messages.data[0].content
+                    .map((c) => ("text" in c ? c.text.value : ""))
+                    .join("\n");
+                completed = true;
+                break;
+            }
+
+            await new Promise((r) => setTimeout(r, delay));
         }
 
-        if (status === "failed") {
-            throw new Error("A execução da IA falhou.");
+        if (!completed) {
+            console.error("⏱️ Execução demorou demais");
+            return NextResponse.json({ message: "Análise demorou demais" }, { status: 408 });
         }
 
-        const messages = await openai.beta.threads.messages.list(thread.id);
-        const assistantMessage = messages.data.find((m) => m.role === "assistant");
+        console.log("🌐 Conectando ao banco de dados...");
+        await dbConnect();
+        const exam = await Exam.findById(examId);
 
-        const gptResponse =
-            assistantMessage?.content
-                .map((c) => ("text" in c ? c.text.value : ""))
-                .join("\n") || "Sem resposta.";
+        if (!exam) {
+            console.error("❌ Exame não encontrado no banco");
+            return NextResponse.json({ message: "Exame não encontrado" }, { status: 404 });
+        }
 
-        console.log("[API] Resposta da IA recebida");
-
-        fs.unlinkSync(tempPath);
-        console.log("[API] Arquivo temporário removido");
-
-        exam.textExtracted = gptResponse;
-        exam.analyzedAt = new Date();
+        console.log("💾 Salvando resultado no banco...");
+        exam.analysisResult = result;
         await exam.save();
-        console.log("[API] Exame atualizado no banco");
 
-        return NextResponse.json({
-            message: "Análise concluída com sucesso",
-            gptResponse,
-        });
-    } catch (err: any) {
-        console.error("[API] Erro ao processar análise:", err);
-        return NextResponse.json(
-            { message: "Erro ao processar PDF com GPT", error: err.message },
-            { status: 500 }
-        );
+        console.log("🎉 Resultado salvo com sucesso!");
+
+        return NextResponse.json({ result });
+    } catch (error: any) {
+        console.error("🚨 Erro geral:", error.message);
+        return NextResponse.json({ message: "Erro ao analisar", error: error.message }, { status: 500 });
     }
 }

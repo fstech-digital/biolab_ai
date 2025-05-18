@@ -6,6 +6,7 @@ const ExamSchema = new Schema({
     sourceFile: { type: Schema.Types.ObjectId, required: true },
     analyzedAt: Date,
     textExtracted: String,
+    analysisResult: String,
 }, { timestamps: true });
 
 export default models.Exam || model('Exam', ExamSchema);

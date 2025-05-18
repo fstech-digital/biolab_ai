@@ -10,7 +10,11 @@ import { Toaster } from "@/components/ui/toaster";
 export default function Home() {
   const [file, setFile] = useState<File | null>(null);
   const [loading, setLoading] = useState(false);
+  const [loadingUpload, setLoadingUpload] = useState(false);
+  const [loadingAnalyze, setLoadingAnalyze] = useState(false);
+
   const [extractedText, setExtractedText] = useState<string | null>(null);
+  const [examId, setExamId] = useState<string | null>(null);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selected = e.target.files?.[0];
@@ -33,7 +37,7 @@ export default function Home() {
   const handleUpload = async () => {
     if (!file) return;
 
-    setLoading(true);
+    setLoadingUpload(true);
     const formData = new FormData();
     formData.append("pdf", file);
 
@@ -50,6 +54,7 @@ export default function Home() {
       }
 
       setExtractedText(data.extractedText || null);
+      setExamId(data.examId);
 
       toast({
         title: "Upload e extração concluídos",
@@ -64,6 +69,39 @@ export default function Home() {
       toast({
         title: "Erro ao enviar",
         description: err.message || "Erro inesperado.",
+        variant: "destructive",
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
+  const handleAnalyze = async () => {
+    if (!extractedText) return;
+
+    setLoadingAnalyze(true);
+
+    try {
+      const res = await fetch("/api/analyze-exam", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ text: extractedText, examId: examId }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) throw new Error(data.message || "Erro na análise");
+
+      toast({
+        title: "Análise concluída",
+        description: "Análise realizada com sucesso.",
+        variant: "success",
+      });
+    } catch (err: any) {
+      toast({
+        title: "Erro ao analisar",
+        description: err.message,
         variant: "destructive",
       });
     } finally {
@@ -107,14 +145,14 @@ export default function Home() {
 
           <Button
             onClick={handleUpload}
-            disabled={loading || !file}
+            disabled={loadingUpload || !file}
             className={`w-full ${
-              loading || !file
+              loadingUpload || !file
                 ? "bg-scientific-success/50 cursor-not-allowed"
                 : "bg-scientific-success hover:bg-scientific-highlight"
             } text-white`}
           >
-            {loading ? (
+            {loadingUpload ? (
               <>
                 <Loader2 className="h-4 w-4 animate-spin mr-2" />
                 Enviando e analisando...
@@ -126,13 +164,21 @@ export default function Home() {
               </>
             )}
           </Button>
-
           {extractedText && (
-            <textarea
-              readOnly
-              className="w-full h-64 p-2 border border-gray-300 rounded-md text-sm text-gray-800"
-              value={extractedText}
-            />
+            <Button
+              onClick={handleAnalyze}
+              disabled={loadingAnalyze}
+              className="w-full bg-blue-600 hover:bg-blue-700 text-white mt-4 disabled:opacity-70 disabled:cursor-not-allowed"
+            >
+              {loadingAnalyze ? (
+                <>
+                  <Loader2 className="h-4 w-4 animate-spin mr-2" />
+                  Analisando com IA...
+                </>
+              ) : (
+                "Analisar Exame com IA"
+              )}
+            </Button>
           )}
         </div>
 
