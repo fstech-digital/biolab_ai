@@ -35,6 +35,20 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
 
-#Start Docker
+## 🐳 Docker
 
-Extractor PDF - docker run -p 8000:8000 pdf-text-api
+### 📦 Build da Imagem
+
+No diretório raiz do projeto (onde está o `Dockerfile`), execute o seguinte comando para construir a imagem Docker:
+
+```bash
+docker build -t pdf-text-api ./pdf-text-service
+```
+
+### 🚀 Start da API com Docker
+
+Para iniciar o serviço e expor a API localmente na porta 8000:
+
+```bash
+docker run -p 8000:8000 pdf-text-api
+```
