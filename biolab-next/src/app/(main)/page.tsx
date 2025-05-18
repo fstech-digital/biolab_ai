@@ -9,12 +9,14 @@ import { Toaster } from "@/components/ui/toaster";
 
 export default function Home() {
   const [file, setFile] = useState<File | null>(null);
-  const [loading, setLoading] = useState(false);
+  const [sessionLocked, setSessionLocked] = useState(false);
   const [loadingUpload, setLoadingUpload] = useState(false);
   const [loadingAnalyze, setLoadingAnalyze] = useState(false);
 
   const [extractedText, setExtractedText] = useState<string | null>(null);
   const [examId, setExamId] = useState<string | null>(null);
+
+  const interactionDisabled = loadingUpload || loadingAnalyze || sessionLocked;
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selected = e.target.files?.[0];
@@ -55,43 +57,32 @@ export default function Home() {
 
       setExtractedText(data.extractedText || null);
       setExamId(data.examId);
-
-      toast({
-        title: "Upload e extração concluídos",
-        description: "Texto extraído com sucesso!",
-        variant: "success",
-      });
-
       setFile(null);
+
       const input = document.getElementById("pdf-upload") as HTMLInputElement;
       if (input) input.value = "";
-    } catch (err: any) {
+
       toast({
-        title: "Erro ao enviar",
-        description: err.message || "Erro inesperado.",
-        variant: "destructive",
+        title: "Upload concluído",
+        description: "Iniciando análise com IA...",
+        variant: "info",
       });
-    } finally {
-      setLoading(false);
-    }
-  };
-  const handleAnalyze = async () => {
-    if (!extractedText) return;
 
-    setLoadingAnalyze(true);
+      // 🔁 Inicia a análise automaticamente
+      setLoadingAnalyze(true);
 
-    try {
-      const res = await fetch("/api/analyze-exam", {
+      const analysisRes = await fetch("/api/analyze-exam", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ text: extractedText, examId: examId }),
+        body: JSON.stringify({ text: data.extractedText, examId: data.examId }),
       });
 
-      const data = await res.json();
+      const analysisData = await analysisRes.json();
 
-      if (!res.ok) throw new Error(data.message || "Erro na análise");
+      if (!analysisRes.ok)
+        throw new Error(analysisData.message || "Erro na análise");
 
       toast({
         title: "Análise concluída",
@@ -100,17 +91,19 @@ export default function Home() {
       });
     } catch (err: any) {
       toast({
-        title: "Erro ao analisar",
-        description: err.message,
+        title: "Erro",
+        description: err.message || "Erro inesperado durante envio ou análise.",
         variant: "destructive",
       });
     } finally {
-      setLoading(false);
+      setLoadingUpload(false);
+      setLoadingAnalyze(false);
+      setSessionLocked(true);
     }
   };
 
   return (
-    <main className="min-h-screen bg-scientific-dark flex items-center justify-center px-4">
+    <main className="min-h-screen bg-scientific-dark flex flex-col items-center justify-center px-4">
       <div className="bg-white p-8 rounded-xl shadow-lg w-full max-w-md space-y-6 border border-scientific-subtle">
         <div className="text-center space-y-2">
           <h1 className="text-3xl font-bold text-scientific-highlight">
@@ -124,12 +117,20 @@ export default function Home() {
         <div className="space-y-4">
           <label
             htmlFor="pdf-upload"
-            className="flex items-center justify-between px-4 py-3 rounded-lg border border-dashed border-scientific-highlight cursor-pointer hover:bg-scientific-highlight/10 transition"
+            className={`flex items-center justify-between px-4 py-3 rounded-lg border border-dashed transition ${
+              interactionDisabled
+                ? "border-gray-300 bg-gray-100 cursor-not-allowed text-gray-400"
+                : "border-scientific-highlight hover:bg-scientific-highlight/10 cursor-pointer text-black"
+            }`}
           >
-            <div className="flex items-center gap-2 text-scientific-dark">
-              <FileText className="w-5 h-5 text-black" />
+            <div className="flex items-center gap-2">
+              <FileText className="w-5 h-5" />
               <span className="text-sm">
-                {file ? file.name : "Selecionar arquivo PDF"}
+                {interactionDisabled
+                  ? "Exame sendo analisado..."
+                  : file
+                  ? file.name
+                  : "Selecionar arquivo PDF"}
               </span>
             </div>
             <Upload className="w-4 h-4 text-scientific-subtle" />
@@ -140,19 +141,20 @@ export default function Home() {
             type="file"
             accept="application/pdf"
             onChange={handleFileChange}
+            disabled={interactionDisabled}
             className="hidden"
           />
 
           <Button
             onClick={handleUpload}
-            disabled={loadingUpload || !file}
+            disabled={interactionDisabled || !file}
             className={`w-full ${
-              loadingUpload || !file
+              interactionDisabled || !file
                 ? "bg-scientific-success/50 cursor-not-allowed"
                 : "bg-scientific-success hover:bg-scientific-highlight"
             } text-white`}
           >
-            {loadingUpload ? (
+            {loadingUpload || loadingAnalyze ? (
               <>
                 <Loader2 className="h-4 w-4 animate-spin mr-2" />
                 Enviando e analisando...
@@ -164,26 +166,30 @@ export default function Home() {
               </>
             )}
           </Button>
-          {extractedText && (
-            <Button
-              onClick={handleAnalyze}
-              disabled={loadingAnalyze}
-              className="w-full bg-blue-600 hover:bg-blue-700 text-white mt-4 disabled:opacity-70 disabled:cursor-not-allowed"
-            >
-              {loadingAnalyze ? (
-                <>
-                  <Loader2 className="h-4 w-4 animate-spin mr-2" />
-                  Analisando com IA...
-                </>
-              ) : (
-                "Analisar Exame com IA"
-              )}
-            </Button>
-          )}
         </div>
 
         <Toaster />
       </div>
+
+      {sessionLocked && (
+        <div className="mt-6 text-center">
+          <Button
+            variant="secondary"
+            onClick={() => {
+              setFile(null);
+              setExamId(null);
+              setExtractedText(null);
+              setSessionLocked(false);
+              const input = document.getElementById(
+                "pdf-upload"
+              ) as HTMLInputElement;
+              if (input) input.value = "";
+            }}
+          >
+            Nova Análise
+          </Button>
+        </div>
+      )}
     </main>
   );
 }
