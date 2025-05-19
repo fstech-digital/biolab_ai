@@ -1,0 +1,1114 @@
+{
+    "paciente": {
+        "nome": "Altamiro da Cunha Pedrosa Junior",
+        "cpf": "",
+        "data_nascimento": "18/11/1981",
+        "genero": "Masculino",
+        "rg": "",
+        "convenio": "",
+        "codigo_os": "8605.0151.2113",
+        "atendimento": "200070240584",
+        "medico": "Dr(a) Randolph Adhemar Merino Arce"
+    },
+    "laboratorio": {
+        "nome": "DASA",
+        "crm": "0111212-0",
+        "cnes": "7402074",
+        "responsavel_tecnico": "Dr. Cristovam Scapulatempo Neto",
+        "endereco": "Rua Xavier Pinheiro, 439 Quadra 29 - Pq. Duque de Caxias, Duque de Caxias, RJ"
+    },
+    "exames": [
+        {
+            "nome": "Hemograma com Contagem de Plaquetas",
+            "resultado": "",
+            "unidade": "",
+            "data_coleta": "10/09/2024",
+            "data_liberacao": "",
+            "metodo": "Impedância / Colorimetria / Fluorescência / Avaliação Microscópica",
+            "material": "Sangue Total",
+            "valor_referencia": null,
+            "subexames": [
+                {
+                    "nome": "Série Vermelha",
+                    "resultado": "",
+                    "unidade": "",
+                    "data_coleta": "",
+                    "data_liberacao": "",
+                    "metodo": "",
+                    "material": "",
+                    "valor_referencia": null,
+                    "subexames": [
+                        {
+                            "nome": "Eritrócitos",
+                            "resultado": "5,06",
+                            "unidade": "10^6/µL",
+                            "data_coleta": "",
+                            "data_liberacao": "",
+                            "metodo": "",
+                            "material": "",
+                            "valor_referencia": [
+                                {
+                                    "sexo": "",
+                                    "idade": "",
+                                    "valores": "4,50 a 5,50 10^6/µL"
+                                }
+                            ],
+                            "subexames": null
+                        },
+                        {
+                            "nome": "Hemoglobina",
+                            "resultado": "15,2",
+                            "unidade": "g/dL",
+                            "data_coleta": "",
+                            "data_liberacao": "",
+                            "metodo": "",
+                            "material": "",
+                            "valor_referencia": [
+                                {
+                                    "sexo": "",
+                                    "idade": "",
+                                    "valores": "13,0 a 17,0 g/dL"
+                                }
+                            ],
+                            "subexames": null
+                        },
+                        {
+                            "nome": "Hematócrito",
+                            "resultado": "45,4",
+                            "unidade": "%",
+                            "data_coleta": "",
+                            "data_liberacao": "",
+                            "metodo": "",
+                            "material": "",
+                            "valor_referencia": [
+                                {
+                                    "sexo": "",
+                                    "idade": "",
+                                    "valores": "40,0 a 50,0 %"
+                                }
+                            ],
+                            "subexames": null
+                        },
+                        {
+                            "nome": "VCM",
+                            "resultado": "89,7",
+                            "unidade": "fL",
+                            "data_coleta": "",
+                            "data_liberacao": "",
+                            "metodo": "",
+                            "material": "",
+                            "valor_referencia": [
+                                {
+                                    "sexo": "",
+                                    "idade": "",
+                                    "valores": "83,0 a 101,0 fL"
+                                }
+                            ],
+                            "subexames": null
+                        },
+                        {
+                            "nome": "HCM",
+                            "resultado": "30,0",
+                            "unidade": "pg",
+                            "data_coleta": "",
+                            "data_liberacao": "",
+                            "metodo": "",
+                            "material": "",
+                            "valor_referencia": [
+                                {
+                                    "sexo": "",
+                                    "idade": "",
+                                    "valores": "27,0 a 32,0 pg"
+                                }
+                            ],
+                            "subexames": null
+                        },
+                        {
+                            "nome": "CHCM",
+                            "resultado": "33,5",
+                            "unidade": "g/dL",
+                            "data_coleta": "",
+                            "data_liberacao": "",
+                            "metodo": "",
+                            "material": "",
+                            "valor_referencia": [
+                                {
+                                    "sexo": "",
+                                    "idade": "",
+                                    "valores": "31,0 a 35,0 g/dL"
+                                }
+                            ],
+                            "subexames": null
+                        },
+                        {
+                            "nome": "RDW",
+                            "resultado": "13,1",
+                            "unidade": "%",
+                            "data_coleta": "",
+                            "data_liberacao": "",
+                            "metodo": "",
+                            "material": "",
+                            "valor_referencia": [
+                                {
+                                    "sexo": "",
+                                    "idade": "",
+                                    "valores": "11,6 a 14,0 %"
+                                }
+                            ],
+                            "subexames": null
+                        }
+                    ]
+                },
+                {
+                    "nome": "Série Branca",
+                    "resultado": "",
+                    "unidade": "",
+                    "data_coleta": "",
+                    "data_liberacao": "",
+                    "metodo": "",
+                    "material": "",
+                    "valor_referencia": null,
+                    "subexames": [
+                        {
+                            "nome": "Leucócitos",
+                            "resultado": "8.500",
+                            "unidade": "/µL",
+                            "data_coleta": "",
+                            "data_liberacao": "",
+                            "metodo": "",
+                            "material": "",
+                            "valor_referencia": [
+                                {
+                                    "sexo": "",
+                                    "idade": "",
+                                    "valores": "4.000 a 10.000 /µL"
+                                }
+                            ],
+                            "subexames": null
+                        },
+                        {
+                            "nome": "Neutrófilos",
+                            "resultado": "6.707",
+                            "unidade": "/µL",
+                            "data_coleta": "",
+                            "data_liberacao": "",
+                            "metodo": "",
+                            "material": "",
+                            "valor_referencia": [
+                                {
+                                    "sexo": "",
+                                    "idade": "",
+                                    "valores": "1.800 a 7.800 /µL"
+                                }
+                            ],
+                            "subexames": null
+                        },
+                        {
+                            "nome": "Eosinófilos",
+                            "resultado": "145",
+                            "unidade": "/µL",
+                            "data_coleta": "",
+                            "data_liberacao": "",
+                            "metodo": "",
+                            "material": "",
+                            "valor_referencia": [
+                                {
+                                    "sexo": "",
+                                    "idade": "",
+                                    "valores": "20 a 500 /µL"
+                                }
+                            ],
+                            "subexames": null
+                        },
+                        {
+                            "nome": "Basófilos",
+                            "resultado": "9",
+                            "unidade": "/µL",
+                            "data_coleta": "",
+                            "data_liberacao": "",
+                            "metodo": "",
+                            "material": "",
+                            "valor_referencia": [
+                                {
+                                    "sexo": "",
+                                    "idade": "",
+                                    "valores": "20 a 100 /µL"
+                                }
+                            ],
+                            "subexames": null
+                        },
+                        {
+                            "nome": "Linfócitos",
+                            "resultado": "1.241",
+                            "unidade": "/µL",
+                            "data_coleta": "",
+                            "data_liberacao": "",
+                            "metodo": "",
+                            "material": "",
+                            "valor_referencia": [
+                                {
+                                    "sexo": "",
+                                    "idade": "",
+                                    "valores": "1.000 a 3.000 /µL"
+                                }
+                            ],
+                            "subexames": null
+                        },
+                        {
+                            "nome": "Monócitos",
+                            "resultado": "400",
+                            "unidade": "/µL",
+                            "data_coleta": "",
+                            "data_liberacao": "",
+                            "metodo": "",
+                            "material": "",
+                            "valor_referencia": [
+                                {
+                                    "sexo": "",
+                                    "idade": "",
+                                    "valores": "200 a 1.000 /µL"
+                                }
+                            ],
+                            "subexames": null
+                        }
+                    ]
+                },
+                {
+                    "nome": "Contagem de Plaquetas",
+                    "resultado": "196.000",
+                    "unidade": "/µL",
+                    "data_coleta": "",
+                    "data_liberacao": "",
+                    "metodo": "Impedância",
+                    "material": "",
+                    "valor_referencia": [
+                        {
+                            "sexo": "",
+                            "idade": "",
+                            "valores": "150.000 a 450.000 /µL"
+                        }
+                    ],
+                    "subexames": null
+                },
+                {
+                    "nome": "VPM",
+                    "resultado": "12,6",
+                    "unidade": "fL",
+                    "data_coleta": "",
+                    "data_liberacao": "",
+                    "metodo": "",
+                    "material": "",
+                    "valor_referencia": [
+                        {
+                            "sexo": "",
+                            "idade": "",
+                            "valores": "8,3 a 12,5 fL"
+                        }
+                    ],
+                    "subexames": null
+                }
+            ]
+        },
+        {
+            "nome": "Glicose",
+            "resultado": "105",
+            "unidade": "mg/dL",
+            "data_coleta": "10/09/2024",
+            "data_liberacao": "",
+            "metodo": "Hexoquinase",
+            "material": "Soro",
+            "valor_referencia": [
+                {
+                    "sexo": "",
+                    "idade": "",
+                    "valores": "70 a 99 mg/dL"
+                }
+            ],
+            "subexames": null
+        },
+        {
+            "nome": "Magnésio",
+            "resultado": "2,2",
+            "unidade": "mg/dL",
+            "data_coleta": "10/09/2024",
+            "data_liberacao": "",
+            "metodo": "Colorimétrico",
+            "material": "Soro",
+            "valor_referencia": [
+                {
+                    "sexo": "",
+                    "idade": "",
+                    "valores": "1,9 a 2,6 mg/dL"
+                }
+            ],
+            "subexames": null
+        },
+        {
+            "nome": "Transferrina",
+            "resultado": "287",
+            "unidade": "mg/dL",
+            "data_coleta": "10/09/2024",
+            "data_liberacao": "",
+            "metodo": "Nefelometria",
+            "material": "Soro",
+            "valor_referencia": [
+                {
+                    "sexo": "",
+                    "idade": "",
+                    "valores": "200 a 360 mg/dL"
+                }
+            ],
+            "subexames": null
+        },
+        {
+            "nome": "Uréia",
+            "resultado": "27",
+            "unidade": "mg/dL",
+            "data_coleta": "10/09/2024",
+            "data_liberacao": "",
+            "metodo": "Cinético UV",
+            "material": "Soro",
+            "valor_referencia": [
+                {
+                    "sexo": "",
+                    "idade": "",
+                    "valores": "15 a 50 mg/dL"
+                }
+            ],
+            "subexames": null
+        },
+        {
+            "nome": "Creatinina",
+            "resultado": "0,61",
+            "unidade": "mg/dL",
+            "data_coleta": "10/09/2024",
+            "data_liberacao": "",
+            "metodo": "Colorimétrico - Cinético",
+            "material": "Soro",
+            "valor_referencia": [
+                {
+                    "sexo": "",
+                    "idade": "",
+                    "valores": "0,70 a 1,30 mg/dL"
+                }
+            ],
+            "subexames": null
+        },
+        {
+            "nome": "HDL - Colesterol",
+            "resultado": "22",
+            "unidade": "mg/dL",
+            "data_coleta": "10/09/2024",
+            "data_liberacao": "",
+            "metodo": "Enzimatico - Colorimétrico",
+            "material": "Soro",
+            "valor_referencia": [
+                {
+                    "sexo": "",
+                    "idade": "",
+                    "valores": ">40 mg/dL"
+                }
+            ],
+            "subexames": null
+        },
+        {
+            "nome": "Colesterol Total",
+            "resultado": "211",
+            "unidade": "mg/dL",
+            "data_coleta": "10/09/2024",
+            "data_liberacao": "",
+            "metodo": "Enzimatico - Colorimétrico",
+            "material": "Soro",
+            "valor_referencia": [
+                {
+                    "sexo": "",
+                    "idade": "",
+                    "valores": "<190 mg/dL"
+                }
+            ],
+            "subexames": null
+        },
+        {
+            "nome": "Triglicérides",
+            "resultado": "1004",
+            "unidade": "mg/dL",
+            "data_coleta": "10/09/2024",
+            "data_liberacao": "",
+            "metodo": "Enzimatico - Colorimétrico",
+            "material": "Soro",
+            "valor_referencia": [
+                {
+                    "sexo": "",
+                    "idade": "",
+                    "valores": "<150 mg/dL"
+                }
+            ],
+            "subexames": null
+        },
+        {
+            "nome": "LDL - Colesterol",
+            "resultado": "65",
+            "unidade": "mg/dL",
+            "data_coleta": "10/09/2024",
+            "data_liberacao": "",
+            "metodo": "Cálculo",
+            "material": "Soro",
+            "valor_referencia": [
+                {
+                    "sexo": "",
+                    "idade": "",
+                    "valores": "<130 mg/dL"
+                }
+            ],
+            "subexames": null
+        },
+        {
+            "nome": "VLDL - Colesterol",
+            "resultado": "124",
+            "unidade": "mg/dL",
+            "data_coleta": "10/09/2024",
+            "data_liberacao": "",
+            "metodo": "Cálculo",
+            "material": "Soro",
+            "valor_referencia": [
+                {
+                    "sexo": "",
+                    "idade": "",
+                    "valores": ""
+                }
+            ],
+            "subexames": null
+        },
+        {
+            "nome": "Não HDL - Colesterol",
+            "resultado": "189",
+            "unidade": "mg/dL",
+            "data_coleta": "10/09/2024",
+            "data_liberacao": "",
+            "metodo": "Cálculo",
+            "material": "Soro",
+            "valor_referencia": [
+                {
+                    "sexo": "",
+                    "idade": "",
+                    "valores": ""
+                }
+            ],
+            "subexames": null
+        },
+        {
+            "nome": "Ácido Úrico",
+            "resultado": "6,4",
+            "unidade": "mg/dL",
+            "data_coleta": "10/09/2024",
+            "data_liberacao": "",
+            "metodo": "Enzimatico - Colorimétrico",
+            "material": "Soro",
+            "valor_referencia": [
+                {
+                    "sexo": "",
+                    "idade": "",
+                    "valores": "3,4 a 7,0 mg/dL"
+                }
+            ],
+            "subexames": null
+        },
+        {
+            "nome": "Ferro",
+            "resultado": "87",
+            "unidade": "µg/dL",
+            "data_coleta": "10/09/2024",
+            "data_liberacao": "",
+            "metodo": "Colorimétrico",
+            "material": "Soro",
+            "valor_referencia": [
+                {
+                    "sexo": "",
+                    "idade": "",
+                    "valores": "33 a 193 µg/dL"
+                }
+            ],
+            "subexames": null
+        },
+        {
+            "nome": "Ferritina",
+            "resultado": "204,0",
+            "unidade": "ng/mL",
+            "data_coleta": "10/09/2024",
+            "data_liberacao": "",
+            "metodo": "Eletroquimioluminescência",
+            "material": "Soro",
+            "valor_referencia": [
+                {
+                    "sexo": "",
+                    "idade": "",
+                    "valores": "30,0 a 400,0 ng/mL"
+                }
+            ],
+            "subexames": null
+        },
+        {
+            "nome": "Mioglobina Sérica",
+            "resultado": "26,0",
+            "unidade": "ng/mL",
+            "data_coleta": "10/09/2024",
+            "data_liberacao": "",
+            "metodo": "Quimioluminescência",
+            "material": "Soro",
+            "valor_referencia": [
+                {
+                    "sexo": "",
+                    "idade": "",
+                    "valores": "Até 154,9 ng/mL"
+                }
+            ],
+            "subexames": null
+        },
+        {
+            "nome": "Metabolismo do Ferro",
+            "resultado": "",
+            "unidade": "",
+            "data_coleta": "10/09/2024",
+            "data_liberacao": "",
+            "metodo": "",
+            "material": "Soro",
+            "valor_referencia": null,
+            "subexames": [
+                {
+                    "nome": "Ferro",
+                    "resultado": "87",
+                    "unidade": "µg/dL",
+                    "data_coleta": "",
+                    "data_liberacao": "",
+                    "metodo": "Colorimétrico",
+                    "material": "",
+                    "valor_referencia": [
+                        {
+                            "sexo": "",
+                            "idade": "",
+                            "valores": "33 a 193 µg/dL"
+                        }
+                    ],
+                    "subexames": null
+                },
+                {
+                    "nome": "Capacidade Livre de Combinação do Ferro",
+                    "resultado": "237",
+                    "unidade": "µg/dL",
+                    "data_coleta": "",
+                    "data_liberacao": "",
+                    "metodo": "Colorimétrico",
+                    "material": "",
+                    "valor_referencia": [
+                        {
+                            "sexo": "",
+                            "idade": "",
+                            "valores": "de 125 até 345 µg/dL"
+                        }
+                    ],
+                    "subexames": null
+                },
+                {
+                    "nome": "Capacidade Total de Combinação do Ferro",
+                    "resultado": "324",
+                    "unidade": "µg/dL",
+                    "data_coleta": "",
+                    "data_liberacao": "",
+                    "metodo": "Cálculo",
+                    "material": "",
+                    "valor_referencia": [
+                        {
+                            "sexo": "",
+                            "idade": "",
+                            "valores": "250 a 400 µg/dL"
+                        }
+                    ],
+                    "subexames": null
+                },
+                {
+                    "nome": "Índice de Saturação da Transferrina",
+                    "resultado": "27",
+                    "unidade": "%",
+                    "data_coleta": "",
+                    "data_liberacao": "",
+                    "metodo": "Cálculo",
+                    "material": "",
+                    "valor_referencia": [
+                        {
+                            "sexo": "",
+                            "idade": "",
+                            "valores": "20 a 50 %"
+                        }
+                    ],
+                    "subexames": null
+                }
+            ]
+        },
+        {
+            "nome": "Hormônio Tireoestimulante Ultra Sensível TSH",
+            "resultado": "2,05",
+            "unidade": "µUI/mL",
+            "data_coleta": "10/09/2024",
+            "data_liberacao": "",
+            "metodo": "Eletroquimioluminescência",
+            "material": "Soro",
+            "valor_referencia": [
+                {
+                    "sexo": "",
+                    "idade": "",
+                    "valores": "0,40 a 4,30 µUI/mL"
+                }
+            ],
+            "subexames": null
+        },
+        {
+            "nome": "T3 Livre (Triiodotironina Livre)",
+            "resultado": "2,86",
+            "unidade": "pg/mL",
+            "data_coleta": "10/09/2024",
+            "data_liberacao": "",
+            "metodo": "Eletroquimioluminescência",
+            "material": "Soro",
+            "valor_referencia": [
+                {
+                    "sexo": "",
+                    "idade": "",
+                    "valores": "2,00 a 4,40 pg/mL"
+                }
+            ],
+            "subexames": null
+        },
+        {
+            "nome": "T4 Livre (Tiroxina Livre)",
+            "resultado": "1,09",
+            "unidade": "ng/dL",
+            "data_coleta": "10/09/2024",
+            "data_liberacao": "",
+            "metodo": "Eletroquimioluminescência",
+            "material": "Soro",
+            "valor_referencia": [
+                {
+                    "sexo": "",
+                    "idade": "",
+                    "valores": "0,70 a 1,90 ng/dL"
+                }
+            ],
+            "subexames": null
+        },
+        {
+            "nome": "Estradiol",
+            "resultado": "27,0",
+            "unidade": "pg/mL",
+            "data_coleta": "10/09/2024",
+            "data_liberacao": "",
+            "metodo": "Eletroquimioluminescência",
+            "material": "Soro",
+            "valor_referencia": [
+                {
+                    "sexo": "Masculino",
+                    "idade": "19 anos +",
+                    "valores": "11,3 a 43,2 pg/mL"
+                }
+            ],
+            "subexames": null
+        },
+        {
+            "nome": "SHBG (Globulina Transportadora de Hormônios Sexuais)",
+            "resultado": "19,2",
+            "unidade": "nmol/L",
+            "data_coleta": "10/09/2024",
+            "data_liberacao": "",
+            "metodo": "Eletroquimioluminescência",
+            "material": "Soro",
+            "valor_referencia": [
+                {
+                    "sexo": "",
+                    "idade": "",
+                    "valores": "18,3 a 54,1 nmol/L"
+                }
+            ],
+            "subexames": null
+        },
+        {
+            "nome": "Dehidroepiandrosterona (DHEA)",
+            "resultado": "1,80",
+            "unidade": "ng/mL",
+            "data_coleta": "10/09/2024",
+            "data_liberacao": "",
+            "metodo": "Ensaio Imunoenzimático",
+            "material": "Soro",
+            "valor_referencia": [
+                {
+                    "sexo": "",
+                    "idade": "18 - 65 anos",
+                    "valores": "1,33 a 6,48 ng/mL"
+                }
+            ],
+            "subexames": null
+        },
+        {
+            "nome": "HGH Basal",
+            "resultado": "Inferior a 0,05",
+            "unidade": "ng/mL",
+            "data_coleta": "10/09/2024",
+            "data_liberacao": "",
+            "metodo": "Quimioluminescência",
+            "material": "Soro",
+            "valor_referencia": [
+                {
+                    "sexo": "",
+                    "idade": "",
+                    "valores": "Inferior a 3,00 ng/mL"
+                }
+            ],
+            "subexames": null
+        },
+        {
+            "nome": "IGF-1 (Somatomedina C)",
+            "resultado": "168",
+            "unidade": "ng/mL",
+            "data_coleta": "10/09/2024",
+            "data_liberacao": "",
+            "metodo": "Quimioluminescência",
+            "material": "Soro",
+            "valor_referencia": [
+                {
+                    "sexo": "Masculino e Feminino",
+                    "idade": "40 a 44 anos",
+                    "valores": "58 a 219 ng/mL"
+                }
+            ],
+            "subexames": null
+        },
+        {
+            "nome": "25 OH Vitamina D",
+            "resultado": "15,4",
+            "unidade": "ng/mL",
+            "data_coleta": "10/09/2024",
+            "data_liberacao": "",
+            "metodo": "Eletroquimioluminescência",
+            "material": "Soro",
+            "valor_referencia": [
+                {
+                    "sexo": "",
+                    "idade": "População saudável abaixo de 60 anos",
+                    "valores": "Superior a 20 ng/mL"
+                }
+            ],
+            "subexames": null
+        },
+        {
+            "nome": "Zinco Sanguineo",
+            "resultado": "92,79",
+            "unidade": "µg/dL",
+            "data_coleta": "10/09/2024",
+            "data_liberacao": "",
+            "metodo": "Espectrofotometria de Absorção Atômica de Chama",
+            "material": "Soro",
+            "valor_referencia": [
+                {
+                    "sexo": "",
+                    "idade": "",
+                    "valores": "70,0 a 120, ug/dL"
+                }
+            ],
+            "subexames": null
+        },
+        {
+            "nome": "Hepatograma",
+            "resultado": "",
+            "unidade": "",
+            "data_coleta": "10/09/2024",
+            "data_liberacao": "",
+            "metodo": "",
+            "material": "Soro",
+            "valor_referencia": null,
+            "subexames": [
+                {
+                    "nome": "Proteínas Totais",
+                    "resultado": "7,3",
+                    "unidade": "g/dL",
+                    "data_coleta": "",
+                    "data_liberacao": "",
+                    "metodo": "Colorimétrico",
+                    "material": "",
+                    "valor_referencia": [
+                        {
+                            "sexo": "",
+                            "idade": "",
+                            "valores": "6,4 a 8,3 g/dL"
+                        }
+                    ],
+                    "subexames": null
+                },
+                {
+                    "nome": "Transaminase pirúvica - TGP (Alanina amino transferase)",
+                    "resultado": "20",
+                    "unidade": "U/L",
+                    "data_coleta": "",
+                    "data_liberacao": "",
+                    "metodo": "Cinético UV",
+                    "material": "",
+                    "valor_referencia": [
+                        {
+                            "sexo": "",
+                            "idade": "",
+                            "valores": "Inferior a 41 U/L"
+                        }
+                    ],
+                    "subexames": null
+                },
+                {
+                    "nome": "Transaminase oxalacética - TGO (Aspartato amino transferase)",
+                    "resultado": "15",
+                    "unidade": "U/L",
+                    "data_coleta": "",
+                    "data_liberacao": "",
+                    "metodo": "Cinético UV",
+                    "material": "",
+                    "valor_referencia": [
+                        {
+                            "sexo": "",
+                            "idade": "",
+                            "valores": "Até 40 U/L"
+                        }
+                    ],
+                    "subexames": null
+                },
+                {
+                    "nome": "Fosfatase Alcalina",
+                    "resultado": "72",
+                    "unidade": "U/L",
+                    "data_coleta": "",
+                    "data_liberacao": "",
+                    "metodo": "Colorimétrico",
+                    "material": "",
+                    "valor_referencia": [
+                        {
+                            "sexo": "",
+                            "idade": "",
+                            "valores": "40 a 130 U/L"
+                        }
+                    ],
+                    "subexames": null
+                },
+                {
+                    "nome": "Gama-Glutamil Transferase",
+                    "resultado": "30",
+                    "unidade": "U/L",
+                    "data_coleta": "",
+                    "data_liberacao": "",
+                    "metodo": "Enzimatico - Colorimétrico",
+                    "material": "",
+                    "valor_referencia": [
+                        {
+                            "sexo": "",
+                            "idade": "",
+                            "valores": "Inferior a 60 U/L"
+                        }
+                    ],
+                    "subexames": null
+                },
+                {
+                    "nome": "Bilirrubina Total",
+                    "resultado": "0,27",
+                    "unidade": "mg/dL",
+                    "data_coleta": "",
+                    "data_liberacao": "",
+                    "metodo": "Colorimétrico",
+                    "material": "",
+                    "valor_referencia": [
+                        {
+                            "sexo": "",
+                            "idade": "",
+                            "valores": "Até 1,20 mg/dL"
+                        }
+                    ],
+                    "subexames": null
+                },
+                {
+                    "nome": "Bilirrubina Direta",
+                    "resultado": "0,10",
+                    "unidade": "mg/dL",
+                    "data_coleta": "",
+                    "data_liberacao": "",
+                    "metodo": "Colorimétrico",
+                    "material": "",
+                    "valor_referencia": [
+                        {
+                            "sexo": "",
+                            "idade": "",
+                            "valores": "Até 0,30 mg/dL"
+                        }
+                    ],
+                    "subexames": null
+                },
+                {
+                    "nome": "Bilirrubina Indireta",
+                    "resultado": "0,17",
+                    "unidade": "mg/dL",
+                    "data_coleta": "",
+                    "data_liberacao": "",
+                    "metodo": "Cálculo",
+                    "material": "",
+                    "valor_referencia": [
+                        {
+                            "sexo": "",
+                            "idade": "",
+                            "valores": "Até 1,00 mg/dL"
+                        }
+                    ],
+                    "subexames": null
+                }
+            ]
+        },
+        {
+            "nome": "Proteínas Totais e Frações",
+            "resultado": "",
+            "unidade": "",
+            "data_coleta": "10/09/2024",
+            "data_liberacao": "",
+            "metodo": "Colorimétrico",
+            "material": "Soro",
+            "valor_referencia": null,
+            "subexames": [
+                {
+                    "nome": "Proteínas Totais",
+                    "resultado": "7,3",
+                    "unidade": "g/dL",
+                    "data_coleta": "",
+                    "data_liberacao": "",
+                    "metodo": "",
+                    "material": "",
+                    "valor_referencia": [
+                        {
+                            "sexo": "",
+                            "idade": "",
+                            "valores": "6,4 a 8,3 g/dL"
+                        }
+                    ],
+                    "subexames": null
+                },
+                {
+                    "nome": "Albumina",
+                    "resultado": "4,7",
+                    "unidade": "g/dL",
+                    "data_coleta": "",
+                    "data_liberacao": "",
+                    "metodo": "",
+                    "material": "",
+                    "valor_referencia": [
+                        {
+                            "sexo": "",
+                            "idade": "",
+                            "valores": "3,5 a 5,2 g/dL"
+                        }
+                    ],
+                    "subexames": null
+                },
+                {
+                    "nome": "Globulina",
+                    "resultado": "2,6",
+                    "unidade": "g/dL",
+                    "data_coleta": "",
+                    "data_liberacao": "",
+                    "metodo": "",
+                    "material": "",
+                    "valor_referencia": [
+                        {
+                            "sexo": "",
+                            "idade": "",
+                            "valores": "1,4 a 3,0 g/dL"
+                        }
+                    ],
+                    "subexames": null
+                }
+            ]
+        },
+        {
+            "nome": "Creatinofosfoquinase (CPK)",
+            "resultado": "108",
+            "unidade": "U/L",
+            "data_coleta": "10/09/2024",
+            "data_liberacao": "",
+            "metodo": "Cinético UV",
+            "material": "Soro",
+            "valor_referencia": [
+                {
+                    "sexo": "",
+                    "idade": "",
+                    "valores": "Inferior a 190 U/L"
+                }
+            ],
+            "subexames": null
+        },
+        {
+            "nome": "Hormônio Luteinizante - LH",
+            "resultado": "2,4",
+            "unidade": "mUI/mL",
+            "data_coleta": "10/09/2024",
+            "data_liberacao": "",
+            "metodo": "Eletroquimioluminescência",
+            "material": "Soro",
+            "valor_referencia": [
+                {
+                    "sexo": "Adultos",
+                    "idade": "",
+                    "valores": "1,7 a 8,6 mUI/mL"
+                }
+            ],
+            "subexames": null
+        },
+        {
+            "nome": "IgE Total - Imunoglobulina E",
+            "resultado": "Superior a 5000",
+            "unidade": "kU/L",
+            "data_coleta": "10/09/2024",
+            "data_liberacao": "",
+            "metodo": "Fluorescência Enzimática (FEIA) - Immunocap",
+            "material": "Soro",
+            "valor_referencia": [
+                {
+                    "sexo": "Acima de 10 anos e adultos",
+                    "idade": "",
+                    "valores": "Até 114 kU/L"
+                }
+            ],
+            "subexames": null
+        },
+        {
+            "nome": "Proteína C Reativa (PCR)",
+            "resultado": "0,62",
+            "unidade": "mg/dL",
+            "data_coleta": "10/09/2024",
+            "data_liberacao": "",
+            "metodo": "Imunoturbidimetria",
+            "material": "Soro",
+            "valor_referencia": [
+                {
+                    "sexo": "",
+                    "idade": "",
+                    "valores": "Inferior a 0,5 mg/dL"
+                }
+            ],
+            "subexames": null
+        },
+        {
+            "nome": "IgA - Saliva",
+            "resultado": "6,2",
+            "unidade": "mg/dL",
+            "data_coleta": "10/09/2024",
+            "data_liberacao": "",
+            "metodo": "Nefelometria",
+            "material": "Saliva",
+            "valor_referencia": [
+                {
+                    "sexo": "",
+                    "idade": "",
+                    "valores": "8,0 a 38,0 mg/dL"
+                }
+            ],
+            "subexames": null
+        }
+    ]
+}
