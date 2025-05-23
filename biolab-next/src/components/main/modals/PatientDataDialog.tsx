@@ -14,11 +14,17 @@ interface PatientDataDialogProps {
   open: boolean;
   defaultName?: string;
   defaultCpf?: string;
+  defaultDob?: string;
+  defaultGender?: string;
   onClose: () => void;
-  onSubmit: (data: { nome: string; cpf: string }) => void;
+  onSubmit: (data: {
+    nome: string;
+    cpf: string;
+    data_nascimento: string;
+    genero: string;
+  }) => void;
 }
 
-// Função para aplicar a máscara de CPF
 function formatCpf(value: string) {
   const numbers = value.replace(/\D/g, "");
   return numbers
@@ -28,23 +34,40 @@ function formatCpf(value: string) {
     .slice(0, 14);
 }
 
+function formatDate(value: string) {
+  const numbers = value.replace(/\D/g, "");
+  return numbers
+    .replace(/^(\d{2})(\d)/, "$1/$2")
+    .replace(/^(\d{2})\/(\d{2})(\d)/, "$1/$2/$3")
+    .slice(0, 10);
+}
+
 export default function PatientDataDialog({
   open,
   defaultName = "",
   defaultCpf = "",
+  defaultDob = "",
+  defaultGender = "Masculino",
   onClose,
   onSubmit,
 }: PatientDataDialogProps) {
   const [nome, setNome] = useState(defaultName);
   const [cpf, setCpf] = useState(formatCpf(defaultCpf));
+  const [dataNascimento, setDataNascimento] = useState(formatDate(defaultDob));
+  const [genero, setGenero] = useState(defaultGender);
 
   useEffect(() => {
     setNome(defaultName);
     setCpf(formatCpf(defaultCpf));
-  }, [defaultName, defaultCpf]);
+    setDataNascimento(formatDate(defaultDob));
+    setGenero(defaultGender);
+  }, [defaultName, defaultCpf, defaultDob, defaultGender]);
 
   const isValidCpf = cpf.length === 14;
-  const isValid = nome.trim().length > 0 && isValidCpf;
+  const isValidDate = /^\d{2}\/\d{2}\/\d{4}$/.test(dataNascimento);
+  const isValidGender = genero === "Masculino" || genero === "Feminino";
+  const isValid =
+    nome.trim().length > 0 && isValidCpf && isValidDate && isValidGender;
 
   return (
     <Dialog open={open} onOpenChange={onClose}>
@@ -60,7 +83,6 @@ export default function PatientDataDialog({
             placeholder="Nome completo"
             value={nome}
             onChange={(e) => setNome(e.target.value)}
-            className="focus-visible:ring-0 focus-visible:ring-offset-0 focus:ring-0 focus:ring-offset-0"
           />
 
           <Input
@@ -69,13 +91,29 @@ export default function PatientDataDialog({
             onChange={(e) => setCpf(formatCpf(e.target.value))}
             inputMode="numeric"
             maxLength={14}
-            className="focus-visible:ring-0 focus-visible:ring-offset-0 focus:ring-0 focus:ring-offset-0"
           />
+
+          <Input
+            placeholder="Data de nascimento (DD/MM/AAAA)"
+            value={dataNascimento}
+            onChange={(e) => setDataNascimento(formatDate(e.target.value))}
+            inputMode="numeric"
+            maxLength={10}
+          />
+
+          <select
+            value={genero}
+            onChange={(e) => setGenero(e.target.value)}
+            className="flex h-10 w-full rounded-md border border-[#6FCF97] bg-white px-3 py-2 text-base text-[#0F1C2E] placeholder-[#666] focus:outline-none focus:ring-2 focus:ring-[#6FCF97] focus:border-[#6FCF97] focus:ring-offset-0 transition disabled:cursor-not-allowed disabled:opacity-50 md:text-sm"
+          >
+            <option value="Masculino">Masculino</option>
+            <option value="Feminino">Feminino</option>
+          </select>
 
           <Button
             onClick={() => {
               if (!isValid) return;
-              onSubmit({ nome, cpf });
+              onSubmit({ nome, cpf, data_nascimento: dataNascimento, genero });
               onClose();
             }}
             disabled={!isValid}
