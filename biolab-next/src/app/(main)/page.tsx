@@ -23,7 +23,10 @@ export default function Home() {
   const [missingPatientFields, setMissingPatientFields] = useState<{
     nome: string;
     cpf: string;
-  }>({ nome: "", cpf: "" });
+    data_nascimento: string;
+    genero: string;
+  }>({ nome: "", cpf: "", data_nascimento: "", genero: "" });
+
   const [parsedExamResult, setParsedExamResult] = useState<any | null>(null);
 
   const [analysisResult, setAnalysisResult] = useState<any | null>(null);
@@ -104,16 +107,28 @@ export default function Home() {
 
       const hasName = !!parsedResult?.paciente?.nome;
       const hasCpf = !!parsedResult?.paciente?.cpf;
+      const hasDob = !!parsedResult?.paciente?.data_nascimento;
+      const hasGender = !!parsedResult?.paciente?.genero;
 
-      if (!hasName || !hasCpf) {
+      if (!hasName || !hasCpf || !hasDob || !hasGender) {
         setShowPatientModal(true);
         setMissingPatientFields({
           nome: parsedResult.paciente?.nome || "",
           cpf: parsedResult.paciente?.cpf || "",
+          data_nascimento: parsedResult.paciente?.data_nascimento || "",
+          genero: parsedResult.paciente?.genero || "",
         });
       } else {
         await sendToMiner({ ...parsedResult, examId: data.examId });
       }
+
+      const alteredRes = await fetch("/api/abnormal-tests-by-id", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ examId: data.examId }),
+      });
+      const alteredData = await alteredRes.json();
+      console.log("Exames alterados:", alteredData.altered);
 
       toast({
         title: "Análise concluída",
@@ -159,13 +174,6 @@ export default function Home() {
       });
     }
   }
-
-  const handleMock = () => {
-    const mockResult = require("@/mocks/mock-analysis.json");
-    setAnalysisResult(mockResult);
-    setShowResult(true);
-    setSessionLocked(true);
-  };
 
   return (
     <main className="min-h-screen bg-scientific-dark flex flex-col items-center justify-center px-4">
@@ -276,20 +284,20 @@ export default function Home() {
         </div>
       )}
 
-      <Button className="mt-24" variant="secondary" onClick={handleMock}>
-        Mockar dados do exame
-      </Button>
-
       <PatientDataDialog
         open={showPatientModal}
         defaultName={missingPatientFields.nome}
         defaultCpf={missingPatientFields.cpf}
+        defaultDob={missingPatientFields.data_nascimento}
+        defaultGender={missingPatientFields.genero}
         onClose={() => setShowPatientModal(false)}
         onSubmit={async (filled) => {
           if (!parsedExamResult) return;
 
           parsedExamResult.paciente.nome = filled.nome;
           parsedExamResult.paciente.cpf = filled.cpf;
+          parsedExamResult.paciente.data_nascimento = filled.data_nascimento;
+          parsedExamResult.paciente.genero = filled.genero;
 
           await sendToMiner(parsedExamResult);
         }}
