@@ -84,3 +84,52 @@ export async function POST(req: NextRequest) {
         return NextResponse.json({ message: "Erro ao analisar", error: error.message }, { status: 500 });
     }
 }
+
+
+// import { NextRequest, NextResponse } from "next/server";
+// import { dbConnect } from "@/lib/mongoose";
+// import Exam from "@/models/Exam";
+// import mockAnalysis from "@/mocks/mock-analysis2.json"; // importa direto o JSON mock
+
+// export async function POST(req: NextRequest) {
+//     try {
+//         const { text, examId } = await req.json();
+
+//         console.log("🔹 Requisição recebida (modo mock)");
+//         console.log("📄 examId:", examId);
+
+//         if (!text || !examId) {
+//             return NextResponse.json(
+//                 { message: "Texto ou ID do exame não fornecido" },
+//                 { status: 400 }
+//             );
+//         }
+
+//         console.log("🌐 Conectando ao banco de dados...");
+//         await dbConnect();
+//         const exam = await Exam.findById(examId);
+
+//         if (!exam) {
+//             return NextResponse.json(
+//                 { message: "Exame não encontrado" },
+//                 { status: 404 }
+//             );
+//         }
+
+//         console.log("💾 Salvando resultado mock no banco...");
+//         exam.analysisResult = JSON.stringify(mockAnalysis); // salva como string como no modo original
+//         await exam.save();
+
+//         console.log("🎉 Resultado salvo com sucesso (mock)!");
+
+//         return NextResponse.json({
+//             result: JSON.stringify(mockAnalysis), // simula o mesmo formato da OpenAI
+//         });
+//     } catch (error: any) {
+//         console.error("🚨 Erro geral:", error.message);
+//         return NextResponse.json(
+//             { message: "Erro ao analisar (mock)", error: error.message },
+//             { status: 500 }
+//         );
+//     }
+// }
