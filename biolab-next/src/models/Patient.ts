@@ -1,7 +1,21 @@
 // models/Patient.ts
-import mongoose from "mongoose";
+import mongoose, { Document } from "mongoose";
 
-const PatientSchema = new mongoose.Schema({
+export interface IPatient extends Document {
+    name: string;
+    cpf: string;
+    birthDate?: string;
+    gender?: string;
+    rg?: string;
+    insurance?: string;
+    osCode?: string;
+    appointmentDate?: string;
+    doctor?: string;
+    createdAt: Date;
+    updatedAt: Date;
+}
+
+const PatientSchema = new mongoose.Schema<IPatient>({
     name: {
         type: String,
         required: [true, "Nome é obrigatório"],
@@ -22,4 +36,4 @@ const PatientSchema = new mongoose.Schema({
     doctor: String,
 }, { timestamps: true });
 
-export default mongoose.models.Patient || mongoose.model("Patient", PatientSchema);
+export default mongoose.models.Patient || mongoose.model<IPatient>("Patient", PatientSchema);
