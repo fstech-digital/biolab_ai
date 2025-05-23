@@ -1,0 +1,448 @@
+{
+    "paciente": {
+        "nome": "LAZARO ALESSANDRO SOARES NUNES",
+        "cpf": "706.865.806-72",
+        "data_nascimento": "04/09/1971",
+        "genero": "Masculino",
+        "rg": "5506925",
+        "convenio": "CMP-PRECO DE CONVENIO PC PGTO",
+        "codigo_os": "651-67141-8104",
+        "atendimento": "28/10/2024",
+        "medico": "Solicitante Livre"
+    },
+    "laboratorio": {
+        "nome": "VCP - TAQUARAL",
+        "crm": "948369",
+        "cnes": "9999329",
+        "responsavel_tecnico": "Dr. Ricardo Franco do Amaral",
+        "endereco": "Avenida Doutor Heitor Penteado 1334, Parque Taquaral - Campinas-SP"
+    },
+    "exames": [
+        {
+            "nome": "HEMOGRAMA COMPLETO",
+            "resultado": "",
+            "unidade": "",
+            "data_coleta": "28/10/2024 - 09:00:00",
+            "data_liberacao": "28/10/2024 - 11:53:51",
+            "metodo": "Análise realizada por Citometria de fluxo e impedância (DXH 800)",
+            "material": "SANGUE",
+            "valor_referencia": null,
+            "subexames": [
+                {
+                    "nome": "Eritrograma",
+                    "resultado": "",
+                    "unidade": "",
+                    "data_coleta": "",
+                    "data_liberacao": "",
+                    "metodo": "",
+                    "material": "",
+                    "valor_referencia": null,
+                    "subexames": [
+                        {
+                            "nome": "HEMÁCIAS",
+                            "resultado": "5,00 milhões/mm3",
+                            "unidade": "",
+                            "data_coleta": "",
+                            "data_liberacao": "",
+                            "metodo": "",
+                            "material": "",
+                            "valor_referencia": [
+                                {
+                                    "sexo": "Homens",
+                                    "idade": "",
+                                    "valores": "4,50 a 6,10"
+                                },
+                                {
+                                    "sexo": "Mulheres",
+                                    "idade": "",
+                                    "valores": "4,00 a 5,40"
+                                },
+                                {
+                                    "sexo": "Crianças",
+                                    "idade": "",
+                                    "valores": "4,07 a 5,37"
+                                },
+                                {
+                                    "sexo": "Acima de 70 anos",
+                                    "idade": "",
+                                    "valores": "3,90 a 5,36"
+                                }
+                            ],
+                            "subexames": null
+                        },
+                        {
+                            "nome": "HEMOGLOBINA",
+                            "resultado": "15,5 g/dL",
+                            "unidade": "",
+                            "data_coleta": "",
+                            "data_liberacao": "",
+                            "metodo": "",
+                            "material": "",
+                            "valor_referencia": [
+                                {
+                                    "sexo": "Homens",
+                                    "idade": "",
+                                    "valores": "13,0 a 16,5"
+                                },
+                                {
+                                    "sexo": "Mulheres",
+                                    "idade": "",
+                                    "valores": "12,0 a 15,8"
+                                },
+                                {
+                                    "sexo": "Crianças",
+                                    "idade": "",
+                                    "valores": "10,5 a 14,0"
+                                },
+                                {
+                                    "sexo": "Acima de 70 anos",
+                                    "idade": "",
+                                    "valores": "11,5 a 15,1"
+                                }
+                            ],
+                            "subexames": null
+                        },
+                        {
+                            "nome": "HEMATÓCRITO",
+                            "resultado": "43,7 %",
+                            "unidade": "",
+                            "data_coleta": "",
+                            "data_liberacao": "",
+                            "metodo": "",
+                            "material": "",
+                            "valor_referencia": [
+                                {
+                                    "sexo": "Homens",
+                                    "idade": "",
+                                    "valores": "36,0 a 54,0"
+                                },
+                                {
+                                    "sexo": "Mulheres",
+                                    "idade": "",
+                                    "valores": "33,0 a 47,8"
+                                },
+                                {
+                                    "sexo": "Crianças",
+                                    "idade": "",
+                                    "valores": "30,0 a 44,5"
+                                },
+                                {
+                                    "sexo": "Acima de 70 anos",
+                                    "idade": "",
+                                    "valores": "33,0 a 46,0"
+                                }
+                            ],
+                            "subexames": null
+                        },
+                        {
+                            "nome": "VCM",
+                            "resultado": "87,4 fl",
+                            "unidade": "",
+                            "data_coleta": "",
+                            "data_liberacao": "",
+                            "metodo": "",
+                            "material": "",
+                            "valor_referencia": [
+                                {
+                                    "sexo": "",
+                                    "idade": "",
+                                    "valores": "80,0 a 98,0"
+                                }
+                            ],
+                            "subexames": null
+                        },
+                        {
+                            "nome": "HCM",
+                            "resultado": "31,0 pg",
+                            "unidade": "",
+                            "data_coleta": "",
+                            "data_liberacao": "",
+                            "metodo": "",
+                            "material": "",
+                            "valor_referencia": [
+                                {
+                                    "sexo": "",
+                                    "idade": "",
+                                    "valores": "26,8 a 32,9"
+                                }
+                            ],
+                            "subexames": null
+                        },
+                        {
+                            "nome": "CHCM",
+                            "resultado": "35,5 g/dl",
+                            "unidade": "",
+                            "data_coleta": "",
+                            "data_liberacao": "",
+                            "metodo": "",
+                            "material": "",
+                            "valor_referencia": [
+                                {
+                                    "sexo": "",
+                                    "idade": "",
+                                    "valores": "30,0 a 36,5"
+                                }
+                            ],
+                            "subexames": null
+                        },
+                        {
+                            "nome": "RDW",
+                            "resultado": "14,4 %",
+                            "unidade": "",
+                            "data_coleta": "",
+                            "data_liberacao": "",
+                            "metodo": "",
+                            "material": "",
+                            "valor_referencia": [
+                                {
+                                    "sexo": "",
+                                    "idade": "",
+                                    "valores": "11,0 a 16,0"
+                                }
+                            ],
+                            "subexames": null
+                        }
+                    ]
+                },
+                {
+                    "nome": "Leucograma",
+                    "resultado": "",
+                    "unidade": "",
+                    "data_coleta": "",
+                    "data_liberacao": "",
+                    "metodo": "",
+                    "material": "",
+                    "valor_referencia": null,
+                    "subexames": [
+                        {
+                            "nome": "LEUCÓCITOS",
+                            "resultado": "5.900 /mm3",
+                            "unidade": "",
+                            "data_coleta": "",
+                            "data_liberacao": "",
+                            "metodo": "",
+                            "material": "",
+                            "valor_referencia": [
+                                {
+                                    "sexo": "Adultos",
+                                    "idade": "",
+                                    "valores": "3.600 a 11.000"
+                                },
+                                {
+                                    "sexo": "Crianças (Menores de 8 anos)",
+                                    "idade": "",
+                                    "valores": "4.000 a 14.000"
+                                }
+                            ],
+                            "subexames": null
+                        },
+                        {
+                            "nome": "BASTONETES",
+                            "resultado": "0 %",
+                            "unidade": "",
+                            "data_coleta": "",
+                            "data_liberacao": "",
+                            "metodo": "",
+                            "material": "",
+                            "valor_referencia": [
+                                {
+                                    "sexo": "",
+                                    "idade": "",
+                                    "valores": "0 a 5"
+                                }
+                            ],
+                            "subexames": null
+                        },
+                        {
+                            "nome": "SEGMENTADOS",
+                            "resultado": "57 %",
+                            "unidade": "",
+                            "data_coleta": "",
+                            "data_liberacao": "",
+                            "metodo": "",
+                            "material": "",
+                            "valor_referencia": [
+                                {
+                                    "sexo": "",
+                                    "idade": "",
+                                    "valores": "40-70"
+                                }
+                            ],
+                            "subexames": null
+                        },
+                        {
+                            "nome": "EOSINÓFILOS",
+                            "resultado": "1 %",
+                            "unidade": "",
+                            "data_coleta": "",
+                            "data_liberacao": "",
+                            "metodo": "",
+                            "material": "",
+                            "valor_referencia": [
+                                {
+                                    "sexo": "",
+                                    "idade": "",
+                                    "valores": "0-7"
+                                }
+                            ],
+                            "subexames": null
+                        },
+                        {
+                            "nome": "BASÓFILOS",
+                            "resultado": "1 %",
+                            "unidade": "",
+                            "data_coleta": "",
+                            "data_liberacao": "",
+                            "metodo": "",
+                            "material": "",
+                            "valor_referencia": [
+                                {
+                                    "sexo": "",
+                                    "idade": "",
+                                    "valores": "0-2"
+                                }
+                            ],
+                            "subexames": null
+                        },
+                        {
+                            "nome": "LINFÓCITOS",
+                            "resultado": "34 %",
+                            "unidade": "",
+                            "data_coleta": "",
+                            "data_liberacao": "",
+                            "metodo": "",
+                            "material": "",
+                            "valor_referencia": [
+                                {
+                                    "sexo": "",
+                                    "idade": "",
+                                    "valores": "20-50"
+                                }
+                            ],
+                            "subexames": null
+                        },
+                        {
+                            "nome": "MONÓCITOS",
+                            "resultado": "7 %",
+                            "unidade": "",
+                            "data_coleta": "",
+                            "data_liberacao": "",
+                            "metodo": "",
+                            "material": "",
+                            "valor_referencia": [
+                                {
+                                    "sexo": "",
+                                    "idade": "",
+                                    "valores": "3-14"
+                                }
+                            ],
+                            "subexames": null
+                        }
+                    ]
+                },
+                {
+                    "nome": "Série Plaquetária",
+                    "resultado": "",
+                    "unidade": "",
+                    "data_coleta": "",
+                    "data_liberacao": "",
+                    "metodo": "",
+                    "material": "",
+                    "valor_referencia": null,
+                    "subexames": [
+                        {
+                            "nome": "PLAQUETAS",
+                            "resultado": "181 x 10³/mm3",
+                            "unidade": "",
+                            "data_coleta": "",
+                            "data_liberacao": "",
+                            "metodo": "",
+                            "material": "",
+                            "valor_referencia": [
+                                {
+                                    "sexo": "Adultos",
+                                    "idade": "",
+                                    "valores": "130 a 450 x 10³/mm3"
+                                },
+                                {
+                                    "sexo": "Crianças",
+                                    "idade": "",
+                                    "valores": "140 a 500 x 10³/mm3"
+                                }
+                            ],
+                            "subexames": null
+                        },
+                        {
+                            "nome": "VMP",
+                            "resultado": "8,3 fl",
+                            "unidade": "",
+                            "data_coleta": "",
+                            "data_liberacao": "",
+                            "metodo": "",
+                            "material": "",
+                            "valor_referencia": [
+                                {
+                                    "sexo": "",
+                                    "idade": "",
+                                    "valores": "6,8 a 12,6"
+                                }
+                            ],
+                            "subexames": null
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "nome": "TSH - TIREOESTIMULANTE",
+            "resultado": "1,45 µUI/mL",
+            "unidade": "",
+            "data_coleta": "28/10/2024 - 09:00:00",
+            "data_liberacao": "28/10/2024 - 12:56:59",
+            "metodo": "Quimioluminescência",
+            "material": "SANGUE",
+            "valor_referencia": [
+                {
+                    "sexo": "",
+                    "idade": "",
+                    "valores": "0,38 a 5,33 µUI/mL"
+                }
+            ],
+            "subexames": null
+        },
+        {
+            "nome": "T4 LIVRE",
+            "resultado": "0,77 ng/dL",
+            "unidade": "",
+            "data_coleta": "28/10/2024 - 09:00:00",
+            "data_liberacao": "28/10/2024 - 13:35:39",
+            "metodo": "Quimioluminescência",
+            "material": "SANGUE",
+            "valor_referencia": [
+                {
+                    "sexo": "",
+                    "idade": "",
+                    "valores": "0,54 - 1,24 ng/dL"
+                }
+            ],
+            "subexames": null
+        },
+        {
+            "nome": "PCR - PROTEÍNA C REATIVA",
+            "resultado": "0,1 mg/dL",
+            "unidade": "",
+            "data_coleta": "28/10/2024 - 09:00:00",
+            "data_liberacao": "28/10/2024 - 12:57:29",
+            "metodo": "Imunoturbidimetria intensificada por Látex",
+            "material": "SANGUE",
+            "valor_referencia": [
+                {
+                    "sexo": "",
+                    "idade": "",
+                    "valores": "Até 1,0 mg/dL"
+                }
+            ],
+            "subexames": null
+        }
+    ]
+}
