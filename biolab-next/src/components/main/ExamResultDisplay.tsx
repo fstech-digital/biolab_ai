@@ -60,8 +60,6 @@ interface Props {
 }
 
 export default function ExamResultDisplay({ result }: Props) {
-  console.log("Resultado recebido:", result);
-
   const renderSubexames = (subs?: Subexame[] | null, level = 1) => {
     if (!subs) return null;
     return subs.map((sub, idx) => (

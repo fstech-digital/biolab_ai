@@ -7,15 +7,29 @@ import { toast } from "@/hooks/use-toast";
 import { FileText, Loader2, Upload } from "lucide-react";
 import { Toaster } from "@/components/ui/toaster";
 import ExamResultDisplay from "@/components/main/ExamResultDisplay";
+import PatientDataDialog from "@/components/main/modals/PatientDataDialog";
+import AbnormalTestList from "@/components/main/AbnormalTestList";
 
 export default function Home() {
   const [file, setFile] = useState<File | null>(null);
   const [sessionLocked, setSessionLocked] = useState(false);
   const [loadingUpload, setLoadingUpload] = useState(false);
   const [loadingAnalyze, setLoadingAnalyze] = useState(false);
+  const [alteredTests, setAlteredTests] = useState<any[]>([]);
 
   const [extractedText, setExtractedText] = useState<string | null>(null);
   const [examId, setExamId] = useState<string | null>(null);
+  const [showResult, setShowResult] = useState(false);
+
+  const [showPatientModal, setShowPatientModal] = useState(false);
+  const [missingPatientFields, setMissingPatientFields] = useState<{
+    nome: string;
+    cpf: string;
+    data_nascimento: string;
+    genero: string;
+  }>({ nome: "", cpf: "", data_nascimento: "", genero: "" });
+
+  const [parsedExamResult, setParsedExamResult] = useState<any | null>(null);
 
   const [analysisResult, setAnalysisResult] = useState<any | null>(null);
 
@@ -71,7 +85,6 @@ export default function Home() {
         variant: "info",
       });
 
-      // 🔁 Inicia a análise automaticamente
       setLoadingAnalyze(true);
 
       const analysisRes = await fetch("/api/analyze-exam", {
@@ -88,7 +101,37 @@ export default function Home() {
         throw new Error(analysisData.message || "Erro na análise");
 
       const parsedResult = JSON.parse(analysisData.result);
+      parsedResult.examId = data.examId;
+
       setAnalysisResult(parsedResult);
+      setParsedExamResult(parsedResult);
+      setShowResult(false);
+
+      const hasName = !!parsedResult?.paciente?.nome;
+      const hasCpf = !!parsedResult?.paciente?.cpf;
+      const hasDob = !!parsedResult?.paciente?.data_nascimento;
+      const hasGender = !!parsedResult?.paciente?.genero;
+
+      if (!hasName || !hasCpf || !hasDob || !hasGender) {
+        setShowPatientModal(true);
+        setMissingPatientFields({
+          nome: parsedResult.paciente?.nome || "",
+          cpf: parsedResult.paciente?.cpf || "",
+          data_nascimento: parsedResult.paciente?.data_nascimento || "",
+          genero: parsedResult.paciente?.genero || "",
+        });
+      } else {
+        await sendToMiner({ ...parsedResult, examId: data.examId });
+      }
+
+      const alteredRes = await fetch("/api/abnormal-tests-by-id", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ examId: data.examId }),
+      });
+      const alteredData = await alteredRes.json();
+      console.log("Exames alterados:", alteredData.altered);
+      setAlteredTests(alteredData.altered);
 
       toast({
         title: "Análise concluída",
@@ -108,9 +151,36 @@ export default function Home() {
     }
   };
 
+  async function sendToMiner(data: any) {
+    try {
+      const saveRes = await fetch("/api/save-parsed-exam", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+
+      const saveData = await saveRes.json();
+
+      if (!saveRes.ok)
+        throw new Error(saveData.message || "Erro ao minerar exame.");
+
+      toast({
+        title: "Exame minerado com sucesso",
+        description: "Dados clínicos estruturados salvos.",
+        variant: "success",
+      });
+    } catch (err: any) {
+      toast({
+        title: "Erro ao minerar exame",
+        description: err.message || "Falha na estruturação dos dados.",
+        variant: "destructive",
+      });
+    }
+  }
+
   return (
     <main className="min-h-screen bg-scientific-dark flex flex-col items-center justify-center px-4">
-      <div className="bg-white p-8 rounded-xl shadow-lg w-full max-w-md space-y-6 border border-scientific-subtle">
+      <div className="bg-white p-8 rounded-xl shadow-lg w-full max-w-xl space-y-5 border border-scientific-subtle">
         <div className="text-center space-y-2">
           <h1 className="text-3xl font-bold text-scientific-highlight">
             Enviar Exame
@@ -175,9 +245,25 @@ export default function Home() {
         </div>
 
         {analysisResult && (
+          <div className="text-center">
+            <Button
+              variant="blue"
+              className="w-full"
+              onClick={() => setShowResult((prev) => !prev)}
+            >
+              {showResult ? "Ocultar dados do exame" : "Revisar dados do exame"}
+            </Button>
+          </div>
+        )}
+
+        {analysisResult && showResult && (
           <div className="w-full max-w-5xl mt-8">
             <ExamResultDisplay result={analysisResult} />
           </div>
+        )}
+
+        {Array.isArray(alteredTests) && alteredTests.length > 0 && (
+          <AbnormalTestList alteredTests={alteredTests} />
         )}
 
         <Toaster />
@@ -204,6 +290,25 @@ export default function Home() {
           </Button>
         </div>
       )}
+
+      <PatientDataDialog
+        open={showPatientModal}
+        defaultName={missingPatientFields.nome}
+        defaultCpf={missingPatientFields.cpf}
+        defaultDob={missingPatientFields.data_nascimento}
+        defaultGender={missingPatientFields.genero}
+        onClose={() => setShowPatientModal(false)}
+        onSubmit={async (filled) => {
+          if (!parsedExamResult) return;
+
+          parsedExamResult.paciente.nome = filled.nome;
+          parsedExamResult.paciente.cpf = filled.cpf;
+          parsedExamResult.paciente.data_nascimento = filled.data_nascimento;
+          parsedExamResult.paciente.genero = filled.genero;
+
+          await sendToMiner(parsedExamResult);
+        }}
+      />
     </main>
   );
 }
