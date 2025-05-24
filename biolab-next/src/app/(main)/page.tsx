@@ -8,12 +8,14 @@ import { FileText, Loader2, Upload } from "lucide-react";
 import { Toaster } from "@/components/ui/toaster";
 import ExamResultDisplay from "@/components/main/ExamResultDisplay";
 import PatientDataDialog from "@/components/main/modals/PatientDataDialog";
+import AbnormalTestList from "@/components/main/AbnormalTestList";
 
 export default function Home() {
   const [file, setFile] = useState<File | null>(null);
   const [sessionLocked, setSessionLocked] = useState(false);
   const [loadingUpload, setLoadingUpload] = useState(false);
   const [loadingAnalyze, setLoadingAnalyze] = useState(false);
+  const [alteredTests, setAlteredTests] = useState<any[]>([]);
 
   const [extractedText, setExtractedText] = useState<string | null>(null);
   const [examId, setExamId] = useState<string | null>(null);
@@ -129,6 +131,7 @@ export default function Home() {
       });
       const alteredData = await alteredRes.json();
       console.log("Exames alterados:", alteredData.altered);
+      setAlteredTests(alteredData.altered);
 
       toast({
         title: "Análise concluída",
@@ -257,6 +260,10 @@ export default function Home() {
           <div className="w-full max-w-5xl mt-8">
             <ExamResultDisplay result={analysisResult} />
           </div>
+        )}
+
+        {Array.isArray(alteredTests) && alteredTests.length > 0 && (
+          <AbnormalTestList alteredTests={alteredTests} />
         )}
 
         <Toaster />
