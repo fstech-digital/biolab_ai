@@ -1,9 +1,9 @@
 {
     "paciente": {
         "nome": "LAZARO ALESSANDRO SOARES NUNES",
-        "cpf": "706.865.806-72",
-        "data_nascimento": "04/09/1971",
-        "genero": "Masculino",
+        "cpf": "706.865.806-11",
+        "data_nascimento": "",
+        "genero": "",
         "rg": "5506925",
         "convenio": "CMP-PRECO DE CONVENIO PC PGTO",
         "codigo_os": "651-67141-8104",
@@ -50,7 +50,7 @@
                                 {
                                     "sexo": "Homens",
                                     "idade": "",
-                                    "valores": "4,50 a 6,10"
+                                    "valores": "6,00 a 6,10"
                                 },
                                 {
                                     "sexo": "Mulheres",
